@@ -5,4 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="content_heading">
+        <item name="android:textSize">14pt</item>
+        <item name="android:textColor">@color/content_heading</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="content_text">
+        <item name="android:textSize">14pt</item>
+        <item name="android:textColor">@color/content_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+
 </resources>

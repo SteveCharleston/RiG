@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="content_background">#D1D3D4</color>
+    <color name="content_heading">#414042</color>
+    <color name="content_text">#000000</color>
+    <color name="accordion_heading">#F1F2F2</color>
+</resources>
