@@ -9,4 +9,6 @@
     <string name="title_activity_test_tags_and_days">TestTagsAndDays</string>
     <string name="top_tags_label">Top Tags</string>
     <string name="spieltag">Spieltag</string>
+
+    <string name="global_prefs">RIG_GLOBAL_PREFERENCES</string>
 </resources>

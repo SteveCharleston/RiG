@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
+             android:layout_width="fill_parent"
              android:layout_height="match_parent"
              tools:context="de.charlestons_inn.rig.TagsAndDays">
 
@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/show_tags"
+            android:text="testest"
             style="@style/content_text"
             />
 
@@ -35,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/show_spieltag"
+            android:text="testest"
             style="@style/content_text"
             />
     </LinearLayout>

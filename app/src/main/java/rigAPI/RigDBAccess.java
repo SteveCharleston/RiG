@@ -447,13 +447,12 @@ public class RigDBAccess {
         return result.toString();
     }
 
-}
-class RiGException extends Exception {
-    public RiGException(Exception e) {
-        super(e);
+    public static String getApiKey() {
+        return API_KEY;
     }
 
-    public RiGException() {
+    public static void setApiKey(String API_KEY) {
+        RigDBAccess.API_KEY = API_KEY;
     }
 }
 

@@ -1,9 +1,13 @@
 package de.charlestons_inn.rig;
 
+import android.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import rigAPI.RigDBAccess;
 
 
 public class TestTagsAndDays extends ActionBarActivity {
@@ -11,6 +15,10 @@ public class TestTagsAndDays extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RigDBAccess rig = new RigDBAccess();
+        new AsyncAuthenticate(this, rig).execute("user1", "password1");
+
+        View fragment = (View) findViewById(R.id.test_tags_and_days);
         setContentView(R.layout.activity_test_tags_and_days);
     }
 
