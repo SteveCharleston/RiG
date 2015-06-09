@@ -11,4 +11,5 @@
     <string name="spieltag">Spieltag</string>
 
     <string name="global_prefs">RIG_GLOBAL_PREFERENCES</string>
+    <string name="title_activity_testest">testest</string>
 </resources>

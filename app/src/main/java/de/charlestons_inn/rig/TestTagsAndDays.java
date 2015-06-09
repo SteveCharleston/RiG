@@ -10,16 +10,23 @@ import android.view.View;
 import rigAPI.RigDBAccess;
 
 
-public class TestTagsAndDays extends ActionBarActivity {
+public class TestTagsAndDays extends ActionBarActivity
+    implements TagsAndDays.GetRig {
+    private RigDBAccess rig;
+    private TagsAndDays tagsAndDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RigDBAccess rig = new RigDBAccess();
+        rig = new RigDBAccess();
         new AsyncAuthenticate(this, rig).execute("user1", "password1");
 
-        View fragment = (View) findViewById(R.id.test_tags_and_days);
         setContentView(R.layout.activity_test_tags_and_days);
+
+        tagsAndDays = new TagsAndDays();
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.test_tags_and_days, tagsAndDays).commit();
     }
 
 
@@ -43,5 +50,9 @@ public class TestTagsAndDays extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public RigDBAccess getRig() {
+        return rig;
     }
 }
