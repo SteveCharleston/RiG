@@ -2,6 +2,10 @@ package de.charlestons_inn.rig;
 
 
 import android.app.Activity;
+import android.app.Application;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,26 +20,14 @@ import rigAPI.RigDBAccess;
  * A simple {@link Fragment} subclass.
  */
 public class TagsAndDays extends Fragment {
-    GetRig mCallback;
 
     public TagsAndDays() {
         // Required empty public constructor
     }
 
-    public interface GetRig {
-        public RigDBAccess getRig();
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
-        try {
-            mCallback = (GetRig) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must " +
-                    "implement GetRig");
-        }
     }
 
     @Override
@@ -47,17 +39,12 @@ public class TagsAndDays extends Fragment {
                 container,
                 false);
 
-        RigDBAccess rig = mCallback.getRig();
+        Bundle bundle = this.getArguments();
+        String apiKey = bundle.getString("apiKey");
+
+        TextView text = (TextView) fragment.findViewById(R.id.show_tags);
+        text.setText(apiKey);
 
         return fragment;
-    }
-
-    public void displayValues(RigDBAccess rig) {
-        View fragment = getView();
-        String apikey = rig.getApiKey();
-
-
-        TextView tags = (TextView) fragment.findViewById(R.id.show_tags);
-        tags.setText(rig.getApiKey());
     }
 }

@@ -38,6 +38,13 @@ public class RigDBAccess {
     private static final String APIURL
             = "http://bewerbung.rockimgruenen.de/api/";
 
+    public RigDBAccess() {
+    }
+
+    public RigDBAccess(String API_KEY) {
+        this.API_KEY = API_KEY;
+    }
+
     /**
      * @param args Arguments are currently unused
      */

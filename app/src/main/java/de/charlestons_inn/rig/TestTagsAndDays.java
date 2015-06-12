@@ -7,23 +7,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.concurrent.ExecutionException;
+
 import rigAPI.RigDBAccess;
 
 
-public class TestTagsAndDays extends ActionBarActivity
-    implements TagsAndDays.GetRig {
-    private RigDBAccess rig;
-    private TagsAndDays tagsAndDays;
+public class TestTagsAndDays extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rig = new RigDBAccess();
-        new AsyncAuthenticate(this, rig).execute("user1", "password1");
+
+        RigDBAccess rig = new RigDBAccess();
+
+        try {
+            new AsyncAuthenticate(this, rig).execute("user1", "password1")
+                        .get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         setContentView(R.layout.activity_test_tags_and_days);
 
-        tagsAndDays = new TagsAndDays();
+        Bundle bundle = new Bundle();
+        bundle.putString("apiKey", rig.getApiKey());
+        TagsAndDays tagsAndDays = new TagsAndDays();
+        tagsAndDays.setArguments(bundle);
 
         getFragmentManager().beginTransaction()
                 .add(R.id.test_tags_and_days, tagsAndDays).commit();
@@ -50,9 +61,5 @@ public class TestTagsAndDays extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public RigDBAccess getRig() {
-        return rig;
     }
 }
