@@ -9,6 +9,7 @@ import android.view.View;
 
 import java.util.concurrent.ExecutionException;
 
+import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
 
@@ -19,10 +20,12 @@ public class TestTagsAndDays extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         RigDBAccess rig = new RigDBAccess();
+        RigBand currentBand = null;
 
         try {
-            new AsyncAuthenticate(this, rig).execute("user1", "password1")
-                        .get();
+            new AsyncAuthenticate(this, rig)
+                    .execute("user1", "password1") .get();
+            currentBand = new AsyncGetBand(this, rig).execute(100).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -33,7 +36,7 @@ public class TestTagsAndDays extends ActionBarActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
-        TagsAndDays tagsAndDays = new TagsAndDays();
+        TagsAndDays tagsAndDays = new TagsAndDays(rig, currentBand);
         tagsAndDays.setArguments(bundle);
 
         getFragmentManager().beginTransaction()

@@ -8,11 +8,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import rigAPI.RiGException;
+import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
 
@@ -20,6 +23,14 @@ import rigAPI.RigDBAccess;
  * A simple {@link Fragment} subclass.
  */
 public class TagsAndDays extends Fragment {
+
+    private RigDBAccess rig;
+    private RigBand currentBand;
+
+    public TagsAndDays(RigDBAccess rig, RigBand currentBand) {
+        this.rig = rig;
+        this.currentBand = currentBand;
+    }
 
     public TagsAndDays() {
         // Required empty public constructor
@@ -42,8 +53,16 @@ public class TagsAndDays extends Fragment {
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("apiKey");
 
+        String tags = TextUtils.join(",", currentBand.getTags());
+
+        RigDBAccess rig = new RigDBAccess(apiKey);
+
         TextView text = (TextView) fragment.findViewById(R.id.show_tags);
-        text.setText(apiKey);
+        TextView spieltag
+                = (TextView) fragment.findViewById(R.id .show_spieltag);
+
+        text.setText(tags);
+        spieltag.setText(currentBand.getDay());
 
         return fragment;
     }

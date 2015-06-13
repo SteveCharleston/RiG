@@ -13,7 +13,7 @@ import rigAPI.RigDBAccess;
  */
 public class AsyncAuthenticate
     extends AsyncTask<String, Integer, String> {
-
+    private Exception authException = null;
     private RigDBAccess rig;
     private Activity app;
 
@@ -31,7 +31,7 @@ public class AsyncAuthenticate
         try {
             apikey = rig.authenticate(user, password);
         } catch (RiGException e) {
-            e.printStackTrace();
+            authException = e;
         }
 
         return apikey;
@@ -40,6 +40,10 @@ public class AsyncAuthenticate
     @Override
     protected void onPostExecute(String apikey) {
         super.onPostExecute(apikey);
+
+        if (authException != null) {
+            // magic happens here
+        }
 
         SharedPreferences sharedPref = app.getSharedPreferences(
                 app.getString(R.string.global_prefs),
