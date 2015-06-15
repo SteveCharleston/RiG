@@ -3,10 +3,13 @@ package rigAPI;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
+
 /**
  * Contains all elements returned by getSTatistic.php as fields
  */
-public class RigStatistic extends  ClassFromXML {
+public class RigStatistic
+        extends ClassFromXML implements Serializable {
     private int round;
     private int remaining_bands;
     private boolean final_round;

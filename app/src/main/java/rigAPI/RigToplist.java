@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import rigAPI.ToplistBand;
 /**
  * Contains all values returned by getToplist.php as fields
  */
-public class RigToplist extends ClassFromXML {
+public class RigToplist
+        extends ClassFromXML implements Serializable {
     private Day day;
     private List<ToplistBand> bands;
 

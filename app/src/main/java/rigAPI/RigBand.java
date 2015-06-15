@@ -5,13 +5,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Contains all elements returned by getBand.php as fields
  */
-public class RigBand extends ClassFromXML {
+public class RigBand extends ClassFromXML implements Serializable {
     private Integer id;
     private Integer bewerbungsdatum;
     private String uid;

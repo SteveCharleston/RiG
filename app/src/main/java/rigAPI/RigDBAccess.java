@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ import javax.xml.parsers.ParserConfigurationException;
  * @author Steven Schalhorn
  *
  */
-public class RigDBAccess {
+public class RigDBAccess
+        implements  Serializable {
 
     private static String API_KEY = null;
     private static final String APIURL

@@ -3,10 +3,13 @@ package rigAPI;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
+
 /**
  * Common anchestor for all classes that parse an xml Document
  */
-public class ClassFromXML {
+public class ClassFromXML
+        implements Serializable {
     private Document doc;
 
     public ClassFromXML(Document doc) {

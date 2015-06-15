@@ -4,13 +4,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a search result retrieved from searchBand.php
  */
-public class RigBandSearchResult extends ClassFromXML{
+public class RigBandSearchResult
+        extends ClassFromXML implements Serializable {
     private String searchString;
     private List<SearchResultBand> bands;
 

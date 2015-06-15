@@ -1,9 +1,11 @@
 package rigAPI;
 
+import java.io.Serializable;
+
 /**
  * Represents a band as returned from getToplist.php
  */
-public class ToplistBand {
+public class ToplistBand implements Serializable {
     private int id;
     private String name;
     private String musikstil;

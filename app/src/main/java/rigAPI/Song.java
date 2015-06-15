@@ -1,9 +1,11 @@
 package rigAPI;
 
+import java.io.Serializable;
+
 /**
  * Holds all information about a Song as returned through getBand.php
  */
-public class Song {
+public class Song implements Serializable {
     private Integer id;
     private String local;
     private String url;

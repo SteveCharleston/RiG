@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
@@ -11,7 +12,8 @@ import java.util.WeakHashMap;
 /**
  * Contains all fields returned by getSettings.php as fields
  */
-public class RigSettings extends  ClassFromXML {
+public class RigSettings
+        extends ClassFromXML implements Serializable {
     private String status;
     private Integer year;
     private int neccessary_votes;

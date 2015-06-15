@@ -1,9 +1,11 @@
 package rigAPI;
 
+import java.io.Serializable;
+
 /**
  * Contains the values of bands returned as search by searchBand.php
  */
-public class SearchResultBand {
+public class SearchResultBand implements Serializable {
     int id;
     String name;
 

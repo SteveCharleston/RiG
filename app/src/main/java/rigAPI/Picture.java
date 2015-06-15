@@ -4,10 +4,12 @@ package rigAPI;
  * Created by steven on 06.05.15.
  */
 
+import java.io.Serializable;
+
 /**
  * Holds all information about a single picture as returned through getBand.php
  */
-public class Picture {
+public class Picture implements Serializable {
     private Integer id;
     private String local;
     private String url;
