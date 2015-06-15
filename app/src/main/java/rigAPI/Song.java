@@ -1,5 +1,8 @@
 package rigAPI;
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -57,5 +60,11 @@ public class Song implements Serializable {
     public String getUrl() {
 
         return url;
+    }
+
+    @Override
+    public String toString() {
+        String basename = FilenameUtils.getBaseName(local);
+        return basename;
     }
 }

@@ -12,13 +12,6 @@ import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.Song;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class SongFragment extends ListFragment {
     private RigDBAccess rig;
     private RigBand currentBand;
@@ -42,8 +35,8 @@ public class SongFragment extends ListFragment {
         setListAdapter(
                 new ArrayAdapter<Song>(
                         getActivity(),
-                        android.R.layout.simple_list_item_1,
-                        android.R.id.text1,
+                        R.layout.fragment_song,
+                        R.id.song_title,
                         currentBand.getSongs()));
     }
 
