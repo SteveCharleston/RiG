@@ -161,7 +161,7 @@ public class RigBand extends ClassFromXML implements Serializable {
         }
 
         songs = new ArrayList<Song>();
-        NodeList songEntities = getChildEntities("pictures");
+        NodeList songEntities = getChildEntities("songs");
         for (int i = 0; i < songEntities.getLength(); i++) {
             songs.add(instSong(songEntities.item(i)));
         }
