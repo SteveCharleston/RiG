@@ -36,7 +36,9 @@ public class TestTagsAndDays extends ActionBarActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
-        TagsAndDays tagsAndDays = new TagsAndDays(rig, currentBand);
+        bundle.putSerializable("rig", rig);
+        bundle.putSerializable("currentBand", currentBand);
+        TagsAndDays tagsAndDays = new TagsAndDays();
         tagsAndDays.setArguments(bundle);
 
         getFragmentManager().beginTransaction()

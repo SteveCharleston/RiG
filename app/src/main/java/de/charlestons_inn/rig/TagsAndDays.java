@@ -27,11 +27,6 @@ public class TagsAndDays extends Fragment {
     private RigDBAccess rig;
     private RigBand currentBand;
 
-    public TagsAndDays(RigDBAccess rig, RigBand currentBand) {
-        this.rig = rig;
-        this.currentBand = currentBand;
-    }
-
     public TagsAndDays() {
         // Required empty public constructor
     }
@@ -52,6 +47,8 @@ public class TagsAndDays extends Fragment {
 
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("apiKey");
+        rig = (RigDBAccess) bundle.getSerializable("rig");
+        currentBand = (RigBand) bundle.getSerializable("currentBand");
 
         String tags = TextUtils.join(",", currentBand.getTags());
 
@@ -59,7 +56,7 @@ public class TagsAndDays extends Fragment {
 
         TextView text = (TextView) fragment.findViewById(R.id.show_tags);
         TextView spieltag
-                = (TextView) fragment.findViewById(R.id .show_spieltag);
+                = (TextView) fragment.findViewById(R.id.show_spieltag);
 
         text.setText(tags);
         spieltag.setText(currentBand.getDay());
