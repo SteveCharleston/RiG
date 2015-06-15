@@ -22,6 +22,10 @@
             android:name=".TestTagsAndDays"
             android:label="@string/title_activity_test_tags_and_days" >
         </activity>
+        <activity
+            android:name=".TestMusicPlayer"
+            android:label="@string/title_activity_test_music_player" >
+        </activity>
     </application>
 
 </manifest>

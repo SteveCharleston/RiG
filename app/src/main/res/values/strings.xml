@@ -12,4 +12,5 @@
 
     <string name="global_prefs">RIG_GLOBAL_PREFERENCES</string>
     <string name="title_activity_testest">testest</string>
+    <string name="title_activity_test_music_player">TestMusicPlayer</string>
 </resources>
