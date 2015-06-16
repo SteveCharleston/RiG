@@ -33,10 +33,9 @@ public class SongFragment extends ListFragment {
         currentBand = (RigBand) bundle.getSerializable("currentBand");
 
         setListAdapter(
-                new ArrayAdapter<Song>(
+                new MusicPlayerAdapter(
                         getActivity(),
                         R.layout.fragment_song,
-                        R.id.song_title,
                         currentBand.getSongs()));
     }
 

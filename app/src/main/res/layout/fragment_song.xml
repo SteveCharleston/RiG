@@ -7,7 +7,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/play_pause_button"
         android:background="@drawable/pause_gruen" />
 
     <LinearLayout
