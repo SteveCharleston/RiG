@@ -23,7 +23,7 @@ public class TestMusicPlayer extends ActionBarActivity {
 
         try {
             new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1") .get();
+                    .execute("user2", "password2") .get();
             currentBand = new AsyncGetBand(this, rig).execute(100).get();
         } catch (InterruptedException e) {
             e.printStackTrace();

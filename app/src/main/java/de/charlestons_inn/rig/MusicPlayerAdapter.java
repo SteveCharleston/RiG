@@ -41,8 +41,8 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //final Uri songUri = Uri.parse(currentSong.getUrl());
-        final Uri songUri = Uri.parse("http://192.168.178.57/test.php");
+        final Uri songUri = Uri.parse(currentSong.getUrl());
+        //final Uri songUri = Uri.parse("http://192.168.178.57/test.php");
 
         View entry = inflater.inflate(resource, parent, false);
 
@@ -84,7 +84,7 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
 
 
 
-        songTitle.setText(currentSong.toString());
+        songTitle.setText(currentSong.toString() + Integer.toString(songs.size()));
 
         return entry;
     }

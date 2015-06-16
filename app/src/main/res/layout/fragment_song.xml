@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/play_pause_button"
-        android:background="@drawable/pause_gruen" />
+        android:background="@drawable/pause_gruen"
+        android:minWidth="5dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,7 +23,7 @@
             android:id="@+id/song_title" />
 
         <SeekBar
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/seekBar" />
     </LinearLayout>
@@ -30,6 +31,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/timestamp" />
+        android:text="01:22"
+        android:id="@+id/timestamp"
+        android:minWidth="25dp"
+        android:paddingLeft="10dp" />
 </LinearLayout>

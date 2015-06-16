@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.concurrent.ExecutionException;
+
+import rigAPI.RigBand;
+import rigAPI.RigDBAccess;
+
 
 public class Bandhoeren extends ActionBarActivity {
 
@@ -12,6 +17,35 @@ public class Bandhoeren extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
+
+        RigDBAccess rig = new RigDBAccess();
+        RigBand currentBand = null;
+
+        try {
+            new AsyncAuthenticate(this, rig)
+                    .execute("user1", "password1") .get();
+            currentBand = new AsyncGetBand(this, rig).execute(100).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("apiKey", rig.getApiKey());
+        bundle.putSerializable("rig", rig);
+        bundle.putSerializable("currentBand", currentBand);
+
+        SongFragment songs = new SongFragment();
+        songs.setArguments(bundle);
+
+        TagsAndDays tagsAndDays = new TagsAndDays();
+        tagsAndDays.setArguments(bundle);
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.musicplayer, songs).commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.tags_and_days, tagsAndDays).commit();
     }
 
 
