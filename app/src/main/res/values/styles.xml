@@ -1,9 +1,6 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
 
     <style name="content_heading">
         <item name="android:textSize">14pt</item>
@@ -16,6 +13,23 @@
         <item name="android:textColor">@color/content_text</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/ActionBar</item>
+
+    </style>
+    <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/actionbar</item>
+
+    </style>
+    <style name="AppTheme.CustomTheme" >
+        <item name= "android:windowIsTranslucent">true</item>
+        <item name = "android:windowCloseOnTouchOutside">true</item>
+        <item name = "android:popupWindowStyle">@android:style/Widget.PopupWindow</item>
+
+
     </style>
 
 </resources>

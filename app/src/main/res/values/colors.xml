@@ -4,4 +4,8 @@
     <color name="content_heading">#414042</color>
     <color name="content_text">#000000</color>
     <color name="accordion_heading">#F1F2F2</color>
+    <color name="grey">#58595B</color>
+    <color name="stacked_green">#118504</color>
+    <color name="accent_green">#97e08f</color>
+    <color name="white">#ffffff</color>
 </resources>

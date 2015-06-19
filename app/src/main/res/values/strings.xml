@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">RiG</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -13,4 +12,14 @@
     <string name="global_prefs">RIG_GLOBAL_PREFERENCES</string>
     <string name="title_activity_testest">testest</string>
     <string name="title_activity_test_music_player">TestMusicPlayer</string>
+
+
+    <string name= "app_name">RiG Bandhören</string>
+    <string name= "text">App zum Band hören</string>
+    <string name="Username">Username</string>
+    <string name= "Passwort">Passwort</string>
+    <string name= "Absenden">absenden</string>
+    <string name= "popup">Error!</string>
+    <string name= "logo_text">Die App zum Bandhören</string>
+    <string name="title_activity_pop_up_window">PopUpWindow</string>
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<EditText
+    android:id="@+id/Username"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="@string/Username"
+    android:width="300dp"
+    android:layout_above="@+id/Passwort"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:shadowColor="@color/accent_green"
+    android:backgroundTint="@color/accent_green" />
+    <EditText
+        android:id="@+id/Passwort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/Passwort"
+        android:width="300dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:shadowColor="@color/accent_green"
+        android:singleLine="false"
+        android:backgroundTint="@color/accent_green" />
+
+    <Button
+        android:id="@+id/absenden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Absenden"
+        android:layout_below="@+id/Passwort"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        android:textColorLink="@color/accent_green"
+        android:textColor="@color/accent_green"
+        android:background="#ff414042"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:text="@string/logo_text"
+        android:id="@+id/textView"
+        android:textColor="#F1F2F2"
+        android:textSize="23sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/absenden"
+        android:layout_alignEnd="@+id/absenden" />
+
+</RelativeLayout>

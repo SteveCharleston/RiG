@@ -4,20 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
+
+import rigAPI.BadAuthenticationException;
+import rigAPI.BrokenAPIKeyException;
+import rigAPI.NoPasswordException;
+import rigAPI.NoUserException;
 import rigAPI.RiGException;
 import rigAPI.RigDBAccess;
 
-/**
- * Created by steven on 09.06.15.
- */
-public class AsyncAuthenticate
-    extends AsyncTask<String, Integer, String> {
-    private Exception authException = null;
-    private RigDBAccess rig;
-    private Activity app;
+import static android.support.v4.app.ActivityCompat.startActivity;
 
-    public AsyncAuthenticate(Activity app, RigDBAccess rig) {
+/**
+ * Created by Lennox on 12/06/2015.
+ */
+public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
+
+    private RigDBAccess rig;
+    private FragmentActivity app;
+    private  Exception exception;
+
+
+    public AsyncAuthenticate(FragmentActivity app, RigDBAccess rig) {
         this.app = app;
         this.rig = rig;
     }
@@ -31,19 +41,49 @@ public class AsyncAuthenticate
         try {
             apikey = rig.authenticate(user, password);
         } catch (RiGException e) {
-            authException = e;
-        }
+            if(e instanceof BadAuthenticationException){
 
+                //rig.getIntent().putExtra("Error", "Passwort und Username  stimmen nicht überein");
+                return null;
+
+            }
+            else  if(e instanceof NoPasswordException){
+
+                //rig.getIntent().putExtra("Error", "NoPasswordException");
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.show(fm, "HILFE!");
+
+
+                return null;
+
+            }
+            else  if(e instanceof BrokenAPIKeyException){
+
+                //rig.getIntent().putExtra("Error", "BrokenAPIKeyException");
+                return null;
+
+            }
+
+            else {
+
+                if(e instanceof NoUserException){
+
+                    //rig.getIntent().putExtra("Error", " NoUserException");
+                    return null;
+
+                }
+
+            }
+
+
+        }
         return apikey;
     }
 
     @Override
     protected void onPostExecute(String apikey) {
         super.onPostExecute(apikey);
-
-        if (authException != null) {
-            // magic happens here
-        }
 
         SharedPreferences sharedPref = app.getSharedPreferences(
                 app.getString(R.string.global_prefs),
@@ -52,5 +92,6 @@ public class AsyncAuthenticate
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("APIKEY", apikey);
         editor.commit();
+
     }
 }
