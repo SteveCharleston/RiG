@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
+             style="@style/tags_and_days_fragment"
              android:layout_width="fill_parent"
              android:layout_height="match_parent"
              tools:context="de.charlestons_inn.rig.TagsAndDays">

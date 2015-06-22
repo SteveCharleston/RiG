@@ -8,11 +8,42 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="bandhoeren">
+        <item name="android:background">@color/app_background</item>
+    </style>
+
+    <style name="player_fragment">
+        <item name="android:background">@color/player_background</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="player_songname">
+        <item name="android:textColor">@color/songname</item>
+    </style>
+
+    <style name="song_timestamp">
+        <item name="android:textColor">@color/song_timestamp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="play_pause_button">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/pause_gruen</item>
+    </style>
+
     <style name="content_text">
         <item name="android:textSize">14pt</item>
         <item name="android:textColor">@color/content_text</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+
+    <style name="tags_and_days_fragment">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <!-- Base application theme. -->

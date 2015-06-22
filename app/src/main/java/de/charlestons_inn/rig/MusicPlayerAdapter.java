@@ -84,7 +84,7 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
 
 
 
-        songTitle.setText(currentSong.toString() + Integer.toString(songs.size()));
+        songTitle.setText(currentSong.toString());
 
         return entry;
     }
