@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,8 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
 
                     mediaPlayer.prepareAsync();
 
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer
+                            .OnPreparedListener() {
 
 
                         @Override
@@ -74,6 +76,9 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
                             mp.start();
                         }
                     });
+
+                    mediaPlayer.setWakeMode(
+                            context, PowerManager.PARTIAL_WAKE_LOCK);
                 } else if (! mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
                 } else if (mediaPlayer.isPlaying()) {
