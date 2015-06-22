@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class ClassFromXML
         implements Serializable {
-    private Document doc;
+    transient private Document doc;
 
     public ClassFromXML(Document doc) {
         this.doc = doc;
