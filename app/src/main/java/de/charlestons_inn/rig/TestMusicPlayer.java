@@ -35,6 +35,7 @@ public class TestMusicPlayer extends ActionBarActivity {
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);
         bundle.putSerializable("currentBand", currentBand);
+        bundle.putInt("songIndex", 0);
 
         SongFragment songs = new SongFragment();
         songs.setArguments(bundle);

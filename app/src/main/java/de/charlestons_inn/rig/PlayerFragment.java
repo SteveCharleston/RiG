@@ -53,11 +53,12 @@ public class PlayerFragment extends Fragment {
         String apiKey = bundle.getString("apiKey");
         rig = (RigDBAccess) bundle.getSerializable("rig");
         currentBand = (RigBand) bundle.getSerializable("currentBand");
+        Integer songIndex = bundle.getInt("songIndex");
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        Song currentSong = currentBand.getSongs().get(0);
+        Song currentSong = currentBand.getSongs().get(songIndex);
 
         final Uri songUri = Uri.parse(currentSong.getUrl());
 
@@ -117,11 +118,11 @@ public class PlayerFragment extends Fragment {
     };
 
     public void mediaUpdate() {
-        if (playerNotPrepared) {
+        if (! playerNotPrepared) {
             Integer currentPos = mediaPlayer.getCurrentPosition();
             seekbar.setProgress(currentPos);
             timestamp.setText(currentPos.toString());
-            mediaHandler.postDelayed(run, 1000);
         }
+        mediaHandler.postDelayed(run, 1000);
     }
 }
