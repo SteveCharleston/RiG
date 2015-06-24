@@ -105,6 +105,28 @@ public class PlayerFragment extends Fragment {
             }
         });
 
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+
+            @Override
+            public void onProgressChanged(
+                    SeekBar seekBar, int progress, boolean fromTouch) {
+                if (!playerNotPrepared) {
+                    mediaPlayer.seekTo(progress);
+                } else {
+                    seekbar.setProgress(0);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
         mediaUpdate();
 
         return fragment;
@@ -120,9 +142,12 @@ public class PlayerFragment extends Fragment {
     public void mediaUpdate() {
         if (! playerNotPrepared) {
             Integer currentPos = mediaPlayer.getCurrentPosition();
+            int minutes = currentPos / (60 * 1000);
+            int seconds = (currentPos / 1000) % 60;
+            String currentTime = String.format("%d:%02d", minutes, seconds);
             seekbar.setProgress(currentPos);
-            timestamp.setText(currentPos.toString());
+            timestamp.setText(currentTime);
         }
-        mediaHandler.postDelayed(run, 1000);
+        mediaHandler.postDelayed(run, 500);
     }
 }
