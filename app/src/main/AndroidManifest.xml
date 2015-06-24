@@ -36,6 +36,10 @@
             android:name=".TestMusicPlayer"
             android:label="@string/title_activity_test_music_player" >
         </activity>
+        <activity
+            android:name=".TestPlayer"
+            android:label="@string/title_activity_test_player" >
+        </activity>
     </application>
 
 </manifest>

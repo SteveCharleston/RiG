@@ -22,4 +22,5 @@
     <string name= "popup">Error!</string>
     <string name= "logo_text">Die App zum Bandhören</string>
     <string name="title_activity_pop_up_window">PopUpWindow</string>
+    <string name="title_activity_test_player">TestPlayer</string>
 </resources>

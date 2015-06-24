@@ -1,15 +1,18 @@
 package de.charlestons_inn.rig;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -23,7 +26,13 @@ import rigAPI.Song;
 public class MusicPlayerAdapter extends ArrayAdapter<Song> {
     private final Context context;
     private final List<Song> songs;
+    private MediaPlayer mediaPlayer = null;
     private int resource;
+    private Handler mediaHandler;
+    private SeekBar seekbar;
+    private TextView timestamp;
+    private Runnable run;
+
 
     public MusicPlayerAdapter(Context context,
                               int resource,
@@ -32,6 +41,14 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
         this.context = context;
         this.resource = resource;
         this.songs = songs;
+
+        mediaHandler = new Handler();
+        run = new Runnable() {
+            @Override
+            public void run() {
+                mediaUpdate();
+            }
+        };
     }
 
     @Override
@@ -43,18 +60,21 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         final Uri songUri = Uri.parse(currentSong.getUrl());
-        //final Uri songUri = Uri.parse("http://192.168.178.57/test.php");
 
-        View entry = inflater.inflate(resource, parent, false);
+        final View entry = inflater.inflate(resource, parent, false);
 
         TextView songTitle = (TextView) entry.findViewById(R.id.song_title);
         ImageButton playPauseButton
                 = (ImageButton) entry.findViewById(R.id.play_pause_button);
 
+        seekbar = (SeekBar) entry.findViewById(R.id.seekBar);
+        timestamp = (TextView) entry.findViewById(R.id.timestamp);
+
+        songTitle.setText(currentSong.toString());
+
         playPauseButton.setOnClickListener(new View.OnClickListener() {
-            MediaPlayer mediaPlayer = null;
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (mediaPlayer == null) {
                     mediaPlayer = new MediaPlayer();
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -74,6 +94,7 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
                             mp.start();
+                            seekbar.setMax(mp.getDuration());
                         }
                     });
 
@@ -87,10 +108,18 @@ public class MusicPlayerAdapter extends ArrayAdapter<Song> {
             }
         });
 
-
-
-        songTitle.setText(currentSong.toString());
-
+        parent.post(run);
         return entry;
     }
+
+    private void mediaUpdate() {
+        if (mediaPlayer != null) {
+            Integer currentPos = mediaPlayer.getCurrentPosition();
+            seekbar.setProgress(currentPos);
+            timestamp.setText(currentPos.toString());
+            mediaHandler.postDelayed(run, 1000);
+            notifyDataSetChanged();
+        }
+    }
+
 }
