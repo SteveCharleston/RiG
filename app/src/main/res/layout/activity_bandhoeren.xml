@@ -69,11 +69,12 @@
                 android:layout_height="64dp"
                 android:visibility="gone"
                 android:id="@+id/floating_tags"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/rounded_button_layer"
                 android:layout_alignParentRight="true"
                 android:layout_alignBottom="@+id/tags_and_days"
                 android:layout_marginBottom="-32dp"
                 android:layout_marginRight="20dp"
+                android:onClick="onClickRoundedButton"
                 />
 
             <FrameLayout

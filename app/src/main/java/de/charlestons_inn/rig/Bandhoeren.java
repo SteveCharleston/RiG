@@ -97,6 +97,12 @@ public class Bandhoeren extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onClickRoundedButton(View v) {
+        android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
+        ErrorDialog error = new ErrorDialog();
+        error.show(fm, "HILFE!");
+    }
+
     public void onClickAccordionTagsAndDays(View v) {
         FrameLayout tagsAndDaysLay = (FrameLayout) v
                 .getRootView()

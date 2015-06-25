@@ -3,6 +3,7 @@
              style="@style/tags_and_days_fragment"
              android:layout_width="fill_parent"
              android:layout_height="match_parent"
+             android:background="@color/content_background"
              tools:context="de.charlestons_inn.rig.TagsAndDays">
 
     <LinearLayout
