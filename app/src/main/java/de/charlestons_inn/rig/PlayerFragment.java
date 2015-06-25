@@ -22,6 +22,9 @@ import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.Song;
 
+import static de.charlestons_inn.rig.R.drawable.pause_gruen;
+import static de.charlestons_inn.rig.R.drawable.play_inaktiv;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +77,9 @@ public class PlayerFragment extends Fragment {
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                final ImageButton playPause
+                        = (ImageButton) v.findViewById(R.id.play_pause_button);
+
                 if (playerNotPrepared) {
                     try {
                         mediaPlayer.setDataSource(v.getContext(), songUri);
@@ -92,15 +98,18 @@ public class PlayerFragment extends Fragment {
                             playerNotPrepared = false;
                             mp.start();
                             seekbar.setMax(mp.getDuration());
+                            playPause.setBackgroundResource(pause_gruen);
                         }
                     });
 
                     mediaPlayer.setWakeMode(
                             v.getContext(), PowerManager.PARTIAL_WAKE_LOCK);
-                } else if (! mediaPlayer.isPlaying()) {
+                } else if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
+                    playPause.setBackgroundResource(pause_gruen);
                 } else if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
+                    playPause.setBackgroundResource(play_inaktiv);
                 }
             }
         });
@@ -140,7 +149,7 @@ public class PlayerFragment extends Fragment {
     };
 
     public void mediaUpdate() {
-        if (! playerNotPrepared) {
+        if (! playerNotPrepared && mediaPlayer.isPlaying()) {
             Integer currentPos = mediaPlayer.getCurrentPosition();
             int minutes = currentPos / (60 * 1000);
             int seconds = (currentPos / 1000) % 60;
@@ -148,6 +157,6 @@ public class PlayerFragment extends Fragment {
             seekbar.setProgress(currentPos);
             timestamp.setText(currentTime);
         }
-        mediaHandler.postDelayed(run, 500);
+        mediaHandler.postDelayed(run, 1000);
     }
 }
