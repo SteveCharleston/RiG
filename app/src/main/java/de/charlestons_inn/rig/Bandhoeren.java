@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,10 +63,15 @@ public class Bandhoeren extends ActionBarActivity {
         TagsAndDays tagsAndDays = new TagsAndDays();
         tagsAndDays.setArguments(bundle);
 
+        SubmitFragment submitFragment = new SubmitFragment();
+        submitFragment.setArguments(bundle);
+
         getFragmentManager().beginTransaction()
                 .add(R.id.musicplayer, playerList).commit();
         getFragmentManager().beginTransaction()
                 .add(R.id.tags_and_days, tagsAndDays).commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.submit, submitFragment).commit();
     }
 
 
@@ -96,12 +102,18 @@ public class Bandhoeren extends ActionBarActivity {
                 .getRootView()
                 .findViewById(R.id.tags_and_days);
 
+        ImageButton floatingTags = (ImageButton) v
+                .getRootView()
+                .findViewById(R.id.floating_tags);
+
         if (tagsAndDaysLay.getVisibility() == View.VISIBLE) {
             tagsAndDaysLay.animate()
                     .alpha(0.0f);
             tagsAndDaysLay.setVisibility(View.GONE);
+            floatingTags.setVisibility(View.GONE);
         } else {
             tagsAndDaysLay.setVisibility(View.VISIBLE);
+            floatingTags.setVisibility(View.VISIBLE);
             tagsAndDaysLay.setAlpha(0.0f);
             tagsAndDaysLay.animate()
                     .alpha(1.0f);

@@ -25,4 +25,6 @@
     <string name="title_activity_test_player">TestPlayer</string>
     <string name="title_activity_test_player_list">TestPlayerList</string>
     <string name="musikrichtung">Musikrichtung</string>
+    <string name="bewertung">Bewertung</string>
+    <string name="title_activity_test_submit">TestSubmit</string>
 </resources>

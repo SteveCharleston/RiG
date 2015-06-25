@@ -14,12 +14,13 @@
                 tools:context=".Bandhoeren" >
 
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <LinearLayout
+                android:id="@+id/bandhoeren_header"
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="?android:attr/actionBarSize">
@@ -43,12 +44,14 @@
 
             <FrameLayout
                 android:id="@+id/musicplayer"
+                android:layout_below="@+id/bandhoeren_header"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/accordion_tags_and_days"
                 style="@style/accordionButton"
+                android:layout_below="@id/musicplayer"
                 android:text="@string/musikrichtung"
                 android:onClick="onClickAccordionTagsAndDays"
                 android:layout_width="fill_parent"
@@ -56,10 +59,29 @@
 
             <FrameLayout
                 android:id="@+id/tags_and_days"
+                android:layout_below="@id/accordion_tags_and_days"
                 android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
-        </LinearLayout>
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:visibility="gone"
+                android:id="@+id/floating_tags"
+                android:background="@drawable/rounded_button"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/tags_and_days"
+                android:layout_marginBottom="-32dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <FrameLayout
+                android:id="@+id/submit"
+                android:layout_below="@id/tags_and_days"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
 </ScrollView>

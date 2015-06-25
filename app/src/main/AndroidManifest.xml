@@ -44,6 +44,10 @@
             android:name=".TestPlayerList"
             android:label="@string/title_activity_test_player_list" >
         </activity>
+        <activity
+            android:name=".TestSubmit"
+            android:label="@string/title_activity_test_submit" >
+        </activity>
     </application>
 
 </manifest>
