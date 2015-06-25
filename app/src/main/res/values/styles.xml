@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
 
     <style name="content_heading">
-        <item name="android:textSize">14pt</item>
+        <item name="android:textSize">14dip</item>
         <item name="android:textColor">@color/content_heading</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
@@ -25,11 +25,13 @@
 
     <style name="player_songname">
         <item name="android:textColor">@color/songname</item>
+        <item name="android:textSize">14dip</item>
     </style>
 
     <style name="song_timestamp">
         <item name="android:textColor">@color/song_timestamp</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">14dip</item>
     </style>
 
     <style name="play_pause_button">
@@ -37,8 +39,25 @@
         <item name="android:background">@drawable/play_inaktiv</item>
     </style>
 
+    <style name="bandname">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/bandname</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily"></item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:paddingLeft">10dip</item>
+    </style>
+
+    <style name="current_round">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/rig_green</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16dip</item>
+    </style>
+
     <style name="content_text">
-        <item name="android:textSize">14pt</item>
+        <item name="android:textSize">14dip</item>
         <item name="android:textColor">@color/content_text</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:lineSpacingExtra">24dp</item>

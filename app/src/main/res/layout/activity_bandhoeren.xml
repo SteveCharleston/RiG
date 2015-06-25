@@ -19,6 +19,28 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/actionBarSize">
+
+                <TextView
+                    style="@style/bandname"
+                    android:layout_weight="0.7"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:text="Bandname"
+                    android:id="@+id/bandname" />
+
+                <TextView
+                    style="@style/current_round"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:text="Runde 0"
+                    android:id="@+id/currentround" />
+            </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/musicplayer"
                 android:layout_width="fill_parent"
@@ -28,6 +50,7 @@
                 android:id="@+id/tags_and_days"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
 
 </ScrollView>

@@ -120,6 +120,10 @@ public class PlayerFragment extends Fragment {
             @Override
             public void onProgressChanged(
                     SeekBar seekBar, int progress, boolean fromTouch) {
+                if (!fromTouch) {
+                    return;
+                }
+
                 if (!playerNotPrepared) {
                     mediaPlayer.seekTo(progress);
                 } else {

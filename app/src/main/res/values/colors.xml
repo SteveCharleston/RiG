@@ -12,4 +12,6 @@
     <color name="stacked_green">#118504</color>
     <color name="accent_green">#97e08f</color>
     <color name="white">#ffffff</color>
+    <color name="rig_green">#99C010</color>
+    <color name="bandname">#808285</color>
 </resources>
