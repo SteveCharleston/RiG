@@ -6,6 +6,7 @@
              tools:context="de.charlestons_inn.rig.TagsAndDays">
 
     <LinearLayout
+        android:id="@+id/tags_and_days_layout"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

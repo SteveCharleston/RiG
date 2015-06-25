@@ -1,14 +1,22 @@
 package de.charlestons_inn.rig;
 
+import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.concurrent.ExecutionException;
 
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
+import rigAPI.RigStatistic;
 
 
 public class Bandhoeren extends ActionBarActivity {
@@ -20,11 +28,13 @@ public class Bandhoeren extends ActionBarActivity {
 
         RigDBAccess rig = new RigDBAccess();
         RigBand currentBand = null;
+        RigStatistic statistic = null;
 
         try {
             new AsyncAuthenticate(this, rig)
                     .execute("user1", "password1") .get();
-            currentBand = new AsyncGetBand(this, rig).execute().get();
+            currentBand = new AsyncGetBand(this, rig).execute(1).get();
+            statistic = new AsyncGetStatistic(this, rig).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -36,8 +46,18 @@ public class Bandhoeren extends ActionBarActivity {
         bundle.putSerializable("rig", rig);
         bundle.putSerializable("currentBand", currentBand);
 
+        TextView bandname = (TextView) findViewById(R.id.bandname);
+        bandname.setText(currentBand.getName());
+
+        Integer currentRoundAPI = statistic.getRound();
+        TextView currentRound = (TextView) findViewById(R.id.currentround);
+        currentRound.setText("Runde " + currentRoundAPI.toString());
+
         PlayerListFragment playerList = new PlayerListFragment();
         playerList.setArguments(bundle);
+
+        Button accTagsAndDays
+                = (Button) findViewById(R.id.accordion_tags_and_days);
 
         TagsAndDays tagsAndDays = new TagsAndDays();
         tagsAndDays.setArguments(bundle);
@@ -69,5 +89,22 @@ public class Bandhoeren extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickAccordionTagsAndDays(View v) {
+        FrameLayout tagsAndDaysLay = (FrameLayout) v
+                .getRootView()
+                .findViewById(R.id.tags_and_days);
+
+        if (tagsAndDaysLay.getVisibility() == View.VISIBLE) {
+            tagsAndDaysLay.animate()
+                    .alpha(0.0f);
+            tagsAndDaysLay.setVisibility(View.GONE);
+        } else {
+            tagsAndDaysLay.setVisibility(View.VISIBLE);
+            tagsAndDaysLay.setAlpha(0.0f);
+            tagsAndDaysLay.animate()
+                    .alpha(1.0f);
+        }
     }
 }

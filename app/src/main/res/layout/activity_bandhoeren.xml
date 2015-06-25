@@ -46,8 +46,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
+            <Button
+                android:id="@+id/accordion_tags_and_days"
+                style="@style/accordionButton"
+                android:text="@string/musikrichtung"
+                android:onClick="onClickAccordionTagsAndDays"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/actionBarSize" />
+
             <FrameLayout
                 android:id="@+id/tags_and_days"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 

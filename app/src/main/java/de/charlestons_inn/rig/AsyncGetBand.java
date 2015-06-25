@@ -11,7 +11,7 @@ import rigAPI.RigDBAccess;
  * Created by steven on 13.06.15.
  */
 public class AsyncGetBand
-    extends AsyncTask<Integer, Integer, RigBand> {
+        extends AsyncTask<Integer, Integer, RigBand> {
     private RigDBAccess rig;
     private Activity app;
 

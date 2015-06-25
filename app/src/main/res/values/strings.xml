@@ -24,4 +24,5 @@
     <string name="title_activity_pop_up_window">PopUpWindow</string>
     <string name="title_activity_test_player">TestPlayer</string>
     <string name="title_activity_test_player_list">TestPlayerList</string>
+    <string name="musikrichtung">Musikrichtung</string>
 </resources>
