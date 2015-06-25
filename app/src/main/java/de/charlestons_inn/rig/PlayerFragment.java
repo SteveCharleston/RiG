@@ -63,7 +63,7 @@ public class PlayerFragment extends Fragment {
         final Uri songUri = Uri.parse(currentSong.getUrl());
 
         TextView songTitle = (TextView) fragment.findViewById(R.id.song_title);
-        ImageButton playPauseButton
+        final ImageButton playPauseButton
                 = (ImageButton) fragment.findViewById(R.id.play_pause_button);
 
         seekbar = (SeekBar) fragment.findViewById(R.id.seekBar);

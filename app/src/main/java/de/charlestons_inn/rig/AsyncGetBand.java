@@ -24,7 +24,7 @@ public class AsyncGetBand
     protected RigBand doInBackground(Integer... params) {
         Integer bandNr = null;
         RigBand currentBand = null;
-        if (params.length > 1) {
+        if (params.length == 1) {
             bandNr = params[0];
         }
         try {

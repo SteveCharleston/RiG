@@ -24,7 +24,7 @@ public class Bandhoeren extends ActionBarActivity {
         try {
             new AsyncAuthenticate(this, rig)
                     .execute("user1", "password1") .get();
-            currentBand = new AsyncGetBand(this, rig).execute(100).get();
+            currentBand = new AsyncGetBand(this, rig).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

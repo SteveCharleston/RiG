@@ -8,6 +8,9 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="seekbar">
+    </style>
+
     <style name="bandhoeren">
         <item name="android:background">@color/app_background</item>
     </style>
@@ -31,7 +34,7 @@
 
     <style name="play_pause_button">
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/pause_gruen</item>
+        <item name="android:background">@drawable/play_inaktiv</item>
     </style>
 
     <style name="content_text">
@@ -62,5 +65,6 @@
 
 
     </style>
+
 
 </resources>
