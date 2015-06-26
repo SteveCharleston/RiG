@@ -86,35 +86,35 @@ public class RigSettings
             tags_music.add(musicEntities.item(i).getTextContent());
         }
 
-        String nodename;
-        String localname;
-        NodeList limitsNodes = getChildEntities("limits");
-        Element limitsElement = (Element) limitsNodes;
-
-        for (int i = 0; i < limitsNodes.getLength(); i++) {
-            Element nodeElement = (Element) limitsNodes.item(i);
-            if (nodeElement.getTagName().equals("vote")) {
-                limit_vote_min = Integer.parseInt(
-                        nodeElement.getChildNodes().item(0).getTextContent());
-                limit_vote_max = Integer.parseInt(
-                        nodeElement.getChildNodes().item(1).getTextContent());
-
-            } else if (nodeElement.getTagName().equals("tag")) {
-                limit_tag_min = Integer.parseInt(
-                        nodeElement.getChildNodes().item(0).getTextContent());
-                limit_tag_max = Integer.parseInt(
-                        nodeElement.getChildNodes().item(1).getTextContent());
-
-            } else if (nodeElement.getTagName().equals("day")) {
-                limit_day_min = Integer.parseInt(
-                        nodeElement.getChildNodes().item(0).getTextContent());
-                limit_day_max = Integer.parseInt(
-                        nodeElement.getChildNodes().item(1).getTextContent());
-
-            } else if (nodeElement.getTagName().equals("bands")) {
-                limit_bands = Integer.parseInt(nodeElement.getTextContent());
-            }
-        }
+//        String nodename;
+//        String localname;
+//        NodeList limitsNodes = getChildEntities("limits");
+//        Element limitsElement = (Element) limitsNodes;
+//
+//        for (int i = 0; i < limitsNodes.getLength(); i++) {
+//            Element nodeElement = (Element) limitsNodes.item(i);
+//            if (nodeElement.getTagName().equals("vote")) {
+//                limit_vote_min = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(0).getTextContent());
+//                limit_vote_max = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(1).getTextContent());
+//
+//            } else if (nodeElement.getTagName().equals("tag")) {
+//                limit_tag_min = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(0).getTextContent());
+//                limit_tag_max = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(1).getTextContent());
+//
+//            } else if (nodeElement.getTagName().equals("day")) {
+//                limit_day_min = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(0).getTextContent());
+//                limit_day_max = Integer.parseInt(
+//                        nodeElement.getChildNodes().item(1).getTextContent());
+//
+//            } else if (nodeElement.getTagName().equals("bands")) {
+//                limit_bands = Integer.parseInt(nodeElement.getTextContent());
+//            }
+//        }
     }
 
     public String getStatus() {

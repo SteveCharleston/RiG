@@ -1,6 +1,6 @@
 package de.charlestons_inn.rig;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -21,13 +21,14 @@ import rigAPI.RigStatistic;
 
 
 public class Bandhoeren extends ActionBarActivity {
+    RigDBAccess rig = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
 
-        RigDBAccess rig = new RigDBAccess();
+        rig = new RigDBAccess();
         RigBand currentBand = null;
         RigStatistic statistic = null;
 
@@ -98,9 +99,15 @@ public class Bandhoeren extends ActionBarActivity {
     }
 
     public void onClickRoundedButton(View v) {
-        android.support.v4.app.FragmentManager fm = this.getSupportFragmentManager();
-        ErrorDialog error = new ErrorDialog();
-        error.show(fm, "HILFE!");
+        Bundle bundle = new Bundle();
+        bundle.putString("apiKey", rig.getApiKey());
+        bundle.putSerializable("rig", rig);
+
+        TagChooserFragment tagChooser = new TagChooserFragment();
+        tagChooser.setArguments(bundle);
+
+        FragmentManager fm = getSupportFragmentManager();
+        tagChooser.show(fm, "HILFE!");
     }
 
     public void onClickAccordionTagsAndDays(View v) {
