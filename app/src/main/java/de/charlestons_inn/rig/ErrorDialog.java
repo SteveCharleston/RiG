@@ -25,7 +25,7 @@ public class ErrorDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener(){
                                       public void onClick(View v){
 
-
+                                        getDialog().dismiss();
 
 
                                       }
