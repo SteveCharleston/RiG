@@ -1,35 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                style="@style/bandhoeren"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:fillViewport="true"
+                android:padding="0dp"
+                android:id="@+id/scrollView"
                 tools:context=".Bandhoeren" >
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:fillViewport="true"
-        android:id="@+id/scrollView" >
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/bandhoeren_header"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/actionBarSize">
+
+                <TextView
+                    style="@style/bandname"
+                    android:layout_weight="0.7"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:text="Bandname"
+                    android:id="@+id/bandname" />
+
+                <TextView
+                    style="@style/current_round"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:text="Runde 0"
+                    android:id="@+id/currentround" />
+            </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/musicplayer"
+                android:layout_below="@+id/bandhoeren_header"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/accordion_tags_and_days"
+                style="@style/accordionButton"
+                android:layout_below="@id/musicplayer"
+                android:text="@string/musikrichtung"
+                android:onClick="onClickAccordionTagsAndDays"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/actionBarSize" />
 
             <FrameLayout
                 android:id="@+id/tags_and_days"
+                android:layout_below="@id/accordion_tags_and_days"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:visibility="gone"
+                android:id="@+id/floating_tags"
+                android:background="@drawable/rounded_button_layer"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/tags_and_days"
+                android:layout_marginBottom="-32dp"
+                android:layout_marginRight="20dp"
+                android:onClick="onClickRoundedButton"
+                />
+
+            <FrameLayout
+                android:id="@+id/submit"
+                android:layout_below="@id/tags_and_days"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+</ScrollView>

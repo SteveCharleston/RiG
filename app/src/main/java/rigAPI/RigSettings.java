@@ -89,7 +89,7 @@ public class RigSettings
         String nodename;
         String localname;
         NodeList limitsNodes = getChildEntities("limits");
-        Element limitsElement = (Element) limitsNodes;
+        //Element limitsElement = (Element) limitsNodes;
 
         for (int i = 0; i < limitsNodes.getLength(); i++) {
             Element nodeElement = (Element) limitsNodes.item(i);

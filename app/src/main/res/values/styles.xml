@@ -3,16 +3,82 @@
     <!-- Base application theme. -->
 
     <style name="content_heading">
-        <item name="android:textSize">14pt</item>
+        <item name="android:textSize">14dip</item>
         <item name="android:textColor">@color/content_heading</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="seekbar">
+    </style>
+
+    <style name="bandhoeren">
+        <item name="android:background">@color/app_background</item>
+    </style>
+
+    <style name="player_fragment">
+        <item name="android:background">@color/player_background</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="player_songname">
+        <item name="android:textColor">@color/songname</item>
+        <item name="android:textSize">14dip</item>
+    </style>
+
+    <style name="song_timestamp">
+        <item name="android:textColor">@color/song_timestamp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14dip</item>
+    </style>
+
+    <style name="play_pause_button">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/play_inaktiv</item>
+    </style>
+
+    <style name="bandname">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/bandname</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily"></item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="accordionButton">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">30dip</item>
+        <item name="android:background">@drawable/accordion_button</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="current_round">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/rig_green</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16dip</item>
+    </style>
+
     <style name="content_text">
-        <item name="android:textSize">14pt</item>
+        <item name="android:textSize">14dip</item>
         <item name="android:textColor">@color/content_text</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:lineSpacingExtra">24dp</item>
+    </style>
+
+    <style name="tags_and_days_fragment">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <!-- Base application theme. -->
@@ -31,5 +97,6 @@
 
 
     </style>
+
 
 </resources>

@@ -11,7 +11,7 @@ import rigAPI.RigDBAccess;
  * Created by steven on 13.06.15.
  */
 public class AsyncGetBand
-    extends AsyncTask<Integer, Integer, RigBand> {
+        extends AsyncTask<Integer, Integer, RigBand> {
     private RigDBAccess rig;
     private Activity app;
 
@@ -24,7 +24,7 @@ public class AsyncGetBand
     protected RigBand doInBackground(Integer... params) {
         Integer bandNr = null;
         RigBand currentBand = null;
-        if (params.length > 1) {
+        if (params.length == 1) {
             bandNr = params[0];
         }
         try {

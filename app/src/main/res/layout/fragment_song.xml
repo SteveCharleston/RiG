@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/player_fragment"
               android:orientation="horizontal"
               android:layout_width="fill_parent"
               android:layout_height="match_parent">
@@ -7,13 +8,14 @@
     <RelativeLayout
         android:layout_weight="0.2"
         android:layout_width="0dip"
+        android:gravity="center"
         android:layout_height="fill_parent">
 
         <ImageButton
+            style="@style/play_pause_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/play_pause_button"
-            android:background="@drawable/pause_gruen"
             />
     </RelativeLayout>
 
@@ -25,9 +27,10 @@
         >
 
         <TextView
+            style="@style/player_songname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text=""
             android:id="@+id/song_title" />
 
         <SeekBar
@@ -37,11 +40,12 @@
     </LinearLayout>
 
     <TextView
+        style="@style/song_timestamp"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:text="01:22"
         android:id="@+id/timestamp"
         android:layout_weight="0.2"
-        android:paddingLeft="10dp" />
+        />
 
 </LinearLayout>

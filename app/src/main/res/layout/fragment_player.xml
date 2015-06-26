@@ -1,0 +1,59 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="de.charlestons_inn.rig.PlayerFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  style="@style/player_fragment"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_weight="0.2"
+            android:layout_width="0dip"
+            android:gravity="center"
+            android:layout_height="fill_parent">
+
+            <ImageButton
+                style="@style/play_pause_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/play_pause_button"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            >
+
+            <TextView
+                style="@style/player_songname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/song_title" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SeekBarRiG"
+                android:id="@+id/seekBar" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/song_timestamp"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:text="0:00"
+            android:id="@+id/timestamp"
+            android:layout_weight="0.2"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -2,10 +2,19 @@
 <resources>
     <color name="content_background">#D1D3D4</color>
     <color name="content_heading">#414042</color>
+    <color name="player_background">#414042</color>
+    <color name="app_background">#414042</color>
     <color name="content_text">#000000</color>
     <color name="accordion_heading">#F1F2F2</color>
+    <color name="songname">#F1F2F2</color>
+    <color name="song_timestamp">#A7A9AC</color>
     <color name="grey">#58595B</color>
+    <color name="black">#000000</color>
     <color name="stacked_green">#118504</color>
     <color name="accent_green">#97e08f</color>
     <color name="white">#ffffff</color>
+    <color name="rig_green">#99C010</color>
+    <color name="bandname">#808285</color>
+    <color name="black_alpha">#22000000</color>
+    <color name="rounded_button">#e6e7e8</color>
 </resources>

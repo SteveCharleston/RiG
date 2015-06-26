@@ -12,32 +12,32 @@ import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.Song;
 
-public class SongFragment extends ListFragment {
-    private RigDBAccess rig;
-    private RigBand currentBand;
+    public class SongFragment extends ListFragment {
+        private RigDBAccess rig;
+        private RigBand currentBand;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public SongFragment() {
-    }
+        /**
+         * Mandatory empty constructor for the fragment manager to instantiate the
+         * fragment (e.g. upon screen orientation changes).
+         */
+        public SongFragment() {
+        }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
-        Bundle bundle = this.getArguments();
-        String apiKey = bundle.getString("apiKey");
-        rig = (RigDBAccess) bundle.getSerializable("rig");
-        currentBand = (RigBand) bundle.getSerializable("currentBand");
+            Bundle bundle = this.getArguments();
+            String apiKey = bundle.getString("apiKey");
+            rig = (RigDBAccess) bundle.getSerializable("rig");
+            currentBand = (RigBand) bundle.getSerializable("currentBand");
 
-        setListAdapter(
-                new MusicPlayerAdapter(
-                        getActivity(),
-                        R.layout.fragment_song,
-                        currentBand.getSongs()));
-    }
+            setListAdapter(
+                    new MusicPlayerAdapter(
+                            getActivity(),
+                            R.layout.fragment_song,
+                            currentBand.getSongs()));
+        }
 
 
     @Override
