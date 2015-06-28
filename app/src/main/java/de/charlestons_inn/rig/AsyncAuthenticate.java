@@ -41,23 +41,26 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
         try {
             apikey = rig.authenticate(user, password);
         } catch (RiGException e) {
-            FragmentManager fm = app.getSupportFragmentManager();
-            ErrorDialog error = new ErrorDialog();
+
             if(e instanceof BadAuthenticationException){
-                error.show(fm, "Passwort und Benutzernamen stimmen nicht überein!");
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "Passwort und Benutzernamen stimmen nicht überein!");
                 return null;
 
             }
             else  if(e instanceof NoPasswordException){
-
-                error.show(fm, "Bitte Passwort eingeben");
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm,"Bitte Passwort eingeben");
 
                 return null;
 
             }
             else  if(e instanceof BrokenAPIKeyException){
-
-                error.show(fm, "BrokenApiException!");
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "BrokenApiException!");
                 return null;
 
             }
@@ -65,8 +68,9 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
             else {
 
                 if(e instanceof NoUserException){
-
-                    error.show(fm, "Nutzer unbekannt!");
+                    FragmentManager fm = app.getSupportFragmentManager();
+                    ErrorDialog error = new ErrorDialog();
+                    error.set_text(fm, "Nutzer unbekannt!");
                     return null;
 
                 }
