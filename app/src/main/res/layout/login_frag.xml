@@ -7,27 +7,27 @@
     android:layout_height="wrap_content"
     android:hint="@string/Username"
     android:width="300dp"
-    android:layout_above="@+id/Passwort"
+    android:shadowColor="@color/rig_green"
+    android:backgroundTint="@color/rig_green"
+    android:layout_below="@+id/textView"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:shadowColor="@color/accent_green"
-    android:backgroundTint="@color/accent_green" />
+    android:layout_alignRight="@+id/absenden"
+    android:layout_alignEnd="@+id/absenden" />
     <EditText
         android:id="@+id/Passwort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/Passwort"
         android:width="300dp"
-        android:layout_centerVertical="true"
+        android:shadowColor="@color/rig_green"
+        android:singleLine="false"
+        android:backgroundTint="@color/rig_green"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:shadowColor="@color/accent_green"
-        android:singleLine="false"
-        android:backgroundTint="@color/accent_green" />
+        android:layout_below="@+id/Username"
+        android:layout_alignRight="@+id/absenden"
+        android:layout_alignEnd="@+id/absenden" />
 
     <Button
         android:id="@+id/absenden"
@@ -39,7 +39,7 @@
         android:layout_alignParentEnd="true"
         android:visibility="visible"
         android:textColorLink="@color/accent_green"
-        android:textColor="@color/accent_green"
+        android:textColor="@color/rig_green"
         android:background="#ff414042"
          />
 
@@ -53,7 +53,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/absenden"
-        android:layout_alignEnd="@+id/absenden" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
