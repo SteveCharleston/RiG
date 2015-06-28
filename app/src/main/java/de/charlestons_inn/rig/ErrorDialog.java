@@ -2,6 +2,7 @@ package de.charlestons_inn.rig;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ public class ErrorDialog extends DialogFragment {
     public ErrorDialog() {
 
     }
+    public String message;
+    public void set_text( FragmentManager fm, String text){
+        this.show(fm, text);
+        message=text;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +32,8 @@ public class ErrorDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.error_dialog, container);
         final Button button= (Button) view.findViewById(R.id.zurueck);
         final TextView error_text= (TextView) view.findViewById(R.id.error_text);
+        error_text.setText(message);
+
         button.setOnClickListener(new View.OnClickListener(){
                                       public void onClick(View v){
 
@@ -37,6 +46,7 @@ public class ErrorDialog extends DialogFragment {
 
         return view;
     }
+
 
 }
 
