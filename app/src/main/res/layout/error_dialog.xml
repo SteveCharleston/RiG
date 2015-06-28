@@ -11,7 +11,8 @@
         android:text="Ein schwerer Fehler!"
         android:id="@+id/error_text"
         android:textStyle="normal"
-        android:typeface="normal"/>
+        android:typeface="normal"
+        android:textColor="#A7A9AC" />
 
     <Button
         android:layout_width="wrap_content"
