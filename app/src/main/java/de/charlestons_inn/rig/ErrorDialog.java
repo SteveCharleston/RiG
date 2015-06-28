@@ -1,11 +1,14 @@
 package de.charlestons_inn.rig;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +48,17 @@ public class ErrorDialog extends DialogFragment {
         );
 
         return view;
+    }
+    public void onAttach(Activity activity) {
+
+        super.onAttach(activity);
+    }
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
     }
 
 
