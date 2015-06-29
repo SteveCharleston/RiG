@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,16 @@ public class ErrorDialog extends DialogFragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.error_dialog, container);
         final Button button= (Button) view.findViewById(R.id.zurueck);
+
         final TextView error_text= (TextView) view.findViewById(R.id.error_text);
+        error_text.setTextSize(16);
         error_text.setText(message);
 
         button.setOnClickListener(new View.OnClickListener(){

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 
 
 import rigAPI.BadAuthenticationException;
@@ -52,7 +53,7 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
             else  if(e instanceof NoPasswordException){
                 FragmentManager fm = app.getSupportFragmentManager();
                 ErrorDialog error = new ErrorDialog();
-                error.set_text(fm,"Bitte Passwort eingeben");
+                error.set_text(fm, "Bitte Passwort eingeben");
 
                 return null;
 
