@@ -48,6 +48,10 @@
             android:name=".TestSubmit"
             android:label="@string/title_activity_test_submit" >
         </activity>
+        <activity
+            android:name=".Testbeschreibung"
+            android:label="@string/title_activity_testbeschreibung" >
+        </activity>
     </application>
 
 </manifest>

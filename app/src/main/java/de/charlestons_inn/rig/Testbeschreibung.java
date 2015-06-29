@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.concurrent.ExecutionException;
 
@@ -14,17 +15,18 @@ import rigAPI.RigDBAccess;
 
 public class Testbeschreibung extends ActionBarActivity {
 
-    @Override
+    public String beschreibung ="Hello";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testbeschreibung);
-        try {
-            get_login_data("user1","passwort1");
+
+        /*try {
+            beschreibung= get_login_data("user1","password1");
         } catch (RiGException e) {
             e.printStackTrace();
-        }
+        }*/
     }
-    public void get_login_data(String Username, String Passwort) throws RiGException {
+    public String get_login_data(String Username, String Passwort) throws RiGException {
         String error;
         RigDBAccess rig= new RigDBAccess();
 
@@ -39,8 +41,19 @@ public class Testbeschreibung extends ActionBarActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        RigBand band= rig.getBand(1);
 
+        RigBand band= rig.getBand(1);
+        StringBuilder builder = new StringBuilder();
+        for(String line:band.getBeschreibung()){
+
+            builder.append(line+ "\n");
+        }
+        return builder.toString();
+
+    }
+    public String getBeschreibung(){
+
+        return beschreibung;
     }
 
 

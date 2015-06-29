@@ -27,4 +27,5 @@
     <string name="musikrichtung">Musikrichtung</string>
     <string name="bewertung">Bewertung</string>
     <string name="title_activity_test_submit">TestSubmit</string>
+    <string name="title_activity_testbeschreibung">Testbeschreibung</string>
 </resources>
