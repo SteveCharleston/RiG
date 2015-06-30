@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
-
+import android.view.View;
 
 public class Testbeschreibung extends ActionBarActivity {
     private RigDBAccess rig;
@@ -20,7 +20,7 @@ public class Testbeschreibung extends ActionBarActivity {
     public String beschreibung ="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testbeschreibung);
+
         RigDBAccess rig=new RigDBAccess();
         RigBand band = null;
         try {
@@ -28,14 +28,14 @@ public class Testbeschreibung extends ActionBarActivity {
         } catch (RiGException e) {
             e.printStackTrace();
         }
+        setContentView(R.layout.activity_testbeschreibung);
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);
         bundle.putSerializable("currentBand",band);
         Bandbeschreibung description= new Bandbeschreibung();
         description.setArguments(bundle);
-        getFragmentManager().beginTransaction()
-                .add(R.id.tags_and_days, description).commit();
+        getFragmentManager().beginTransaction().add(R.id.parent_layout,description).commit();
 
 
     }
