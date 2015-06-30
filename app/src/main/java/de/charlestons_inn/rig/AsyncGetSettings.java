@@ -13,7 +13,6 @@ import rigAPI.RigSettings;
 public class AsyncGetSettings
     extends AsyncTask<Integer, Integer, RigSettings> {
     private RigDBAccess rig;
-    private Activity activity;
 
     public AsyncGetSettings(RigDBAccess rig) {
         this.rig = rig;

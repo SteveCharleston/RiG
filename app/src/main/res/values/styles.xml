@@ -54,6 +54,13 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <style name="chooser_tag">
+        <item name="android:textSize">26dip</item>
+        <item name="android:textColor">@color/rig_green</item>
+        <item name="android:divider">@color/grey</item>
+        <item name="android:dividerHeight">4dip</item>
+    </style>
+
     <style name="accordionButton">
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">30dip</item>

@@ -17,10 +17,12 @@ import java.util.concurrent.ExecutionException;
 
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
+import rigAPI.RigSettings;
 import rigAPI.RigStatistic;
 
 
-public class Bandhoeren extends ActionBarActivity {
+public class Bandhoeren extends ActionBarActivity
+        implements TagChooserFragment.onTagSelectedListener {
     RigDBAccess rig = null;
 
     @Override
@@ -131,5 +133,14 @@ public class Bandhoeren extends ActionBarActivity {
             tagsAndDaysLay.animate()
                     .alpha(1.0f);
         }
+    }
+
+    @Override
+    public void onTagSelected(String tag) {
+        TagsAndDays tagsAndDays = (TagsAndDays) getFragmentManager()
+                .findFragmentById(R.id.tags_and_days);
+        tagsAndDays.setChosenTag(tag);
+
+
     }
 }

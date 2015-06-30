@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,5 +63,22 @@ public class TagsAndDays extends Fragment {
         spieltag.setText(currentBand.getDay());
 
         return fragment;
+    }
+
+    public void setChosenTag(String tag) {
+        TextView tags = (TextView) getActivity()
+                .findViewById(R.id.show_tags);
+        String tagsText = (String) tags.getText();
+
+        tag = "<b>" + tag + "</b>";
+
+        String newTags;
+        if (tagsText.equals("")) {
+            newTags = tag;
+        } else {
+            newTags = tag + ", " + tagsText;
+        }
+
+        tags.setText(Html.fromHtml(newTags));
     }
 }
