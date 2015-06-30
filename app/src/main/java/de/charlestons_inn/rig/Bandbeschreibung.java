@@ -17,14 +17,16 @@ import android.widget.TextView;
 import rigAPI.RiGException;
 
 public class Bandbeschreibung  extends Fragment{
+    public Bandbeschreibung(){
 
+    }
     String beschreibung;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view= inflater.inflate(R.layout.band_beschreibung, container, false);
-        Testbeschreibung activity = (Testbeschreibung) getActivity();
-           beschreibung= activity.getBeschreibung();
-        TextView beschreibung_text= (TextView)view.findViewById(R.id.beschreibung);
-        beschreibung_text.setText(beschreibung);
+
         return view;
 
     }

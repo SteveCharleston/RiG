@@ -14,41 +14,49 @@ import rigAPI.RigDBAccess;
 
 
 public class Testbeschreibung extends ActionBarActivity {
+    private RigDBAccess rig;
+    private RigBand currentBand;
 
-    public String beschreibung ="Hello";
+    public String beschreibung ="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testbeschreibung);
-
-        /*try {
-            beschreibung= get_login_data("user1","password1");
+        RigDBAccess rig=new RigDBAccess();
+        RigBand band = null;
+        try {
+            band=getBand(1,rig);
         } catch (RiGException e) {
             e.printStackTrace();
-        }*/
+        }
+        Bundle bundle = new Bundle();
+        bundle.putString("apiKey", rig.getApiKey());
+        bundle.putSerializable("rig", rig);
+        bundle.putSerializable("currentBand",band);
+        Bandbeschreibung description= new Bandbeschreibung();
+        description.setArguments(bundle);
+        getFragmentManager().beginTransaction()
+                .add(R.id.tags_and_days, description).commit();
+
+
     }
-    public String get_login_data(String Username, String Passwort) throws RiGException {
-        String error;
-        RigDBAccess rig= new RigDBAccess();
-
-
+    public RigBand getBand(int nummer,RigDBAccess rig) throws RiGException {
+        String error="";
+        RigBand band=null;
         try {
-
-            error=new AsyncAuthenticate(this, rig).execute(Username, Passwort)
-                    .get();
-
-        }  catch (InterruptedException e) {
+            new AsyncAuthenticate(this, rig)
+                    .execute("user1", "password1") .get();
+            band=new AsyncGetBand(this,rig).execute(nummer).get();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        if(band==null){
 
-        RigBand band= rig.getBand(1);
-        StringBuilder builder = new StringBuilder();
-        for(String line:band.getBeschreibung()){
-
-            builder.append(line+ "\n");
+            return null;
         }
-        return builder.toString();
+        return band;
+
 
     }
     public String getBeschreibung(){
@@ -63,6 +71,7 @@ public class Testbeschreibung extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_testbeschreibung, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
