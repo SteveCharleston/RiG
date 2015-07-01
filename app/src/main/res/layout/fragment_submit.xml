@@ -14,6 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="@string/bewertung" />
 
         <LinearLayout
@@ -24,12 +25,17 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/rigCheckbox"
+                android:paddingLeft="24dip"
                 android:text="Fr"
                 android:id="@+id/checkBox" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/rigCheckbox"
+                android:layout_marginLeft="24dip"
+                android:paddingLeft="24dip"
                 android:text="Sa"
                 android:id="@+id/checkBox2"
                 android:singleLine="true" />
@@ -43,13 +49,14 @@
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/rigRatingBar"
                 android:id="@+id/ratingBar" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Absenden"
-                android:id="@+id/button2" />
+                android:id="@+id/submit_button" />
 
         </LinearLayout>
     </LinearLayout>

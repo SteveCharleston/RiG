@@ -88,6 +88,19 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="rigRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">
+            @drawable/rig_ratingbar_full
+        </item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:maxHeight">40dip</item>
+    </style>
+
+    <style name="rigCheckbox">
+        <item name="android:button">@drawable/checkbox_drawable</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarStyle">@style/ActionBar</item>
