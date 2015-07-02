@@ -11,11 +11,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
@@ -30,7 +27,7 @@ public class Bandbeschreibung  extends Fragment{
         super.onAttach(activity);
     }
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view= inflater.inflate(R.layout.band_beschreibung, container, false);
+       View view= inflater.inflate(R.layout.fragment_bandbeschreibung, container, false);
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("apiKey");
         rig = (RigDBAccess) bundle.getSerializable("rig");

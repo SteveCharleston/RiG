@@ -1,41 +1,41 @@
 package de.charlestons_inn.rig;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-
 import java.util.concurrent.ExecutionException;
-
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
-import android.view.View;
+
 
 public class Testbeschreibung extends ActionBarActivity {
     private RigDBAccess rig;
     private RigBand currentBand;
 
-    public String beschreibung ="";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         RigDBAccess rig=new RigDBAccess();
         RigBand band = null;
-        try {
+        setContentView(R.layout.activity_test_bandbeschreibung);
+      /*  try {
             band=getBand(1,rig);
         } catch (RiGException e) {
             e.printStackTrace();
-        }
-        setContentView(R.layout.activity_testbeschreibung);
+        }*/
+
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);
-        bundle.putSerializable("currentBand",band);
+        bundle.putSerializable("thisBand",band);
         Bandbeschreibung description= new Bandbeschreibung();
         description.setArguments(bundle);
-        getFragmentManager().beginTransaction().add(R.id.parent_layout,description).commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //getSupportFragmentManager().beginTransaction().add(R.id.test_band_beschreibung,description).commit();
 
 
     }
@@ -58,10 +58,6 @@ public class Testbeschreibung extends ActionBarActivity {
         return band;
 
 
-    }
-    public String getBeschreibung(){
-
-        return beschreibung;
     }
 
 
