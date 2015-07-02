@@ -22,11 +22,11 @@ public class Testbeschreibung extends ActionBarActivity {
         RigDBAccess rig=new RigDBAccess();
         RigBand band = null;
         setContentView(R.layout.activity_test_bandbeschreibung);
-      /*  try {
+        try {
             band=getBand(1,rig);
         } catch (RiGException e) {
             e.printStackTrace();
-        }*/
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
@@ -34,8 +34,7 @@ public class Testbeschreibung extends ActionBarActivity {
         bundle.putSerializable("thisBand",band);
         Bandbeschreibung description= new Bandbeschreibung();
         description.setArguments(bundle);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        //getSupportFragmentManager().beginTransaction().add(R.id.test_band_beschreibung,description).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container_beschreibung,description).commit();
 
 
     }
