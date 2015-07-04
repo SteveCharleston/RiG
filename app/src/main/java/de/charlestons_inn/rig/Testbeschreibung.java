@@ -27,6 +27,14 @@ public class Testbeschreibung extends ActionBarActivity {
         } catch (RiGException e) {
             e.printStackTrace();
         }
+        Bundle bundle = new Bundle();
+        bundle.putString("Key", rig.getApiKey());
+        bundle.putSerializable("RiG", rig);
+        bundle.putSerializable("band", band);
+        Bandbeschreibung description = new Bandbeschreibung();
+        description.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container_fragment, description).commit();
 
 
     }
