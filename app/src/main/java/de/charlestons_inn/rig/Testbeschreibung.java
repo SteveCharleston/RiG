@@ -28,14 +28,6 @@ public class Testbeschreibung extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putString("apiKey", rig.getApiKey());
-        bundle.putSerializable("rig", rig);
-        bundle.putSerializable("thisBand",band);
-        Bandbeschreibung description= new Bandbeschreibung();
-        description.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.container_beschreibung,description).commit();
-
 
     }
     public RigBand getBand(int nummer,RigDBAccess rig) throws RiGException {

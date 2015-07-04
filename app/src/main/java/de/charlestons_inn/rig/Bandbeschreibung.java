@@ -28,14 +28,6 @@ public class Bandbeschreibung  extends Fragment{
     }
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view= inflater.inflate(R.layout.fragment_bandbeschreibung, container, false);
-        Bundle bundle = this.getArguments();
-        String apiKey = bundle.getString("apiKey");
-        rig = (RigDBAccess) bundle.getSerializable("rig");
-        currentBand = (RigBand) bundle.getSerializable("currentBand");
-        String beschreibung= TextUtils.join(",", currentBand.getBeschreibung());
-        RigDBAccess rig = new RigDBAccess(apiKey);
-        TextView text = (TextView) view.findViewById(R.id.beschreibung);
-        text.setText(beschreibung);
         return view;
 
     }
