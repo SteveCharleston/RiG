@@ -180,6 +180,8 @@ public class RigDBAccess
             throw new MissingDayException();
         } else if ("BAD_DAY".equals(result)) {
             throw new BadDayException();
+        } else if ("BAD_APIKEY".equals(result)) {
+            throw new BadAPIKeyException();
         }
 
         Document doc = getDocumentFromXMLString(result);
