@@ -33,10 +33,16 @@ public class Bandbeschreibung  extends Fragment{
         rig = (RigDBAccess) bundle.getSerializable("RiG");
         currentBand = (RigBand) bundle.getSerializable("band");
         String beschreibung = TextUtils.join(",", currentBand.getBeschreibung());
+        String bandmitglieder=(TextUtils.join(",",currentBand.getBesetzung()));
+        String stilrichtung=(currentBand.getMusikstil());
         RigDBAccess rig = new RigDBAccess(apiKey);
-
-        TextView text = (TextView) view.findViewById(R.id.beschreibung);
-        text.setText(beschreibung);
+       String voice= currentBand.getVoice();
+        TextView text_beschreibung = (TextView) view.findViewById(R.id.beschreibung);
+        text_beschreibung.setText(beschreibung);
+        TextView text_bandmitglieder = (TextView) view.findViewById(R.id.mitglieder);
+        text_bandmitglieder.setText(bandmitglieder);
+        TextView text_stilrichtung = (TextView) view.findViewById(R.id.Musikrichtung);
+        text_stilrichtung.setText(stilrichtung);
         return view;
 
     }
