@@ -1,6 +1,7 @@
 package de.charlestons_inn.rig;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -102,6 +103,17 @@ public class Bandhoeren extends ActionBarActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_logout) {
+            SharedPreferences sharedPref = getSharedPreferences(
+                    getString(R.string.global_prefs),
+                    Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.remove("APIKEY");
+            editor.commit();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
