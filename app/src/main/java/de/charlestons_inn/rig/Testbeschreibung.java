@@ -1,6 +1,8 @@
 package de.charlestons_inn.rig;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +13,15 @@ import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
 
-public class Testbeschreibung extends ActionBarActivity {
+public class Testbeschreibung extends ActionBarActivity implements Bandbeschreibung.Button_listener{
+    @Override
+    public void open_url(String url) {
+        Intent i= new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
+    }
+
     private RigDBAccess rig;
     private RigBand currentBand;
 
@@ -82,4 +92,5 @@ public class Testbeschreibung extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -91,7 +91,7 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:id="@+id/imageButton"
+                android:id="@+id/youtube"
                 style="?android:attr/borderlessButtonStyle"
                 android:src="@drawable/youtube"
                 android:background="@drawable/rounded_button"
@@ -104,7 +104,7 @@
                 android:layout_width="50dp"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_height="match_parent"
-                android:id="@+id/imageButton2"
+                android:id="@+id/soundscloud"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/soundscloud"
                 android:layout_weight="0.16"
@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/fb"
-                android:id="@+id/imageButton3"
+                android:id="@+id/facebook"
                 android:layout_weight="0.13"
                 android:backgroundTint="#00000000" />
 
@@ -126,7 +126,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/backstage_pro"
-                android:id="@+id/imageButton4"
+                android:id="@+id/backstage"
                 android:layout_weight="0.13"
                 android:backgroundTint="#00000000" />
 
@@ -135,7 +135,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/homepage"
-                android:id="@+id/imageButton5"
+                android:id="@+id/homepage"
                 android:layout_weight="0.13"
                 android:backgroundTint="#00000000" />
         </LinearLayout>
