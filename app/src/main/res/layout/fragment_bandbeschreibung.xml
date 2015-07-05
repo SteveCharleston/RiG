@@ -4,17 +4,18 @@
         android:id="@+id/parent_layout">
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="275dp"
+            android:layout_height="290dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/relative_Layout"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="#00000000">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:text="beschreibung_text"
                 android:id="@+id/beschreibung"
                 android:layout_alignParentTop="true"
@@ -75,14 +76,14 @@
             android:layout_below="@+id/relative_Layout" />
         <LinearLayout
             android:id="@+id/linear_layout"
-            android:layout_below="@+id/textView4"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="77dp"
+            android:layout_height="50dp"
             android:weightSum="1"
             android:layout_weight="0.08"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView4"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
 
@@ -97,7 +98,7 @@
                 android:layout_weight="0.13"
                 android:clickable="false"
                 android:visibility="visible"
-                android:backgroundTint="#22000000" />
+                android:backgroundTint="#00000000" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -107,7 +108,7 @@
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/soundscloud"
                 android:layout_weight="0.16"
-                android:backgroundTint="#22000000" />
+                android:backgroundTint="#00000000" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -117,7 +118,7 @@
                 android:src="@drawable/fb"
                 android:id="@+id/imageButton3"
                 android:layout_weight="0.13"
-                android:backgroundTint="#22000000" />
+                android:backgroundTint="#00000000" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -127,17 +128,16 @@
                 android:src="@drawable/backstage_pro"
                 android:id="@+id/imageButton4"
                 android:layout_weight="0.13"
-                android:backgroundTint="#22000000" />
+                android:backgroundTint="#00000000" />
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/homepage"
                 android:id="@+id/imageButton5"
                 android:layout_weight="0.13"
-                android:backgroundTint="#22000000" />
+                android:backgroundTint="#00000000" />
         </LinearLayout>
 
 
