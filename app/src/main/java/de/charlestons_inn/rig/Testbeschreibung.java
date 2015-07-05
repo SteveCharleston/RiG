@@ -33,7 +33,7 @@ public class Testbeschreibung extends ActionBarActivity implements Bandbeschreib
         RigBand band = null;
         setContentView(R.layout.activity_test_bandbeschreibung);
         try {
-            band=getBand(1,rig);
+            band=getBand(10,rig);
         } catch (RiGException e) {
             e.printStackTrace();
         }

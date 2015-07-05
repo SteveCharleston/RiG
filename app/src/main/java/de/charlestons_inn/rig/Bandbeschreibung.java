@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Document;
+
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
@@ -52,7 +54,8 @@ public class Bandbeschreibung  extends Fragment{
         String beschreibung = String.format("%s%n%n",TextUtils.join(",", currentBand.getBeschreibung()));
         String bandmitglieder=String.format("%s%n%s", "Bandmitglieder", TextUtils.join(",", currentBand.getBesetzung()));
         String stilrichtung=String.format("%s%n%s", "Musikrichtung", currentBand.getMusikstil());
-         //String zusatz_dateien= String.format("%Zusatzdateien%n%s", currentBand.getDoc().getDocumentURI());
+        Document  d=currentBand.getDoc();
+        String zusatz_dateien= String.format("Zusatzdateien%n%s", d.getTextContent());
         RigDBAccess rig = new RigDBAccess(apiKey);
         TextView text_beschreibung = (TextView) view.findViewById(R.id.beschreibung);
         text_beschreibung.setText(beschreibung);
@@ -61,6 +64,7 @@ public class Bandbeschreibung  extends Fragment{
         TextView text_stilrichtung = (TextView) view.findViewById(R.id.Musikrichtung);
         text_stilrichtung.setText(stilrichtung);
         TextView text_dateien= (TextView)view.findViewById(R.id.dateien);
+        text_dateien.setText(zusatz_dateien);
 
 
         String voice= currentBand.getVoice();
