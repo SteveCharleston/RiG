@@ -114,6 +114,9 @@ public class Bandhoeren extends ActionBarActivity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
+        } else if (id == R.id.about) {
+            Intent intent = new Intent(this, Info.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

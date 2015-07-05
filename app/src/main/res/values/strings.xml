@@ -34,4 +34,7 @@
     </string>
     <string name="action_logout">Ausloggen</string>
     <string name="title_activity_info">Info</string>
+    <string name="app_version">App-Version</string>
+    <string name="entwicklung">Entwicklung</string>
+    <string name="about">Über</string>
 </resources>
