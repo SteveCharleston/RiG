@@ -1,0 +1,142 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:id="@+id/parent_layout">
+
+
+        <LinearLayout
+            android:id="@+id/band_beschreibung_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:weightSum="1"
+            android:layout_weight="0.08"
+            android:layout_marginBottom="108dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" >
+
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton"
+                android:src="@drawable/youtube"
+                android:background="@drawable/rounded_button"
+                android:layout_weight="0.13" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton2"
+                android:background="@drawable/rounded_button"
+                android:src="@drawable/soundscloud"
+                android:layout_weight="0.16" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_button"
+                android:src="@drawable/fb"
+                android:id="@+id/imageButton3"
+                android:layout_weight="0.13" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_button"
+                android:src="@drawable/backstage_pro"
+                android:id="@+id/imageButton4"
+                android:layout_weight="0.13" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_button"
+                android:src="@drawable/homepage"
+                android:id="@+id/imageButton5"
+                android:layout_weight="0.13" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/band_beschreibung_layout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:text="New Text"
+                android:id="@+id/beschreibung"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gesang"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/beschreibung"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="social Medial"
+                android:id="@+id/textView4"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/male"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="72dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zusätzliche Dateien"
+                android:id="@+id/textView5"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView6"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView5"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
