@@ -52,15 +52,17 @@ public class Bandbeschreibung  extends Fragment{
         String beschreibung = String.format("%s%n%n",TextUtils.join(",", currentBand.getBeschreibung()));
         String bandmitglieder=String.format("%s%n%s", "Bandmitglieder", TextUtils.join(",", currentBand.getBesetzung()));
         String stilrichtung=String.format("%s%n%s", "Musikrichtung", currentBand.getMusikstil());
+         //String zusatz_dateien= String.format("%Zusatzdateien%n%s", currentBand.getDoc().getDocumentURI());
         RigDBAccess rig = new RigDBAccess(apiKey);
-
-
         TextView text_beschreibung = (TextView) view.findViewById(R.id.beschreibung);
         text_beschreibung.setText(beschreibung);
         TextView text_bandmitglieder = (TextView) view.findViewById(R.id.mitglieder);
         text_bandmitglieder.setText(bandmitglieder);
         TextView text_stilrichtung = (TextView) view.findViewById(R.id.Musikrichtung);
         text_stilrichtung.setText(stilrichtung);
+        TextView text_dateien= (TextView)view.findViewById(R.id.dateien);
+
+
         String voice= currentBand.getVoice();
         ImageView image= (ImageView)view.findViewById(R.id.imageView);
         if(voice.equals("male")){
@@ -88,43 +90,40 @@ public class Bandbeschreibung  extends Fragment{
 
     }
    public void setButtonURLOrHide(final RigBand band, final ImageButton button, final String service){
-        button.setOnClickListener(new View.OnClickListener(){
+        String url=null;
+       switch(service){
+           case "youtube":
+               url=  band.getYoutube();
+               break;
+           case "soundscloud":
+               url=band.getSoundcloud();
+               break;
+           case "facebook":
+               url=band.getFacebook();
+               break;
+           case "backstage":
+               url=band.getBackstage();
+               break;
+           case "homepage":
+               url=band.getHomepage();
+               break;
+
+       }
+       if(url==null || url.equals("")){
+           button.setVisibility(View.GONE);
+           return;
+       }
+       final String pass_url=url;
+       button.setOnClickListener(new View.OnClickListener(){
                                        public void onClick(View v){
-                                           String url=null;
-                                           switch(service){
-                                               case "youtube":
-                                                   url=  band.getYoutube();
-                                                   break;
-                                               case "soundscloud":
-                                                   url=band.getSoundcloud();
-                                                   break;
-                                               case "facebook":
-                                                   url=band.getFacebook();
-                                                   break;
-                                               case "backstage":
-                                                   url=band.getBackstage();
-                                                   break;
-                                               case "homepage":
-                                                   url=band.getHomepage();
-                                                   break;
-
-                                           }
-
-                                           if(url==null){
-                                               button.setVisibility(View.GONE);
-                                           }
-                                           else{
-                                                button_clicked(url);
-
-
-                                           }
+                                                button_clicked(pass_url);
 
                                        }
                                    }
         );
 
     }
-    public void button_clicked(String url){
+    public void button_clicked(final String url){
         mylistener.open_url(url);
 
     }
