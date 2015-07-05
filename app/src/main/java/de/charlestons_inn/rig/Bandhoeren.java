@@ -1,5 +1,7 @@
 package de.charlestons_inn.rig;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,13 +32,18 @@ public class Bandhoeren extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
 
-        rig = new RigDBAccess();
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.global_prefs),
+                Context.MODE_PRIVATE);
+        String apiKey = sharedPref.getString("APIKEY", null);
+
+        rig = new RigDBAccess(apiKey);
         RigBand currentBand = null;
         RigStatistic statistic = null;
 
         try {
-            new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1") .get();
+//            new AsyncAuthenticate(this, rig)
+//                    .execute("user1", "password1") .get();
             currentBand = new AsyncGetBand(this, rig).execute(1).get();
             statistic = new AsyncGetStatistic(this, rig).execute().get();
         } catch (InterruptedException e) {

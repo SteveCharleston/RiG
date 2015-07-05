@@ -153,6 +153,10 @@ public class RigDBAccess
         String pageUrl = APIURL + "read/getStatistic.php";
         String result = httpPost(pageUrl);
 
+        if ("BAD_APIKEY".equals(result)) {
+            throw new BadAPIKeyException();
+        }
+
         Document doc = getDocumentFromXMLString(result);
 
         return new RigStatistic(doc);

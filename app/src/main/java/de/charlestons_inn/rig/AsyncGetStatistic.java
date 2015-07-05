@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import java.util.AbstractList;
 
+import rigAPI.BadAPIKeyException;
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
@@ -29,6 +30,8 @@ public class AsyncGetStatistic
 
         try {
             rigStatistic = rig.getStatistic();
+        } catch (BadAPIKeyException e) {
+            return null;
         } catch (RiGException e) {
             e.printStackTrace();
         }
