@@ -2,13 +2,18 @@
 package de.charlestons_inn.rig;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import rigAPI.BadAPIKeyException;
 import rigAPI.RiGException;
 import rigAPI.RigDBAccess;
+import rigAPI.RigStatistic;
 
 import java.util.concurrent.ExecutionException;
 
@@ -20,19 +25,43 @@ public class MainActivity extends ActionBarActivity implements Login_fragment.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        RigStatistic rigStatistic = null;
+        RigDBAccess rig;
 
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.global_prefs),
+                Context.MODE_PRIVATE);
+        String apiKey = sharedPref.getString("APIKEY", null);
+
+        if (apiKey != null) {
+            rig = new RigDBAccess(apiKey);
+            try {
+                rigStatistic = new AsyncGetStatistic(this, rig)
+                        .execute()
+                        .get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (rigStatistic != null) {
+            startActivityAfterLogin();
+        }
+
+        setContentView(R.layout.activity_main);
     }
 
     @Override
     public void get_login_data(String Username, String Passwort) {
-            String error;
-            RigDBAccess rig= new RigDBAccess();
+            String apiKey = null;
+            RigDBAccess rig = new RigDBAccess();
 
         try {
-
-                error=new AsyncAuthenticate(this, rig).execute(Username, Passwort)
-                        .get();
+            apiKey = new AsyncAuthenticate(this, rig)
+                    .execute(Username, Passwort)
+                    .get();
 
         }  catch (InterruptedException e) {
             e.printStackTrace();
@@ -40,7 +69,9 @@ public class MainActivity extends ActionBarActivity implements Login_fragment.Lo
             e.printStackTrace();
         }
 
-
+        if (apiKey != null) {
+            startActivityAfterLogin();
+        }
     }
 
     @Override
@@ -66,5 +97,10 @@ public class MainActivity extends ActionBarActivity implements Login_fragment.Lo
     }
     public boolean login(){
         return false;
+    }
+
+    public void startActivityAfterLogin() {
+        Intent intent = new Intent(this, Bandhoeren.class);
+        startActivity(intent);
     }
 }

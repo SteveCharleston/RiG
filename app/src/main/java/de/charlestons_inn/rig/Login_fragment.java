@@ -33,7 +33,7 @@ public class Login_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.login_frag, container, false);
         Username=(EditText) view.findViewById(R.id.Username);
-       Password=(EditText) view.findViewById(R.id.Passwort);
+        Password=(EditText) view.findViewById(R.id.Passwort);
         final Button button= (Button) view.findViewById(R.id.absenden);
         button.setOnClickListener(new View.OnClickListener(){
            public void onClick(View v){
@@ -46,7 +46,9 @@ public class Login_fragment extends Fragment {
         }
         );
         return view;
-    }public void buttonclicked() throws RiGException {
+    }
+
+    public void buttonclicked() throws RiGException {
         activityCommander.get_login_data(Username.getText().toString(),Password.getText().toString());
     }
 

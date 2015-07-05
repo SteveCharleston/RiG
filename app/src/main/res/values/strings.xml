@@ -28,4 +28,13 @@
     <string name="bewertung">Bewertung</string>
     <string name="title_activity_test_submit">TestSubmit</string>
     <string name="title_activity_testbeschreibung">Testbeschreibung</string>
+    <string name="title_activity_round_statistic">RoundStatistic</string>
+    <string name="title_activity_activity_start_delegator">
+        ActivityStartDelegator
+    </string>
+    <string name="action_logout">Ausloggen</string>
+    <string name="title_activity_info">Info</string>
+    <string name="app_version">App-Version</string>
+    <string name="entwicklung">Entwicklung</string>
+    <string name="about">Über</string>
 </resources>

@@ -65,7 +65,6 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
                 return null;
 
             }
-
             else {
 
                 if(e instanceof NoUserException){
@@ -77,15 +76,7 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
                 }
 
             }
-
-
         }
-        return apikey;
-    }
-
-    @Override
-    protected void onPostExecute(String apikey) {
-        super.onPostExecute(apikey);
 
         SharedPreferences sharedPref = app.getSharedPreferences(
                 app.getString(R.string.global_prefs),
@@ -95,5 +86,11 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
         editor.putString("APIKEY", apikey);
         editor.commit();
 
+        return apikey;
+    }
+
+    @Override
+    protected void onPostExecute(String apikey) {
+        super.onPostExecute(apikey);
     }
 }
