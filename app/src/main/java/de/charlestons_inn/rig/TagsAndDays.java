@@ -68,7 +68,8 @@ public class TagsAndDays extends Fragment {
     public void setChosenTag(String tag) {
         TextView tags = (TextView) getActivity()
                 .findViewById(R.id.show_tags);
-        String tagsText = (String) tags.getText();
+        //String tagsText = (String) tags.getText();
+        String tagsText = TextUtils.join(",", currentBand.getTags());
 
         tag = "<b>" + tag + "</b>";
 
