@@ -24,22 +24,13 @@ import rigAPI.RigDBAccess;
 
 public class Bandsuche extends ActionBarActivity {
 
-    @Override
+     RigDBAccess rig=new RigDBAccess();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandsuche);
-        RigDBAccess rig=new RigDBAccess();
-        RigBand band=null;
-        String query="";
-        Intent intent=getIntent();
-        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            query = intent.getStringExtra(SearchManager.QUERY);
-
-        }
-
 
         try {
-           String  apiKey = new AsyncAuthenticate(this, rig)
+            String  apiKey = new AsyncAuthenticate(this, rig)
                     .execute("user1", "password1")
                     .get();
 
@@ -50,29 +41,53 @@ public class Bandsuche extends ActionBarActivity {
             e.printStackTrace();
         }
 
-             String [] Namen= new String[1];
-
-           try {
-                band =new AsyncGetBand(this,rig).execute(1).get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            if((band.getName().startsWith(query))){
-                Namen[0]= band.getName();
-            }
-        else{
-                Namen[0]= new String("");
-
-            }
-
-        ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
-        ListView view_Namen= (ListView)findViewById(R.id.listView);
-        view_Namen.setAdapter(Namen_adapter);
+        Intent intent=getIntent();
+        handleIntent(intent,rig);
 
     }
+    public void handleIntent(Intent intent, RigDBAccess rig){
+        RigBand band=null;
+        String query=" ";
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            query = intent.getStringExtra(SearchManager.QUERY);
 
+        }
+
+        String [] Namen= new String[10];
+
+            int i=1;
+            while(i<10){
+               try {
+
+                   band= new AsyncGetBand(this,rig).execute(i).get();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }/* if(band.getName().startsWith(query)){
+                    Namen[i-1]= band.getName();
+                }
+                else{
+                    Namen[i-1]="";
+                }
+                i++;*/
+            }
+
+
+        /*ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
+        ListView view_Namen= (ListView)findViewById(R.id.listView);
+        view_Namen.setAdapter(Namen_adapter);*/
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(rig==null){
+            return;
+        }
+        handleIntent(intent,rig);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +99,8 @@ public class Bandsuche extends ActionBarActivity {
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryRefinementEnabled(true);
 
         return true;
 
