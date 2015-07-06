@@ -18,6 +18,7 @@ public class AsyncGetToplist
     public AsyncGetToplist(Activity activity, RigDBAccess rig) {
         this.activity = activity;
         this.rig = rig;
+
     }
 
     @Override
