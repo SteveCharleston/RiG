@@ -96,7 +96,7 @@
                 android:src="@drawable/youtube"
                 android:background="@drawable/rounded_button"
                 android:layout_weight="0.13"
-                android:clickable="false"
+                android:clickable="true"
                 android:visibility="visible"
                 android:backgroundTint="#00000000" />
 
@@ -108,7 +108,8 @@
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/soundscloud"
                 android:layout_weight="0.16"
-                android:backgroundTint="#00000000" />
+                android:backgroundTint="#00000000"
+                android:clickable="true" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -118,7 +119,8 @@
                 android:src="@drawable/fb"
                 android:id="@+id/facebook"
                 android:layout_weight="0.13"
-                android:backgroundTint="#00000000" />
+                android:backgroundTint="#00000000"
+                android:clickable="true" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -128,7 +130,8 @@
                 android:src="@drawable/backstage_pro"
                 android:id="@+id/backstage"
                 android:layout_weight="0.13"
-                android:backgroundTint="#00000000" />
+                android:backgroundTint="#00000000"
+                android:clickable="true" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -137,7 +140,8 @@
                 android:src="@drawable/homepage"
                 android:id="@+id/homepage"
                 android:layout_weight="0.13"
-                android:backgroundTint="#00000000" />
+                android:backgroundTint="#00000000"
+                android:clickable="true" />
         </LinearLayout>
 
 
@@ -157,7 +161,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:text="zusätzliche Dateien"
-            android:id="@+id/textView5"
+            android:id="@+id/dateien"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
