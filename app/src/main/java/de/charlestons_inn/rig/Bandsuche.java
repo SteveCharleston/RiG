@@ -95,8 +95,7 @@ public class Bandsuche extends ActionBarActivity {
                     SearchResultBand result =bands.get(position);
                     Intent bandbeschreibung= new Intent(getApplicationContext(),Testbeschreibung.class);
                     int band_id=result.getId();
-                    Toast.makeText(getApplicationContext(),""+position,Toast.LENGTH_LONG).show();
-                    bandbeschreibung.putExtra("BandId",1);
+                    bandbeschreibung.putExtra("BandId",band_id);
                     startActivity(bandbeschreibung);
 
                 }
