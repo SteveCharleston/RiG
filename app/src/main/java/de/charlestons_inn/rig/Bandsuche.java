@@ -51,7 +51,7 @@ public class Bandsuche extends ActionBarActivity {
 
     }
     public void handleIntent(Intent intent, RigDBAccess rig) {
-        String query="Rever";
+        String query="     ";
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 

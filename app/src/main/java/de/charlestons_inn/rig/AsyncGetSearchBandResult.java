@@ -22,9 +22,8 @@ public class AsyncGetSearchBandResult extends AsyncTask<String,Integer,RigBandSe
     protected RigBandSearchResult doInBackground(String... params) {
         String query=null;
         RigBandSearchResult rigBandSearchResult=null;
-        if (params.length == 1) {
             query = params[0];
-        }
+
         try {
             rigBandSearchResult=rig.searchBand(query);
         } catch (RiGException e) {
