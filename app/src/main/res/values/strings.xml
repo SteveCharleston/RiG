@@ -16,7 +16,7 @@
 
     <string name= "app_name">RiG Bandhören</string>
     <string name= "text">App zum Band hören</string>
-    <string name="Username">Username</string>
+    <string name="Username">Benutzername</string>
     <string name= "Passwort">Passwort</string>
     <string name= "Absenden">absenden</string>
     <string name= "popup">Error!</string>

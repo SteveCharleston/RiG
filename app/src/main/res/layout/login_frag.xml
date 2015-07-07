@@ -7,8 +7,13 @@
     android:layout_height="wrap_content"
     android:hint="@string/Username"
     android:width="300dp"
+    android:textSize="16dp"
+    android:textColor="@color/login_text"
+    android:textColorHint="@color/grey"
     android:shadowColor="@color/rig_green"
     android:backgroundTint="@color/rig_green"
+    android:nextFocusForward="@+id/Passwort"
+    android:nextFocusDown="@+id/Passwort"
     android:layout_below="@+id/textView"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
@@ -19,7 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/Passwort"
+        android:textColor="@color/login_text"
+        android:textColorHint="@color/grey"
         android:width="300dp"
+        android:textSize="16dp"
         android:shadowColor="@color/rig_green"
         android:singleLine="false"
         android:backgroundTint="@color/rig_green"
@@ -42,18 +50,5 @@
         android:textColor="@color/rig_green"
         android:background="#ff414042"
          />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="@string/logo_text"
-        android:id="@+id/textView"
-        android:textColor="#F1F2F2"
-        android:textSize="23sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

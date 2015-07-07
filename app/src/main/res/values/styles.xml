@@ -88,6 +88,11 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="EditTextAppTheme" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
     <style name="rigRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">
             @drawable/rig_ratingbar_full
@@ -103,6 +108,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:editTextStyle">@style/EditTextAppTheme</item>
         <item name="actionBarStyle">@style/ActionBar</item>
 
     </style>

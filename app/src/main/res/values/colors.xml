@@ -15,6 +15,8 @@
     <color name="white">#ffffff</color>
     <color name="rig_green">#99C010</color>
     <color name="bandname">#808285</color>
+    <color name="login_hint">#808285</color>
     <color name="black_alpha">#22000000</color>
     <color name="rounded_button">#e6e7e8</color>
+    <color name="login_text">#e6e7e8</color>
 </resources>
