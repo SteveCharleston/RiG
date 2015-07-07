@@ -13,8 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import rigAPI.RiGException;
@@ -41,27 +43,45 @@ public class Bandsuche extends ActionBarActivity {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+
         }
 
         Intent intent=getIntent();
-        try {
-            handleIntent(intent,rig);
-        } catch (RiGException e) {
-            e.printStackTrace();
-        }
+        handleIntent(intent,rig);
 
     }
-    public void handleIntent(Intent intent, RigDBAccess rig) throws RiGException {
-        String query=" ";
+    public void handleIntent(Intent intent, RigDBAccess rig) {
+        String query="Rever";
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
         }
+        if(rig==null){
+            return;
+        }
+        RigBandSearchResult results = null;
+        try {
+           results= new AsyncGetSearchBandResult(this,rig).execute(query).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if(results==null){
+            Toast.makeText(this,"List nicht abrufbar",Toast.LENGTH_LONG).show();
+            return;
 
-        RigBandSearchResult results=rig.searchBand(query);
 
-        String [] Namen= new String[1];
-        Namen[1]= new String(results.toString());
+        }
+        List<SearchResultBand> bands=results.getBands();
+
+        int length=bands.size();
+        String [] Namen= new String[length];
+        int i=0;
+        for(SearchResultBand s:bands){
+
+           Namen[i]=s. getName();
+        }
         ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);
@@ -73,11 +93,7 @@ public class Bandsuche extends ActionBarActivity {
         if(rig==null){
             return;
         }
-        try {
-            handleIntent(intent,rig);
-        } catch (RiGException e) {
-            e.printStackTrace();
-        }
+        handleIntent(intent,rig);
     }
 
     @Override
