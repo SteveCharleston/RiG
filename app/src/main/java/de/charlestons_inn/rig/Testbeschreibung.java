@@ -32,6 +32,8 @@ public class Testbeschreibung extends ActionBarActivity implements Bandbeschreib
         RigDBAccess rig=new RigDBAccess();
         RigBand band = null;
         setContentView(R.layout.activity_test_bandbeschreibung);
+
+
         try {
             band=getBand(18,rig);
         } catch (RiGException e) {
@@ -50,11 +52,27 @@ public class Testbeschreibung extends ActionBarActivity implements Bandbeschreib
     }
     public RigBand getBand(int nummer,RigDBAccess rig) throws RiGException {
         String error="";
+        boolean called=false;
+        int band_id=0;
+        Bundle suche = getIntent().getExtras();
+        if(suche==null){
+            called=false;
+        }
+        else{
+            band_id= suche.getInt("BandId");
+            called=true;
+        }
         RigBand band=null;
         try {
             new AsyncAuthenticate(this, rig)
                     .execute("user1", "password1") .get();
-            band=new AsyncGetBand(this,rig).execute(nummer).get();
+            if(called){
+                band=new AsyncGetBand(this,rig).execute(band_id).get();
+            }
+            else {
+                band=new AsyncGetBand(this,rig).execute(nummer).get();
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,6 +31,7 @@ import rigAPI.SearchResultBand;
 public class Bandsuche extends ActionBarActivity {
 
      RigDBAccess rig=new RigDBAccess();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandsuche);
@@ -45,7 +48,6 @@ public class Bandsuche extends ActionBarActivity {
             e.printStackTrace();
 
         }
-
         Intent intent=getIntent();
         handleIntent(intent,rig);
 
@@ -62,9 +64,6 @@ public class Bandsuche extends ActionBarActivity {
         RigBandSearchResult results = null;
         try {
             AsyncGetSearchBandResult async=new AsyncGetSearchBandResult(this,rig);
-            if(async==null){
-                Toast.makeText(this,"async=null",Toast.LENGTH_LONG).show();
-            }
            results= async.execute(query).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -72,12 +71,11 @@ public class Bandsuche extends ActionBarActivity {
             e.printStackTrace();
         }
         if(results==null){
-            Toast.makeText(this,"List nicht abrufbar",Toast.LENGTH_LONG).show();
             return;
 
 
         }
-        List<SearchResultBand> bands=results.getBands();
+        final List<SearchResultBand> bands=results.getBands();
 
         int length=bands.size();
         String [] Namen= new String[length];
@@ -87,10 +85,23 @@ public class Bandsuche extends ActionBarActivity {
            Namen[i]=s. getName();
             i++;
         }
-
         ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
-        view_Namen.setAdapter(Namen_adapter);/**/
+        view_Namen.setAdapter(Namen_adapter);
+        view_Namen.setOnItemClickListener(
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    SearchResultBand result =bands.get(position);
+                    Intent bandbeschreibung= new Intent(getApplicationContext(),Testbeschreibung.class);
+                    int band_id=result.getId();
+                    Toast.makeText(getApplicationContext(),""+position,Toast.LENGTH_LONG).show();
+                    bandbeschreibung.putExtra("BandId",1);
+                    startActivity(bandbeschreibung);
+
+                }
+            }
+        );
     }
 
     @Override
