@@ -46,6 +46,7 @@ public class RigBand extends ClassFromXML implements Serializable {
     private String woher;
     private List<Picture> pictures;
     private List<Song> songs;
+    private List<String> files;
     private List<String> voters;
     private List<String> tags;
 
@@ -164,6 +165,11 @@ public class RigBand extends ClassFromXML implements Serializable {
         NodeList songEntities = getChildEntities("songs");
         for (int i = 0; i < songEntities.getLength(); i++) {
             songs.add(instSong(songEntities.item(i)));
+        }
+        files = new ArrayList<String>();
+        NodeList fileEntities = getChildEntities("files");
+        for (int i = 0; i < fileEntities.getLength(); i++) {
+            files.add(fileEntities.item(i).getTextContent());
         }
 
         voters = new ArrayList<String>();
@@ -331,6 +337,10 @@ public class RigBand extends ClassFromXML implements Serializable {
 
     public List<Song> getSongs() {
         return songs;
+    }
+
+    public List<String> getFiles() {
+        return files;
     }
 
     public List<String> getVoters() {
