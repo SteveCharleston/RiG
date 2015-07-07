@@ -60,8 +60,8 @@ public class Bandsuche extends ActionBarActivity {
 
         RigBandSearchResult results=rig.searchBand(query);
 
-        String [] Namen= new String[10];
-
+        String [] Namen= new String[1];
+        Namen[1]= new String(results.toString());
         ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);

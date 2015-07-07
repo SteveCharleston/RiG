@@ -44,6 +44,10 @@ public class RigBandSearchResult
         }
     }
 
+    public List<SearchResultBand> getBands() {
+        return bands;
+    }
+
     @Override
     public String toString() {
         return "RigBandSearchResult{" +
