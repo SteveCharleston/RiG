@@ -19,7 +19,9 @@ import java.util.concurrent.ExecutionException;
 
 import rigAPI.RiGException;
 import rigAPI.RigBand;
+import rigAPI.RigBandSearchResult;
 import rigAPI.RigDBAccess;
+import rigAPI.SearchResultBand;
 
 
 public class Bandsuche extends ActionBarActivity {
@@ -42,42 +44,27 @@ public class Bandsuche extends ActionBarActivity {
         }
 
         Intent intent=getIntent();
-        handleIntent(intent,rig);
+        try {
+            handleIntent(intent,rig);
+        } catch (RiGException e) {
+            e.printStackTrace();
+        }
 
     }
-    public void handleIntent(Intent intent, RigDBAccess rig){
-        RigBand band=null;
+    public void handleIntent(Intent intent, RigDBAccess rig) throws RiGException {
         String query=" ";
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
         }
 
+        RigBandSearchResult results=rig.searchBand(query);
+
         String [] Namen= new String[10];
 
-            int i=1;
-            while(i<10){
-               try {
-
-                   band= new AsyncGetBand(this,rig).execute(i).get();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }/* if(band.getName().startsWith(query)){
-                    Namen[i-1]= band.getName();
-                }
-                else{
-                    Namen[i-1]="";
-                }
-                i++;*/
-            }
-
-
-        /*ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
+        ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
-        view_Namen.setAdapter(Namen_adapter);*/
+        view_Namen.setAdapter(Namen_adapter);
     }
 
     @Override
@@ -86,7 +73,11 @@ public class Bandsuche extends ActionBarActivity {
         if(rig==null){
             return;
         }
-        handleIntent(intent,rig);
+        try {
+            handleIntent(intent,rig);
+        } catch (RiGException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
