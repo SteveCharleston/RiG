@@ -13,13 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import rigAPI.RiGException;
 import rigAPI.RigBand;
+import rigAPI.RigBandSearchResult;
 import rigAPI.RigDBAccess;
+import rigAPI.SearchResultBand;
 
 
 public class Bandsuche extends ActionBarActivity {
@@ -39,45 +43,54 @@ public class Bandsuche extends ActionBarActivity {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+
         }
 
         Intent intent=getIntent();
         handleIntent(intent,rig);
 
     }
-    public void handleIntent(Intent intent, RigDBAccess rig){
-        RigBand band=null;
-        String query=" ";
+    public void handleIntent(Intent intent, RigDBAccess rig) {
+        String query="     ";
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
         }
-
-        String [] Namen= new String[10];
-
-            int i=1;
-            while(i<10){
-               try {
-
-                   band= new AsyncGetBand(this,rig).execute(i).get();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }/* if(band.getName().startsWith(query)){
-                    Namen[i-1]= band.getName();
-                }
-                else{
-                    Namen[i-1]="";
-                }
-                i++;*/
+        if(rig==null){
+            return;
+        }
+        RigBandSearchResult results = null;
+        try {
+            AsyncGetSearchBandResult async=new AsyncGetSearchBandResult(this,rig);
+            if(async==null){
+                Toast.makeText(this,"async=null",Toast.LENGTH_LONG).show();
             }
+           results= async.execute(query).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if(results==null){
+            Toast.makeText(this,"List nicht abrufbar",Toast.LENGTH_LONG).show();
+            return;
 
 
-        /*ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
+        }
+        List<SearchResultBand> bands=results.getBands();
+
+        int length=bands.size();
+        String [] Namen= new String[length];
+        int i=0;
+        for(SearchResultBand s:bands){
+
+           Namen[i]=s. getName();
+            i++;
+        }
+
+        ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
-        view_Namen.setAdapter(Namen_adapter);*/
+        view_Namen.setAdapter(Namen_adapter);/**/
     }
 
     @Override
