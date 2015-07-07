@@ -61,7 +61,11 @@ public class Bandsuche extends ActionBarActivity {
         }
         RigBandSearchResult results = null;
         try {
-           results= new AsyncGetSearchBandResult(this,rig).execute(query).get();
+            AsyncGetSearchBandResult async=new AsyncGetSearchBandResult(this,rig);
+            if(async==null){
+                Toast.makeText(this,"async=null",Toast.LENGTH_LONG).show();
+            }
+           results= async.execute(query).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -81,10 +85,12 @@ public class Bandsuche extends ActionBarActivity {
         for(SearchResultBand s:bands){
 
            Namen[i]=s. getName();
+            i++;
         }
+
         ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
-        view_Namen.setAdapter(Namen_adapter);
+        view_Namen.setAdapter(Namen_adapter);/**/
     }
 
     @Override

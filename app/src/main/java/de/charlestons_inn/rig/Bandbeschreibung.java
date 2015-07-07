@@ -88,8 +88,6 @@ public class Bandbeschreibung  extends Fragment{
          ImageButton homepage =(ImageButton) view.findViewById(R.id.homepage);
           setButtonURLOrHide(currentBand,homepage,"homepage");
 
-
-
         return view;
 
     }

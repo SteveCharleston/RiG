@@ -2,6 +2,7 @@ package de.charlestons_inn.rig;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import rigAPI.RiGException;
 import rigAPI.RigBandSearchResult;
@@ -10,7 +11,7 @@ import rigAPI.RigDBAccess;
 /**
  * Created by Lennox on 07/07/2015.
  */
-public class AsyncGetSearchBandResult extends AsyncTask<String,Integer,RigBandSearchResult> {
+public class AsyncGetSearchBandResult extends AsyncTask<String,Void,RigBandSearchResult> {
     private RigDBAccess rig;
     private Activity app;
     public AsyncGetSearchBandResult(Activity app, RigDBAccess rig){
@@ -23,6 +24,8 @@ public class AsyncGetSearchBandResult extends AsyncTask<String,Integer,RigBandSe
         String query=null;
         RigBandSearchResult rigBandSearchResult=null;
             query = params[0];
+        if(query==null){
+        }
 
         try {
             rigBandSearchResult=rig.searchBand(query);
