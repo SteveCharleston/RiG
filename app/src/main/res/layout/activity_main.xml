@@ -14,10 +14,9 @@
         android:name="de.charlestons_inn.rig.Logo_fragment"
         android:id="@+id/fragment"
         tools:layout="@layout/logo_frag"
+        android:layout_marginTop="49dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,8 +26,8 @@
         android:textColor="#F1F2F2"
         android:textSize="20dp"
         android:layout_below="@+id/fragment"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/fragment"
+        android:layout_alignStart="@+id/fragment" />
 
     <fragment
         android:layout_width="wrap_content"
@@ -36,11 +35,9 @@
         android:name="de.charlestons_inn.rig.Login_fragment"
         android:id="@+id/fragment2"
         tools:layout="@layout/login_frag"
-        android:layout_below="@+id/textView"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"
-        />
+        android:layout_alignParentStart="true" />
 
     <fragment
         android:layout_width="wrap_content"
