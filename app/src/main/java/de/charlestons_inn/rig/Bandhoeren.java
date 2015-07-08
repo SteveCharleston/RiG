@@ -3,6 +3,7 @@ package de.charlestons_inn.rig;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class Bandhoeren extends ActionBarActivity
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);
         bundle.putSerializable("currentBand", currentBand);
+        bundle.putSerializable("band", currentBand);
 
         TextView bandname = (TextView) findViewById(R.id.bandname);
         bandname.setText(currentBand.getName());
@@ -71,6 +73,10 @@ public class Bandhoeren extends ActionBarActivity
         Button accTagsAndDays
                 = (Button) findViewById(R.id.accordion_tags_and_days);
 
+
+        Bandbeschreibung description = new Bandbeschreibung();
+        description.setArguments(bundle);
+
         TagsAndDays tagsAndDays = new TagsAndDays();
         tagsAndDays.setArguments(bundle);
 
@@ -79,6 +85,8 @@ public class Bandhoeren extends ActionBarActivity
 
         getFragmentManager().beginTransaction()
                 .add(R.id.musicplayer, playerList).commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.bandbeschreibung, description).commit();
         getFragmentManager().beginTransaction()
                 .add(R.id.tags_and_days, tagsAndDays).commit();
         getFragmentManager().beginTransaction()
@@ -134,6 +142,23 @@ public class Bandhoeren extends ActionBarActivity
         tagChooser.show(fm, "HILFE!");
     }
 
+    public void onClickAccordionBandbeschreibung(View v) {
+        FrameLayout bandbeschreibungLay = (FrameLayout) v
+                .getRootView()
+                .findViewById(R.id.bandbeschreibung);
+
+        if (bandbeschreibungLay.getVisibility() == View.VISIBLE) {
+            bandbeschreibungLay.animate()
+                    .alpha(0.0f);
+            bandbeschreibungLay.setVisibility(View.GONE);
+        } else {
+            bandbeschreibungLay.setVisibility(View.VISIBLE);
+            bandbeschreibungLay.setAlpha(0.0f);
+            bandbeschreibungLay.animate()
+                    .alpha(1.0f);
+        }
+    }
+
     public void onClickAccordionTagsAndDays(View v) {
         FrameLayout tagsAndDaysLay = (FrameLayout) v
                 .getRootView()
@@ -162,7 +187,5 @@ public class Bandhoeren extends ActionBarActivity
         TagsAndDays tagsAndDays = (TagsAndDays) getFragmentManager()
                 .findFragmentById(R.id.tags_and_days);
         tagsAndDays.setChosenTag(tag);
-
-
     }
 }
