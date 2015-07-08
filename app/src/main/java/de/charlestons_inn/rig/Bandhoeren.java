@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.concurrent.ExecutionException;
 
+import rigAPI.Day;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.RigSettings;
@@ -26,13 +27,19 @@ import rigAPI.RigStatistic;
 
 
 public class Bandhoeren extends ActionBarActivity
-        implements TagChooserFragment.onTagSelectedListener {
+        implements TagChooserFragment.onTagSelectedListener,
+                    SubmitFragment.SubmitAllData {
     RigDBAccess rig = null;
+    private TagChooserFragment tagChooser;
+    private SubmitFragment submitFragment;
+    private RigBand currentBand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
+        Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
+        Integer bandNr = getIntent().getIntExtra("bandNr", -1);
 
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.global_prefs),
@@ -40,13 +47,17 @@ public class Bandhoeren extends ActionBarActivity
         String apiKey = sharedPref.getString("APIKEY", null);
 
         rig = new RigDBAccess(apiKey);
-        RigBand currentBand = null;
+        currentBand = null;
         RigStatistic statistic = null;
 
         try {
 //            new AsyncAuthenticate(this, rig)
 //                    .execute("user1", "password1") .get();
-            currentBand = new AsyncGetBand(this, rig).execute(1).get();
+            if (bandNr > -1) {
+                currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
+            } else {
+                currentBand = new AsyncGetBand(this, rig).execute().get();
+            }
             statistic = new AsyncGetStatistic(this, rig).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -80,7 +91,7 @@ public class Bandhoeren extends ActionBarActivity
         TagsAndDays tagsAndDays = new TagsAndDays();
         tagsAndDays.setArguments(bundle);
 
-        SubmitFragment submitFragment = new SubmitFragment();
+        submitFragment = new SubmitFragment();
         submitFragment.setArguments(bundle);
 
         getFragmentManager().beginTransaction()
@@ -125,6 +136,22 @@ public class Bandhoeren extends ActionBarActivity
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, Info.class);
             startActivity(intent);
+        } else if (id == R.id.band1) {
+            Intent i = new Intent(this, Bandhoeren.class);
+            i.putExtra("bandNr", 2);
+            startActivity(i);
+        } else if (id == R.id.band2) {
+            Intent i = new Intent(this, Bandhoeren.class);
+            i.putExtra("bandNr", 4);
+            startActivity(i);
+        } else if (id == R.id.band3) {
+            Intent i = new Intent(this, Bandhoeren.class);
+            i.putExtra("bandNr", 6);
+            startActivity(i);
+        } else if (id == R.id.band4) {
+            Intent i = new Intent(this, Bandhoeren.class);
+            i.putExtra("bandNr", 11);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
@@ -135,7 +162,7 @@ public class Bandhoeren extends ActionBarActivity
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);
 
-        TagChooserFragment tagChooser = new TagChooserFragment();
+        tagChooser = new TagChooserFragment();
         tagChooser.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -187,5 +214,19 @@ public class Bandhoeren extends ActionBarActivity
         TagsAndDays tagsAndDays = (TagsAndDays) getFragmentManager()
                 .findFragmentById(R.id.tags_and_days);
         tagsAndDays.setChosenTag(tag);
+    }
+
+    @Override
+    public void submitAllData(View v) {
+        int bandNr = currentBand.getId();
+        int tagID = tagChooser.getTagID();
+        int rating = submitFragment.getRatingbar();
+        Day playDay = submitFragment.getDays();
+        new AsyncSubmitTag(this, rig).execute(bandNr, tagID);
+        new AsyncSubmitDay(this, rig).execute(bandNr, playDay);
+        new AsyncSubmitRating(this, rig).execute(bandNr, rating);
+        Intent i = new Intent(this, Bandhoeren.class);
+        startActivity(i);
+        finish();
     }
 }

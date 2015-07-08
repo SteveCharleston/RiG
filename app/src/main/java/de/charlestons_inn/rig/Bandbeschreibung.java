@@ -48,7 +48,7 @@ public class Bandbeschreibung  extends Fragment {
         String stilrichtung = currentBand.getMusikstil();
 
         Document  d = currentBand.getDoc();
-        String zusatz_dateien =  d.getTextContent();
+        String zusatz_dateien = "keine";
 
         TextView text_beschreibung = (TextView) view.findViewById(R.id.beschreibung);
         text_beschreibung.setText(beschreibung);

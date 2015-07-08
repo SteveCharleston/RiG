@@ -36,7 +36,7 @@ public class Testbeschreibung extends ActionBarActivity {
         }
 
         try {
-            band=getBand(9,rig);
+            band=getBand(10,rig);
         } catch (RiGException e) {
             e.printStackTrace();
         }

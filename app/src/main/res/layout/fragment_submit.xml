@@ -28,7 +28,7 @@
                 style="@style/rigCheckbox"
                 android:paddingLeft="24dip"
                 android:text="Fr"
-                android:id="@+id/checkBox" />
+                android:id="@+id/checkBoxFr" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                 android:layout_marginLeft="24dip"
                 android:paddingLeft="24dip"
                 android:text="Sa"
-                android:id="@+id/checkBox2"
+                android:id="@+id/checkBoxSa"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -49,6 +49,7 @@
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:stepSize="1.0"
                 style="@style/rigRatingBar"
                 android:id="@+id/ratingBar" />
 
@@ -56,6 +57,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Absenden"
+                android:textColorLink="@color/accent_green"
+                android:textColor="@color/rig_green"
+                android:background="#ff414042"
+                android:onClick="submitAllData"
                 android:id="@+id/submit_button" />
 
         </LinearLayout>
