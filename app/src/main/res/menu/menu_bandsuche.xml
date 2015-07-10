@@ -6,7 +6,7 @@
     <item android:id="@+id/search"
         android:title="@string/search_title"
         android:icon="@drawable/search"
-        app:showAsAction="collapseActionView|ifRoom"
+        app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
