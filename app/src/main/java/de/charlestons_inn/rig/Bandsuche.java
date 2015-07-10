@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -85,7 +86,8 @@ public class Bandsuche extends ActionBarActivity {
            Namen[i]=s. getName();
             i++;
         }
-        ListAdapter Namen_adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,Namen);
+        Arrays.sort(Namen);
+        ListAdapter Namen_adapter= new SuchAdapter(this,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);
         view_Namen.setOnItemClickListener(
@@ -121,7 +123,7 @@ public class Bandsuche extends ActionBarActivity {
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+            searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryRefinementEnabled(true);
 

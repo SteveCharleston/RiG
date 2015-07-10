@@ -40,7 +40,7 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             bandName.setText(bands.getName());
             tags.setText(bands.getMusikstil());
             points.setText(Double.toString(bands.getResult()));
-            //TODO wo bekomm ich das Geschlecht des Sänger/in her?
+            //TODO wo bekomm ich das Geschlecht des Saenger/in her?
 
             // Return the completed view to render on screen
             return convertView;
