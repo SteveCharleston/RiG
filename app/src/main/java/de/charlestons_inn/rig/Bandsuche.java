@@ -95,9 +95,9 @@ public class Bandsuche extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SearchResultBand result =bands.get(position);
-                    Intent bandhoeren= new Intent(getApplicationContext(),Testbeschreibung.class);
+                    Intent bandhoeren= new Intent(getApplicationContext(),Bandhoeren.class);
                     int band_id=result.getId();
-                    bandhoeren.putExtra("BandId",band_id);
+                    bandhoeren.putExtra("bandNr",band_id);
                     startActivity(bandhoeren);
 
                 }

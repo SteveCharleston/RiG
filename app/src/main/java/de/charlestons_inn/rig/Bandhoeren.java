@@ -33,14 +33,12 @@ public class Bandhoeren extends ActionBarActivity
     private TagChooserFragment tagChooser;
     private SubmitFragment submitFragment;
     private RigBand currentBand;
-    boolean called;
-   int  band_id=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
-        Bundle suche = getIntent().getExtras();
         Integer bandNr = getIntent().getIntExtra("bandNr", -1);
 
         SharedPreferences sharedPref = getSharedPreferences(
@@ -156,7 +154,7 @@ public class Bandhoeren extends ActionBarActivity
             startActivity(i);
         }
         else if(id==R.id.action_search){
-            Intent bandsuche= new Intent(getApplicationContext(),Bandsuche.class);
+            Intent bandsuche= new Intent(this,Bandsuche.class);
             startActivity(bandsuche);
         }
 
