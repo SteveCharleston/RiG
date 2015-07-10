@@ -153,6 +153,10 @@ public class Bandhoeren extends ActionBarActivity
             i.putExtra("bandNr", 11);
             startActivity(i);
         }
+        else if(id==R.id.action_search){
+            Intent bandsuche= new Intent(this,Bandsuche.class);
+            startActivity(bandsuche);
+        }
 
         return super.onOptionsItemSelected(item);
     }

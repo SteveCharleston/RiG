@@ -90,8 +90,8 @@
                 android:id="@+id/gender"
                 android:src="@drawable/male"
                 android:layout_below="@+id/gesang_bild"
-                android:layout_alignRight="@+id/gesang_bild"
-                android:layout_alignEnd="@+id/gesang_bild" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
 
             <TextView

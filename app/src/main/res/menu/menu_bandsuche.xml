@@ -6,6 +6,10 @@
     <item android:id="@+id/search"
         android:title="@string/search_title"
         android:icon="@drawable/search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:shadowColor="@color/rig_green"
+        android:backgroundTint="@color/rig_green"/>
 </menu>
