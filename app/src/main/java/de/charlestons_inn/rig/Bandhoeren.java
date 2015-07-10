@@ -33,12 +33,21 @@ public class Bandhoeren extends ActionBarActivity
     private TagChooserFragment tagChooser;
     private SubmitFragment submitFragment;
     private RigBand currentBand;
-
+    boolean called=false;
+   int  band_id=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
+        Bundle suche = getIntent().getExtras();
+        if(suche==null){
+            called=false;
+        }
+        else{
+            band_id= suche.getInt("BandId");
+            called=true;
+        }
         Integer bandNr = getIntent().getIntExtra("bandNr", -1);
 
         SharedPreferences sharedPref = getSharedPreferences(
@@ -53,17 +62,24 @@ public class Bandhoeren extends ActionBarActivity
         try {
 //            new AsyncAuthenticate(this, rig)
 //                    .execute("user1", "password1") .get();
-            if (bandNr > -1) {
-                currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
-            } else {
-                currentBand = new AsyncGetBand(this, rig).execute().get();
+            if(called){
+                currentBand = new AsyncGetBand(this, rig).execute(band_id).get();
+            }
+            else {
+                if (bandNr > -1) {
+                    currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
+                } else {
+                    currentBand = new AsyncGetBand(this, rig).execute().get();
+                }
             }
             statistic = new AsyncGetStatistic(this, rig).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+
         }
+
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
@@ -152,6 +168,10 @@ public class Bandhoeren extends ActionBarActivity
             Intent i = new Intent(this, Bandhoeren.class);
             i.putExtra("bandNr", 11);
             startActivity(i);
+        }
+        else if(id==R.id.action_search){
+            Intent bandsuche= new Intent(getApplicationContext(),Bandsuche.class);
+            startActivity(bandsuche);
         }
 
         return super.onOptionsItemSelected(item);
