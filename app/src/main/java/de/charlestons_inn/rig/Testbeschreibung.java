@@ -13,14 +13,7 @@ import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
 
-public class Testbeschreibung extends ActionBarActivity implements Bandbeschreibung.Button_listener{
-    @Override
-    public void open_url(String url) {
-        Intent i= new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-
-    }
+public class Testbeschreibung extends ActionBarActivity {
 
     private RigDBAccess rig;
     private RigBand currentBand;
@@ -43,7 +36,7 @@ public class Testbeschreibung extends ActionBarActivity implements Bandbeschreib
         }
 
         try {
-            band=getBand(9,rig);
+            band=getBand(10,rig);
         } catch (RiGException e) {
             e.printStackTrace();
         }

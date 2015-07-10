@@ -129,7 +129,11 @@ public class RigBand extends ClassFromXML implements Serializable {
         voice = getContent("voice");
         gruendung = getContent("gruendung");
         covermusik = getContent("covermusik");
-        titel = Integer.parseInt(getContent("titel"));
+        try {
+            titel = Integer.parseInt(getContent("titel"));
+        } catch (NumberFormatException numberEx) {
+            titel = 0;
+        }
 
         gema = getContent("gema").equals("ja") ? true : false;
 

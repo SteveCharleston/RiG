@@ -25,17 +25,18 @@
     <string name="title_activity_test_player">TestPlayer</string>
     <string name="title_activity_test_player_list">TestPlayerList</string>
     <string name="musikrichtung">Musikrichtung</string>
+    <string name="bandbeschreibung">Bandbeschreibung</string>
     <string name="bewertung">Bewertung</string>
     <string name="title_activity_test_submit">TestSubmit</string>
     <string name="title_activity_testbeschreibung">Testbeschreibung</string>
     <string name="title_activity_round_statistic">RoundStatistic</string>
-    <string name="title_activity_activity_start_delegator"> ActivityStartDelegator
-    </string>
     <string name="search_title">Band suchen</string>
     <string name="search_hint">Bandname</string>
-       <string name="app_label">Bandsuche</string>
+    <string name="app_label">Bandsuche</string>
+    <string name="bandmitglieder">Bandmitglieder</string>
 
     <string name="action_search">Bandsuche</string>
+    <string name="files">Zusätzliche Dateien</string>
     <string name="action_logout">Ausloggen</string>
     <string name="title_activity_info">Info</string>
     <string name="app_version">App-Version</string>

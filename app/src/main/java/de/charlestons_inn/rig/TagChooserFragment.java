@@ -63,7 +63,7 @@ public class TagChooserFragment extends DialogFragment {
                 R.layout.fragment_tag_chooser,
                 container,
                 false);
-        RigSettings rigSettings = null;
+        rigSettings = null;
 
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("apiKey");

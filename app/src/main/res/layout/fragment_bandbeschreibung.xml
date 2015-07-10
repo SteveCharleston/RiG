@@ -1,10 +1,13 @@
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_background"
+        style="@style/bandbeschreibung_fragment"
         android:id="@+id/parent_layout">
+
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="290dp"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/relative_Layout"
@@ -15,160 +18,187 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:text="beschreibung_text"
                 android:id="@+id/beschreibung"
+                style="@style/content_text"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
+
+
             <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="75dp"
-            android:text="mitglider_text"
-            android:id="@+id/mitglieder"
-            android:layout_below="@+id/beschreibung"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bandmitglieder"
+                style="@style/content_heading"
+                android:id="@+id/mitglieder_title"
+                android:layout_below="@+id/beschreibung"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="24dp" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="musikrichtung_text"
-                android:id="@+id/Musikrichtung"
-                android:layout_below="@+id/mitglieder"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="@style/content_text"
+                android:text="mitglider_text"
+                android:id="@+id/mitglieder"
+                android:layout_below="@+id/mitglieder_title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/musikrichtung"
+                style="@style/content_heading"
+                android:id="@+id/musikrichtung_title"
+                android:layout_below="@+id/mitglieder"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="musikrichtung_text"
+                android:id="@+id/Musikrichtung"
+                style="@style/content_text"
+                android:layout_below="@+id/musikrichtung_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gesang"
                 android:id="@+id/gesang_bild"
+                style="@style/content_heading"
                 android:layout_below="@+id/Musikrichtung"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="24dp" />
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/imageView"
+                android:id="@+id/gender"
                 android:src="@drawable/male"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
                 android:layout_below="@+id/gesang_bild"
                 android:layout_alignRight="@+id/gesang_bild"
                 android:layout_alignEnd="@+id/gesang_bild" />
 
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="social Media"
+                android:id="@+id/social_media"
+                style="@style/content_heading"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/gender"
+                android:layout_marginTop="24dp" />
 
+
+            <LinearLayout
+                android:id="@+id/social_buttons"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:layout_below="@+id/social_media"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/youtube"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:src="@drawable/youtube"
+                    android:background="#00000000"
+                    android:layout_weight="0.13"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    android:backgroundTint="#00000000" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_height="match_parent"
+                    android:id="@+id/soundscloud"
+                    android:background="#00000000"
+                    android:src="@drawable/soundscloud"
+                    android:layout_weight="0.16"
+                    android:backgroundTint="#00000000"
+                    android:clickable="true" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_height="match_parent"
+                    android:background="#00000000"
+                    android:src="@drawable/fb"
+                    android:id="@+id/facebook"
+                    android:layout_weight="0.13"
+                    android:backgroundTint="#00000000"
+                    android:clickable="true" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:background="#00000000"
+                    android:src="@drawable/backstage_pro"
+                    android:id="@+id/backstage"
+                    android:layout_weight="0.13"
+                    android:backgroundTint="#00000000"
+                    android:clickable="true" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000"
+                    android:src="@drawable/homepage"
+                    android:id="@+id/homepage"
+                    android:layout_weight="0.13"
+                    android:backgroundTint="#00000000"
+                    android:clickable="true" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/files"
+                android:id="@+id/dateien_title"
+                style="@style/content_heading"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/social_buttons"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="zusätzliche Dateien"
+                android:id="@+id/dateien"
+                android:layout_below="@+id/dateien_title"
+                android:layout_alignBaseline="@+id/Musikrichtung"
+                android:layout_alignBottom="@+id/Musikrichtung"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="social Media"
-            android:id="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/relative_Layout" />
-        <LinearLayout
-            android:id="@+id/linear_layout"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:weightSum="1"
-            android:layout_weight="0.08"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:id="@+id/youtube"
-                style="?android:attr/borderlessButtonStyle"
-                android:src="@drawable/youtube"
-                android:background="@drawable/rounded_button"
-                android:layout_weight="0.13"
-                android:clickable="true"
-                android:visibility="visible"
-                android:backgroundTint="#00000000" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_height="match_parent"
-                android:id="@+id/soundscloud"
-                android:background="@drawable/rounded_button"
-                android:src="@drawable/soundscloud"
-                android:layout_weight="0.16"
-                android:backgroundTint="#00000000"
-                android:clickable="true" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_height="match_parent"
-                android:background="@drawable/rounded_button"
-                android:src="@drawable/fb"
-                android:id="@+id/facebook"
-                android:layout_weight="0.13"
-                android:backgroundTint="#00000000"
-                android:clickable="true" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                style="?android:attr/borderlessButtonStyle"
-                android:background="@drawable/rounded_button"
-                android:src="@drawable/backstage_pro"
-                android:id="@+id/backstage"
-                android:layout_weight="0.13"
-                android:backgroundTint="#00000000"
-                android:clickable="true" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/rounded_button"
-                android:src="@drawable/homepage"
-                android:id="@+id/homepage"
-                android:layout_weight="0.13"
-                android:backgroundTint="#00000000"
-                android:clickable="true" />
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linear_layout"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/relative_Layout2">
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="zusätzliche Dateien"
-            android:id="@+id/dateien"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linear_layout" />
-
-
-    </RelativeLayout>
+    </FrameLayout>
 
 
 

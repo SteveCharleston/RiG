@@ -23,70 +23,69 @@ import org.w3c.dom.Document;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 
-public class Bandbeschreibung  extends Fragment{
-    public Bandbeschreibung(){
-
-    }
-    Button_listener mylistener;
-    public interface Button_listener{
-        public void open_url(String url);
-
-    }
+public class Bandbeschreibung  extends Fragment {
     String beschreibung;
     RigDBAccess rig = new RigDBAccess();
     RigBand currentBand = null;
+
+    public Bandbeschreibung(){
+    }
+
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try{ mylistener= ( Button_listener)activity;
-
-        }catch(ClassCastException e){
-            throw new ClassCastException(activity.toString());
-        }
-
-
     }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view= inflater.inflate(R.layout.fragment_bandbeschreibung, container, false);
+        View view= inflater.inflate(R.layout.fragment_bandbeschreibung, container, false);
+
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("Key");
         rig = (RigDBAccess) bundle.getSerializable("RiG");
         currentBand = (RigBand) bundle.getSerializable("band");
-        String beschreibung = String.format("%s%n%n",TextUtils.join(",", currentBand.getBeschreibung()));
-        String bandmitglieder=String.format("%s%n%s", "Bandmitglieder", TextUtils.join(",", currentBand.getBesetzung()));
-        String stilrichtung=String.format("%s%n%s", "Musikrichtung", currentBand.getMusikstil());
-        Document  d=currentBand.getDoc();
-        String zusatz_dateien= String.format("Zusatzdateien%n%s", d.getTextContent());
-        RigDBAccess rig = new RigDBAccess(apiKey);
+
+        String beschreibung = TextUtils.join(" ", currentBand.getBeschreibung());
+        String bandmitglieder = TextUtils.join(", ", currentBand.getBesetzung());
+        String stilrichtung = currentBand.getMusikstil();
+
+        Document  d = currentBand.getDoc();
+        String zusatz_dateien = "keine";
+
         TextView text_beschreibung = (TextView) view.findViewById(R.id.beschreibung);
         text_beschreibung.setText(beschreibung);
+
         TextView text_bandmitglieder = (TextView) view.findViewById(R.id.mitglieder);
         text_bandmitglieder.setText(bandmitglieder);
+
         TextView text_stilrichtung = (TextView) view.findViewById(R.id.Musikrichtung);
         text_stilrichtung.setText(stilrichtung);
-        TextView text_dateien= (TextView)view.findViewById(R.id.dateien);
+
+        TextView text_dateien = (TextView)view.findViewById(R.id.dateien);
         text_dateien.setText(zusatz_dateien);
 
 
-        String voice= currentBand.getVoice();
-        ImageView image= (ImageView)view.findViewById(R.id.imageView);
+        String voice = currentBand.getVoice();
+        ImageView image = (ImageView)view.findViewById(R.id.gender);
+
         if(voice.equals("male")){
-
             image.setImageResource(R.drawable.male);
-        }
-        else{
-
+        } else {
             image.setImageResource(R.drawable.female);
         }
-         ImageButton youtube= (ImageButton) view.findViewById(R.id.youtube);
-          setButtonURLOrHide(currentBand,youtube,"youtube");
-         ImageButton soundscloud= (ImageButton) view.findViewById(R.id.soundscloud);
-          setButtonURLOrHide(currentBand,soundscloud,"soundscloud");
-         ImageButton facebook= (ImageButton) view.findViewById(R.id.facebook);
-         setButtonURLOrHide(currentBand,facebook,"facebook");
-         ImageButton backstage= (ImageButton) view.findViewById(R.id.backstage);
-         setButtonURLOrHide(currentBand,backstage,"backstage");
-         ImageButton homepage =(ImageButton) view.findViewById(R.id.homepage);
-          setButtonURLOrHide(currentBand,homepage,"homepage");
+
+        ImageButton youtube= (ImageButton) view.findViewById(R.id.youtube);
+        setButtonURLOrHide(currentBand,youtube,"youtube");
+
+        ImageButton soundscloud= (ImageButton) view.findViewById(R.id.soundscloud);
+        setButtonURLOrHide(currentBand,soundscloud,"soundscloud");
+
+        ImageButton facebook= (ImageButton) view.findViewById(R.id.facebook);
+        setButtonURLOrHide(currentBand,facebook,"facebook");
+
+        ImageButton backstage= (ImageButton) view.findViewById(R.id.backstage);
+        setButtonURLOrHide(currentBand,backstage,"backstage");
+
+        ImageButton homepage =(ImageButton) view.findViewById(R.id.homepage);
+        setButtonURLOrHide(currentBand,homepage,"homepage");
 
         return view;
 
@@ -126,8 +125,14 @@ public class Bandbeschreibung  extends Fragment{
 
     }
     public void button_clicked(final String url){
-        mylistener.open_url(url);
+        open_url(url);
 
+    }
+
+    public void open_url(String url) {
+        Intent i= new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
 }
