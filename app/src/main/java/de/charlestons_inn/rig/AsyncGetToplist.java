@@ -3,11 +3,15 @@ package de.charlestons_inn.rig;
 import android.app.Activity;
 import android.os.AsyncTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rigAPI.BadAPIKeyException;
 import rigAPI.Day;
 import rigAPI.RiGException;
 import rigAPI.RigDBAccess;
 import rigAPI.RigToplist;
+import rigAPI.ToplistBand;
 
 
 public class AsyncGetToplist
