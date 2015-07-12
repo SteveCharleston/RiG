@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -41,6 +42,7 @@ public class Bandhoeren extends ActionBarActivity
     private Menu menu;
     String userName;
     Integer bandNr = -1;
+    PlayerListFragment playerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,7 @@ public class Bandhoeren extends ActionBarActivity
         TextView currentRound = (TextView) findViewById(R.id.currentround);
         currentRound.setText("Runde " + currentRoundAPI.toString());
 
-        PlayerListFragment playerList = new PlayerListFragment();
+        playerList = new PlayerListFragment();
         playerList.setArguments(bundle);
 
         Button accTagsAndDays
@@ -179,34 +181,39 @@ public class Bandhoeren extends ActionBarActivity
             editor.remove("APIKEY");
             editor.commit();
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            safelyStartActivity(intent);
             finish();
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, Info.class);
-            startActivity(intent);
+            safelyStartActivity(intent);
         } else if (id == R.id.band1) {
             Intent i = new Intent(this, Bandhoeren.class);
             i.putExtra("bandNr", 2);
-            startActivity(i);
+            safelyStartActivity(i);
         } else if (id == R.id.band2) {
             Intent i = new Intent(this, Bandhoeren.class);
             i.putExtra("bandNr", 4);
-            startActivity(i);
+            safelyStartActivity(i);
         } else if (id == R.id.band3) {
             Intent i = new Intent(this, Bandhoeren.class);
             i.putExtra("bandNr", 6);
-            startActivity(i);
+            safelyStartActivity(i);
         } else if (id == R.id.band4) {
             Intent i = new Intent(this, Bandhoeren.class);
             i.putExtra("bandNr", 11);
-            startActivity(i);
+            safelyStartActivity(i);
         }
         else if(id==R.id.action_search){
             Intent bandsuche= new Intent(this,Bandsuche.class);
-            startActivity(bandsuche);
+            safelyStartActivity(bandsuche);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     public void onClickRoundedButton(View v) {
@@ -265,6 +272,11 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
+    public void safelyStartActivity(Intent intent) {
+        playerList.stopAllPlayers();
+        startActivity(intent);
+    }
+
     @Override
     public void onTagSelected(String tag) {
         TagsAndDays tagsAndDays = (TagsAndDays) getFragmentManager()
@@ -282,7 +294,7 @@ public class Bandhoeren extends ActionBarActivity
         new AsyncSubmitDay(this, rig).execute(bandNr, playDay);
         new AsyncSubmitRating(this, rig).execute(bandNr, rating);
         Intent i = new Intent(this, Bandhoeren.class);
-        startActivity(i);
+        safelyStartActivity(i);
         finish();
     }
 }

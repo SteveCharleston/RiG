@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
@@ -28,6 +31,7 @@ public class PlayerListFragment extends Fragment {
 
     private RigDBAccess rig;
     private RigBand currentBand;
+    private List<PlayerFragment> players = new ArrayList<PlayerFragment>();
 
     public PlayerListFragment() {
         // Required empty public constructor
@@ -70,11 +74,19 @@ public class PlayerListFragment extends Fragment {
             PlayerFragment playerFragment = new PlayerFragment();
             playerFragment.setArguments(fBundle);
             fmTransaction.add(playerList.getId(), playerFragment, i.toString());
+            players.add(playerFragment);
         }
 
         fmTransaction.commit();
 
 
         return fragment;
+    }
+
+    public void stopAllPlayers() {
+        for (int i = 0; i < players.size(); i++) {
+            PlayerFragment player = players.get(i);
+            player.pausePlayer();
+        }
     }
 }

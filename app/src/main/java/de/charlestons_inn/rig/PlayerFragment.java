@@ -145,6 +145,12 @@ public class PlayerFragment extends Fragment {
         return fragment;
     }
 
+    public void pausePlayer() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    }
+
     Runnable run = new Runnable() {
         @Override
         public void run() {
