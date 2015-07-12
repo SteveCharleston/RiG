@@ -41,16 +41,17 @@
                     android:text="Runde 0"
                     android:id="@+id/currentround" />
             </LinearLayout>
+
             <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/pager2"
-                android:layout_above="@+id/musicplayer"
+                android:layout_below="@+id/bandhoeren_header"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="200dp" />
 
             <FrameLayout
                 android:id="@+id/musicplayer"
-                android:layout_below="@+id/bandhoeren_header"
+                android:layout_below="@+id/pager2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
