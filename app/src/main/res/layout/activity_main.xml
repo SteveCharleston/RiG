@@ -39,12 +39,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <fragment
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:name="de.charlestons_inn.rig.Picture_fragment"
-        android:id="@+id/fragment3"
+        android:id="@+id/image"
         tools:layout="@layout/picture_frag"
+        android:background="@drawable/graslinie"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
