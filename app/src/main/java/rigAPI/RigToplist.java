@@ -86,6 +86,10 @@ public class RigToplist
         }
     }
 
+    public List<ToplistBand> getBands() {
+        return bands;
+    }
+
     @Override
     public String toString() {
         return "RigToplist{" +
