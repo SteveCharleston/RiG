@@ -58,6 +58,10 @@
             android:label="@string/title_activity_info" >
         </activity>
         <activity
+            android:name=".TestPictures"
+            android:label="TestPictures" >
+        </activity>
+        <activity
             android:name=".Bandsuche"
             android:label="@string/title_activity_bandsuche" >
             <intent-filter>
