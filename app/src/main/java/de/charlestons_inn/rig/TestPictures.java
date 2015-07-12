@@ -31,7 +31,7 @@ public class TestPictures extends ActionBarActivity {
         rig= new RigDBAccess();
         PicPagerAdapter =
                 new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(rig,6));
+                        getSupportFragmentManager(),showURLBitmap(rig,10));
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(PicPagerAdapter);
 

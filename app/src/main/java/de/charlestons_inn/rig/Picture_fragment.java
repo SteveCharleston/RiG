@@ -18,7 +18,7 @@ public class Picture_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(
-                R.layout.picture_frag, container, false);
+                R.layout.gallerie_frag, container, false);
         Bundle args = getArguments();
 
         Picture pic= (Picture)args.getSerializable(ARG_OBJECT);
