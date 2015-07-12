@@ -1,6 +1,8 @@
 package de.charlestons_inn.rig;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import java.util.AbstractList;
@@ -35,6 +37,15 @@ public class AsyncGetStatistic
         } catch (RiGException e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sharedPref = activity.getSharedPreferences(
+                activity.getString(R.string.global_prefs),
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("USERNAME", rigStatistic.getUserName());
+        editor.putBoolean("GROUPACCOUNT", rigStatistic.getIsGroupAccount());
+        editor.commit();
 
         return rigStatistic;
     }

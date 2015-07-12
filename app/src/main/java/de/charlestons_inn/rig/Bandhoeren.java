@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -17,9 +18,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import rigAPI.Day;
+import rigAPI.Picture;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.RigSettings;
@@ -33,6 +36,10 @@ public class Bandhoeren extends ActionBarActivity
     private TagChooserFragment tagChooser;
     private SubmitFragment submitFragment;
     private RigBand currentBand;
+    PicturePagerAdapter PicPagerAdapter;
+    ViewPager mViewPager;
+    private Menu menu;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class Bandhoeren extends ActionBarActivity
                 getString(R.string.global_prefs),
                 Context.MODE_PRIVATE);
         String apiKey = sharedPref.getString("APIKEY", null);
+        userName = sharedPref.getString("USERNAME", "");
 
         rig = new RigDBAccess(apiKey);
         currentBand = null;
@@ -64,6 +72,14 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+
+
+/*        PicPagerAdapter =
+                new PicturePagerAdapter(
+                        getSupportFragmentManager(),showURLBitmap(currentBand));
+        mViewPager = (ViewPager) findViewById(R.id.pager2);
+        mViewPager.setAdapter(PicPagerAdapter);*/
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
@@ -104,11 +120,39 @@ public class Bandhoeren extends ActionBarActivity
                 .add(R.id.submit, submitFragment).commit();
     }
 
+    public List<Picture> showURLBitmap(RigBand currentBand){
+        int band_id= currentBand.getId();
+        List<Picture> pictures=null;
+        try {
+            pictures=currentBand.getPictures();
+            pictures= new AsyncGetPictures().execute(pictures).get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return pictures;
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem logoutItem = (MenuItem) menu.findItem(R.id.action_logout);
+        logoutItem.setTitle(
+                getString(R.string.action_logout) + " (" + userName + ")");
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bandhoeren, menu);
+
+        this.menu = menu;
+
         return true;
     }
 
