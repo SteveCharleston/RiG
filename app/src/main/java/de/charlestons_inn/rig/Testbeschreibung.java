@@ -56,7 +56,7 @@ public class Testbeschreibung extends ActionBarActivity {
         RigBand band=null;
         try {
             new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1") .get();
+                    .execute("user2", "password2") .get();
             if(called){
                 band=new AsyncGetBand(this,rig).execute(band_id).get();
             }

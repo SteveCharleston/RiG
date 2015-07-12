@@ -4,6 +4,7 @@ package de.charlestons_inn.rig;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -31,24 +32,16 @@ import rigAPI.SearchResultBand;
 
 public class Bandsuche extends ActionBarActivity {
 
-     RigDBAccess rig=new RigDBAccess();
 
+    RigDBAccess rig;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandsuche);
-
-        try {
-            String  apiKey = new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1")
-                    .get();
-
-
-        }  catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-
-        }
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.global_prefs),
+                Context.MODE_PRIVATE);
+        String apiKey = sharedPref.getString("APIKEY", null);
+        rig=new RigDBAccess(apiKey);
         Intent intent=getIntent();
         handleIntent(intent,rig);
 
@@ -126,6 +119,9 @@ public class Bandsuche extends ActionBarActivity {
             searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryRefinementEnabled(true);
+        searchView.setFocusable(true);
+        searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
 
         return true;
 
