@@ -40,13 +40,14 @@ public class Bandhoeren extends ActionBarActivity
     ViewPager mViewPager;
     private Menu menu;
     String userName;
+    Integer bandNr = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
-        Integer bandNr = getIntent().getIntExtra("bandNr", -1);
+        bandNr = getIntent().getIntExtra("bandNr", -1);
 
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.global_prefs),
@@ -116,8 +117,11 @@ public class Bandhoeren extends ActionBarActivity
                 .add(R.id.bandbeschreibung, description).commit();
         getFragmentManager().beginTransaction()
                 .add(R.id.tags_and_days, tagsAndDays).commit();
-        getFragmentManager().beginTransaction()
-                .add(R.id.submit, submitFragment).commit();
+
+        if (bandNr == -1) { // only show submit on random band
+            getFragmentManager().beginTransaction()
+                    .add(R.id.submit, submitFragment).commit();
+        }
     }
 
     public List<Picture> showURLBitmap(RigBand currentBand){
@@ -250,7 +254,11 @@ public class Bandhoeren extends ActionBarActivity
             floatingTags.setVisibility(View.GONE);
         } else {
             tagsAndDaysLay.setVisibility(View.VISIBLE);
-            floatingTags.setVisibility(View.VISIBLE);
+
+            if (bandNr == -1) { // only show on random band
+                floatingTags.setVisibility(View.VISIBLE);
+            }
+
             tagsAndDaysLay.setAlpha(0.0f);
             tagsAndDaysLay.animate()
                     .alpha(1.0f);
