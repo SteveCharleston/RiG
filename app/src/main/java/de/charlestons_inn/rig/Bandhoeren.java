@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -18,11 +17,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import rigAPI.Day;
-import rigAPI.Picture;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
 import rigAPI.RigSettings;
@@ -36,15 +33,13 @@ public class Bandhoeren extends ActionBarActivity
     private TagChooserFragment tagChooser;
     private SubmitFragment submitFragment;
     private RigBand currentBand;
-    PicturePagerAdapter PicPagerAdapter;
-    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
-        Integer bandNr = 10;//getIntent().getIntExtra("bandNr", -1);
+        Integer bandNr = getIntent().getIntExtra("bandNr", -1);
 
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.global_prefs),
@@ -54,8 +49,6 @@ public class Bandhoeren extends ActionBarActivity
         rig = new RigDBAccess(apiKey);
         currentBand = null;
         RigStatistic statistic = null;
-
-
 
         try {
 //            new AsyncAuthenticate(this, rig)
@@ -71,13 +64,6 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        /*
-        PicPagerAdapter =
-                new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(currentBand));
-        mViewPager = (ViewPager) findViewById(R.id.pager2);
-        mViewPager.setAdapter(PicPagerAdapter);*/
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
@@ -118,22 +104,6 @@ public class Bandhoeren extends ActionBarActivity
                 .add(R.id.submit, submitFragment).commit();
     }
 
-    public List<Picture> showURLBitmap(RigBand currentBand){
-        int band_id= currentBand.getId();
-        List<Picture> pictures=null;
-        try {
-            pictures=currentBand.getPictures();
-            pictures= new AsyncGetPictures().execute(pictures).get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return pictures;
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
