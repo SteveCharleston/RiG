@@ -44,4 +44,5 @@
     <string name="about">Über</string>
 
     <string name="title_activity_bandsuche">Bandsuche</string>
+    <string name="title_activity_test_pictures">TestPictures</string>
 </resources>

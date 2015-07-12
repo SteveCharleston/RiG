@@ -3,6 +3,7 @@ package de.charlestons_inn.rig;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,13 +21,21 @@ import rigAPI.RigDBAccess;
 
 public class TestPictures extends ActionBarActivity {
     private RigDBAccess rig=null;
+    PicturePagerAdapter PicPagerAdapter;
+    ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_pictures);
-        ImageView image= (ImageView)findViewById(R.id.url_image);
         rig= new RigDBAccess();
-        image.setImageBitmap(showURLBitmap(rig,10));
+        PicPagerAdapter =
+                new PicturePagerAdapter(
+                        getSupportFragmentManager(),showURLBitmap(rig,10));
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(PicPagerAdapter);
+
+        //image.setImageBitmap(showURLBitmap(rig,10));
 
 
     }
@@ -55,7 +64,7 @@ public class TestPictures extends ActionBarActivity {
     }
 
 
-    public Bitmap showURLBitmap(RigDBAccess rig, int band_id){
+    public List<Picture> showURLBitmap(RigDBAccess rig, int band_id){
         RigBand currentBand;
 
         List<Picture> pictures=null;
@@ -71,10 +80,8 @@ public class TestPictures extends ActionBarActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        if(pictures.get(0).getBitmap()==null){
-            return null;
-        }
-        return pictures.get(0).getBitmap();
+
+        return pictures;
 
     }
 

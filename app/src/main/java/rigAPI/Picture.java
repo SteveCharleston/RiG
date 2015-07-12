@@ -4,6 +4,8 @@ package rigAPI;
  * Created by steven on 06.05.15.
  */
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,9 @@ public class Picture implements Serializable {
     private Integer id;
     private String local;
     private String url;
+    private Bitmap bitmap;
+    int width;
+    int height;
 
     /**
      * contructs a picture without information attached to it
@@ -21,6 +26,10 @@ public class Picture implements Serializable {
         this.id = null;
         this.local = null;
         this.url = null;
+    }
+    public Picture(Bitmap bitmap){
+
+        this.bitmap=bitmap;
     }
 
     /**
@@ -61,4 +70,13 @@ public class Picture implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+    public void setBitmap(Bitmap bitmap){
+
+        this.bitmap=bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }
+
