@@ -45,6 +45,7 @@ public class AsyncGetStatistic
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("USERNAME", rigStatistic.getUserName());
         editor.putBoolean("GROUPACCOUNT", rigStatistic.getIsGroupAccount());
+        editor.putInt("CURRENTROUND", rigStatistic.getRound());
         editor.commit();
 
         return rigStatistic;

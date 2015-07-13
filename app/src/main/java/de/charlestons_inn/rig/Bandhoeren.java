@@ -60,7 +60,6 @@ public class Bandhoeren extends ActionBarActivity
 
         rig = new RigDBAccess(apiKey);
         currentBand = null;
-        RigStatistic statistic = null;
 
         try {
 //            new AsyncAuthenticate(this, rig)
@@ -70,7 +69,6 @@ public class Bandhoeren extends ActionBarActivity
             } else {
                 currentBand = new AsyncGetBand(this, rig).execute().get();
             }
-            statistic = new AsyncGetStatistic(this, rig).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -97,7 +95,7 @@ public class Bandhoeren extends ActionBarActivity
         TextView bandname = (TextView) findViewById(R.id.bandname);
         bandname.setText(currentBand.getName());
 
-        Integer currentRoundAPI = statistic.getRound();
+        Integer currentRoundAPI = sharedPref.getInt("CURRENTROUND", -1);
         TextView currentRound = (TextView) findViewById(R.id.currentround);
         if (currentBand.getRunde() == currentRoundAPI) {
             currentRound.setText("Runde " + currentRoundAPI.toString());
@@ -298,10 +296,15 @@ public class Bandhoeren extends ActionBarActivity
     @Override
     public void submitAllData(View v) {
         int bandNr = currentBand.getId();
-        int tagID = tagChooser.getTagID();
         int rating = submitFragment.getRatingbar();
         Day playDay = submitFragment.getDays();
-        new AsyncSubmitTag(this, rig).execute(bandNr, tagID);
+
+        if (tagChooser != null) {
+            Integer tagID = tagChooser.getTagID();
+            if (tagID != null) {
+                new AsyncSubmitTag(this, rig).execute(bandNr, tagID);
+            }
+        }
         new AsyncSubmitDay(this, rig).execute(bandNr, playDay);
         new AsyncSubmitRating(this, rig).execute(bandNr, rating);
         Intent i = new Intent(this, Bandhoeren.class);
