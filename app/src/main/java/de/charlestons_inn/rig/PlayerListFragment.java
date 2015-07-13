@@ -33,7 +33,9 @@ public class PlayerListFragment extends Fragment
 
     private RigDBAccess rig;
     private RigBand currentBand;
-    private List<PlayerFragment> players = new ArrayList<PlayerFragment>();
+    private transient List<PlayerFragment> players
+            = new ArrayList<PlayerFragment>();
+    private Boolean playersAreAdded = false;
 
     public PlayerListFragment() {
         // Required empty public constructor
@@ -42,6 +44,16 @@ public class PlayerListFragment extends Fragment
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            playersAreAdded
+                    = savedInstanceState.getBoolean("playersAreAdded", false);
+        }
     }
 
     @Override
@@ -63,27 +75,38 @@ public class PlayerListFragment extends Fragment
         LinearLayout playerList
                 = (LinearLayout) fragment.findViewById(R.id.playerList);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fmTransaction = fm.beginTransaction();
+        if (!playersAreAdded) {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fmTransaction = fm.beginTransaction();
 
-        for (Integer i = 0; i < currentBand.getSongs().size(); i++) {
-            Bundle fBundle = new Bundle();
-            fBundle.putString("apiKey", apiKey);
-            fBundle.putSerializable("rig", rig);
-            fBundle.putSerializable("currentBand", currentBand);
-            fBundle.putSerializable("parentFragment", this);
-            fBundle.putInt("songIndex", i);
+            for (Integer i = 0; i < currentBand.getSongs().size(); i++) {
+                Bundle fBundle = new Bundle();
+                fBundle.putString("apiKey", apiKey);
+                fBundle.putSerializable("rig", rig);
+                fBundle.putSerializable("currentBand", currentBand);
+                fBundle.putSerializable("parentFragment", this);
+                fBundle.putInt("songIndex", i);
 
-            PlayerFragment playerFragment = new PlayerFragment();
-            playerFragment.setArguments(fBundle);
-            fmTransaction.add(playerList.getId(), playerFragment, i.toString());
-            players.add(playerFragment);
+                PlayerFragment playerFragment = new PlayerFragment();
+                playerFragment.setArguments(fBundle);
+                fmTransaction.add(
+                        playerList.getId(),
+                        playerFragment,
+                        i.toString());
+                players.add(playerFragment);
+            }
+
+            fmTransaction.commit();
+            playersAreAdded = true;
         }
 
-        fmTransaction.commit();
-
-
         return fragment;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("playersAreAdded", playersAreAdded);
+        super.onSaveInstanceState(outState);
     }
 
     public void stopAllPlayers() {
