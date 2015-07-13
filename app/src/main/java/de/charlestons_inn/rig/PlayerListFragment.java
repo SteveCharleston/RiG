@@ -112,7 +112,7 @@ public class PlayerListFragment extends Fragment
     public void stopAllPlayers() {
         for (int i = 0; i < players.size(); i++) {
             PlayerFragment player = players.get(i);
-            player.pausePlayer();
+            player.destroyPlayer();
         }
     }
 

@@ -40,6 +40,7 @@ public class PlayerFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     Handler mediaHandler = new Handler();
     private Boolean playerNotPrepared = true;
+    private Boolean preparationStarted = false; // for activity destruction
     private PlayerInteraction mCallback;
     ImageButton playPauseButton;
 
@@ -124,6 +125,7 @@ public class PlayerFragment extends Fragment {
                     }
 
                     mediaPlayer.prepareAsync();
+                    preparationStarted = true;
                     playPause.setBackgroundResource(pause_gruen);
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer
@@ -188,6 +190,18 @@ public class PlayerFragment extends Fragment {
         mediaUpdate();
 
         return fragment;
+    }
+
+    public void destroyPlayer() {
+        run = null;
+        if (preparationStarted) {
+            mediaPlayer.stop();
+            preparationStarted = false;
+        }
+        playerNotPrepared = true;
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 
     public void pausePlayer() {
