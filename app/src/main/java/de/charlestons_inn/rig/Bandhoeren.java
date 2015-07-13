@@ -135,7 +135,7 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
-    public List<Picture> showURLBitmap(RigBand currentBand){
+    /*public List<Picture> showURLBitmap(RigBand currentBand){
         int band_id= currentBand.getId();
         List<Picture> pictures=null;
         try {
@@ -150,7 +150,7 @@ public class Bandhoeren extends ActionBarActivity
 
         return pictures;
 
-    }
+    }*/
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

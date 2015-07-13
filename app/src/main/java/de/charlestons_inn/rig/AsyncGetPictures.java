@@ -3,6 +3,7 @@ package de.charlestons_inn.rig;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
 
@@ -34,9 +35,11 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
             String url=p.getUrl();
             Bitmap bit=null;
             try {
-                bit = decodeSampledBitmapFromStream(url,400,400);
+                bit = decodeSampledBitmapFromStream(url,500,800);
+
             } catch (Exception e) {return null;}
-            p.setBitmap(bit);
+            Bitmap src=getResizedBitmap(bit,500, 800);
+            p.setBitmap(src);
 
         }
         return pictures;
@@ -74,6 +77,7 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
         }
         else{
             bit=getBitmapFromMemCache(url);
+
         }
         return bit;
 
@@ -108,5 +112,30 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
 
     public Bitmap getBitmapFromMemCache(String key) {
         return mMemoryCache.get(key);
+    }
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+        int width = bm.getWidth();
+
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+
+        float scaleHeight = ((float) newHeight) / height;
+
+// create a matrix for the manipulation
+
+        Matrix matrix = new Matrix();
+
+// resize the bit map
+
+        matrix.postScale(scaleWidth, scaleHeight);
+
+// recreate the new Bitmap
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+
     }
 }

@@ -26,6 +26,11 @@ public class Picture_fragment extends Fragment {
         if(pic.getBitmap()!=null) {
             image.setImageBitmap(pic.getBitmap());
         }
+        else {
+            image.setMaxHeight(500);
+            image.setMaxWidth(300);
+            image.setImageResource(R.drawable.noimage);
+        }
         return rootView;
 
     }
