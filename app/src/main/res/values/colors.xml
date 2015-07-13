@@ -19,4 +19,5 @@
     <color name="black_alpha">#22000000</color>
     <color name="rounded_button">#e6e7e8</color>
     <color name="login_text">#e6e7e8</color>
+    <color name="red">#cc0000</color>
 </resources>

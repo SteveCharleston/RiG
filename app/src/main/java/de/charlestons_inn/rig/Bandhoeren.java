@@ -56,6 +56,7 @@ public class Bandhoeren extends ActionBarActivity
                 Context.MODE_PRIVATE);
         String apiKey = sharedPref.getString("APIKEY", null);
         userName = sharedPref.getString("USERNAME", "");
+        Boolean isGroupAccount = sharedPref.getBoolean("GROUPACCOUNT", false);
 
         rig = new RigDBAccess(apiKey);
         currentBand = null;
@@ -77,6 +78,9 @@ public class Bandhoeren extends ActionBarActivity
         }
 
 
+        if (isGroupAccount) {
+            setTitle(getTitle() + " (Gruppenaccount)");
+        }
 
 /*        PicPagerAdapter =
                 new PicturePagerAdapter(
@@ -95,7 +99,14 @@ public class Bandhoeren extends ActionBarActivity
 
         Integer currentRoundAPI = statistic.getRound();
         TextView currentRound = (TextView) findViewById(R.id.currentround);
-        currentRound.setText("Runde " + currentRoundAPI.toString());
+        if (currentBand.getRunde() == currentRoundAPI) {
+            currentRound.setText("Runde " + currentRoundAPI.toString());
+        } else {
+            currentRound.setBackgroundColor(
+                    getResources().getColor(R.color.red));
+            currentRound.setText("Runde "
+                    + (new Integer(currentBand.getRunde())).toString());
+        }
 
         playerList = new PlayerListFragment();
         playerList.setArguments(bundle);
