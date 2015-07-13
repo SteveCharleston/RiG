@@ -1,6 +1,7 @@
 package rigAPI;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Represents a band as returned from getToplist.php
@@ -8,7 +9,8 @@ import java.io.Serializable;
 public class ToplistBand implements Serializable {
     private int id;
     private String name;
-    private String musikstil;
+    private String voice;
+    private List musikStile;
     private Day day;
     private double result;
 
@@ -16,15 +18,18 @@ public class ToplistBand implements Serializable {
      * Creates a new ToplistBand
      * @param id        numerical id of the band
      * @param name      bandname
-     * @param musikstil music style
+     * @param voice     Geschlecht des Gesangs
+     * @param musikStile music style
      * @param day       Day of the week the band is favored for
      * @param result    numerical result
      */
-    public ToplistBand(int id, String name, String musikstil, Day day,
+    public ToplistBand(int id, String name, String voice, List musikStile,
+                       Day day,
                        double result) {
         this.id = id;
         this.name = name;
-        this.musikstil = musikstil;
+        this.voice = voice;
+        this.musikStile = musikStile;
         this.day = day;
         this.result = result;
     }
@@ -37,8 +42,12 @@ public class ToplistBand implements Serializable {
         return name;
     }
 
-    public String getMusikstil() {
-        return musikstil;
+    public String getVoice() {
+        return voice;
+    }
+
+    public List getMusikstile() {
+        return musikStile;
     }
 
     public Day getDay() {
@@ -54,7 +63,8 @@ public class ToplistBand implements Serializable {
         return "ToplistBand{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", musikstil='" + musikstil + '\'' +
+                ", voice='" + voice + '\'' +
+                ", musikStile='" + musikStile + '\'' +
                 ", day=" + day +
                 ", result=" + result +
                 '}';

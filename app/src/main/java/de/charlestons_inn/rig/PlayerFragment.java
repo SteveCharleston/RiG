@@ -1,6 +1,8 @@
 package de.charlestons_inn.rig;
 
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -37,11 +40,23 @@ public class PlayerFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     Handler mediaHandler = new Handler();
     private Boolean playerNotPrepared = true;
+    private Boolean preparationStarted = false; // for activity destruction
+    private PlayerInteraction mCallback;
+    ImageButton playPauseButton;
+
+    public interface PlayerInteraction {
+        public void playerFinished(int songIndex);
+        public void stopOtherPlayer(int songIndex);
+    }
 
     public PlayerFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,8 +70,17 @@ public class PlayerFragment extends Fragment {
         Bundle bundle = this.getArguments();
         String apiKey = bundle.getString("apiKey");
         rig = (RigDBAccess) bundle.getSerializable("rig");
+        Fragment parentFragment
+                = (Fragment) bundle.getSerializable("parentFragment");
         currentBand = (RigBand) bundle.getSerializable("currentBand");
-        Integer songIndex = bundle.getInt("songIndex");
+        final Integer songIndex = bundle.getInt("songIndex");
+
+        try {
+            mCallback = (PlayerInteraction) parentFragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(parentFragment.toString()
+                    + "must implement PlayerInteraction");
+        }
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -66,13 +90,26 @@ public class PlayerFragment extends Fragment {
         final Uri songUri = Uri.parse(currentSong.getUrl());
 
         TextView songTitle = (TextView) fragment.findViewById(R.id.song_title);
-        final ImageButton playPauseButton
+
+        RelativeLayout playPauseLay
+                = (RelativeLayout) fragment
+                .findViewById(R.id.play_pause_button_layout);
+        playPauseButton
                 = (ImageButton) fragment.findViewById(R.id.play_pause_button);
 
         seekbar = (SeekBar) fragment.findViewById(R.id.seekBar);
         timestamp = (TextView) fragment.findViewById(R.id.timestamp);
 
         songTitle.setText(currentSong.toString());
+
+        playPauseLay.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        playPauseButton.performClick();
+                    }
+                }
+        );
 
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +125,9 @@ public class PlayerFragment extends Fragment {
                     }
 
                     mediaPlayer.prepareAsync();
+                    preparationStarted = true;
+                    mCallback.stopOtherPlayer(songIndex);
+                    playPause.setBackgroundResource(pause_gruen);
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer
                             .OnPreparedListener() {
@@ -98,9 +138,17 @@ public class PlayerFragment extends Fragment {
                             playerNotPrepared = false;
                             mp.start();
                             seekbar.setMax(mp.getDuration());
-                            playPause.setBackgroundResource(pause_gruen);
                         }
                     });
+
+                    mediaPlayer.setOnCompletionListener(
+                            new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    mCallback.playerFinished(songIndex);
+                                }
+                            }
+                    );
 
                     mediaPlayer.setWakeMode(
                             v.getContext(), PowerManager.PARTIAL_WAKE_LOCK);
@@ -143,6 +191,30 @@ public class PlayerFragment extends Fragment {
         mediaUpdate();
 
         return fragment;
+    }
+
+    public void destroyPlayer() {
+        run = null;
+        if (preparationStarted) {
+            mediaPlayer.stop();
+            preparationStarted = false;
+        }
+        playerNotPrepared = true;
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        mediaPlayer = null;
+    }
+
+    public void pausePlayer() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    }
+
+    public void startPlayer() {
+        if (!mediaPlayer.isPlaying()) {
+            playPauseButton.performClick();
+        }
     }
 
     Runnable run = new Runnable() {

@@ -45,10 +45,21 @@ public class RigToplist
                     .item(0)
                     .getTextContent();
 
-            String curMusikstil = bandElement
-                    .getElementsByTagName("musikstil")
+            String voice = bandElement
+                    .getElementsByTagName("voice")
                     .item(0)
                     .getTextContent();
+
+//            String curMusikstil = bandElement
+//                    .getElementsByTagName("musikstil")
+//                    .item(0)
+//                    .getTextContent();
+
+            List<String> musikStile = new ArrayList<String>();
+            NodeList bandStile = getChildEntities("musikstil");
+            for (int j = 0; i < bandStile.getLength(); i++) {
+                musikStile.add(bandStile.item(i).getTextContent());
+            }
 
             Day curDay = parseDay(
                     bandElement
@@ -65,7 +76,8 @@ public class RigToplist
             bands.add(new ToplistBand(
                             curId,
                             curName,
-                            curMusikstil,
+                            voice,
+                            musikStile,
                             curDay,
                             curResult));
         }

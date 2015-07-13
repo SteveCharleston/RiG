@@ -38,9 +38,9 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             ImageView gender = (ImageView) convertView.findViewById(R.id.gender);
             // Populate the data into the template view using the data object
             bandName.setText(bands.getName());
-            tags.setText(bands.getMusikstil());
+            tags.setText(bands.getMusikstile().toString());
             points.setText(Double.toString(bands.getResult()));
-            //TODO wo bekomm ich das Geschlecht des Sänger/in her?
+            //TODO wo bekomm ich das Geschlecht des Saenger/in her?
 
             // Return the completed view to render on screen
             return convertView;

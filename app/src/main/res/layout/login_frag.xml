@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-<EditText
-    android:id="@+id/Username"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:hint="@string/Username"
-    android:width="300dp"
-    android:textSize="16dp"
-    android:textColor="@color/login_text"
-    android:textColorHint="@color/grey"
-    android:shadowColor="@color/rig_green"
-    android:backgroundTint="@color/rig_green"
-    android:nextFocusForward="@+id/Passwort"
-    android:nextFocusDown="@+id/Passwort"
-    android:layout_below="@+id/textView"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_alignRight="@+id/absenden"
-    android:layout_alignEnd="@+id/absenden" />
+                android:layout_width="match_parent" android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/Username"
+        android:width="300dp"
+        android:textSize="16dp"
+        android:textColor="@color/login_text"
+        android:textColorHint="@color/grey"
+        android:shadowColor="@color/rig_green"
+        android:backgroundTint="@color/rig_green"
+        android:nextFocusForward="@+id/Passwort"
+        android:nextFocusDown="@+id/Passwort"
+        android:layout_below="@+id/textView"
+        android:maxLines="1"
+        android:inputType="text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/absenden"
+        android:layout_alignEnd="@+id/absenden" />
+
     <EditText
         android:id="@+id/Passwort"
         android:layout_width="wrap_content"
@@ -33,6 +36,8 @@
         android:backgroundTint="@color/rig_green"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:maxLines="1"
+        android:inputType="textPassword"
         android:layout_below="@+id/Username"
         android:layout_alignRight="@+id/absenden"
         android:layout_alignEnd="@+id/absenden" />
@@ -49,6 +54,6 @@
         android:textColorLink="@color/accent_green"
         android:textColor="@color/rig_green"
         android:background="#ff414042"
-         />
+        />
 
 </RelativeLayout>

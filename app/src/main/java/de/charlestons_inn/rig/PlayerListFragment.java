@@ -16,6 +16,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
@@ -24,10 +28,14 @@ import rigAPI.RigDBAccess;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayerListFragment extends Fragment {
+public class PlayerListFragment extends Fragment
+    implements PlayerFragment.PlayerInteraction, Serializable {
 
     private RigDBAccess rig;
     private RigBand currentBand;
+    private transient List<PlayerFragment> players
+            = new ArrayList<PlayerFragment>();
+    private Boolean playersAreAdded = false;
 
     public PlayerListFragment() {
         // Required empty public constructor
@@ -36,6 +44,16 @@ public class PlayerListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            playersAreAdded
+                    = savedInstanceState.getBoolean("playersAreAdded", false);
+        }
     }
 
     @Override
@@ -57,24 +75,62 @@ public class PlayerListFragment extends Fragment {
         LinearLayout playerList
                 = (LinearLayout) fragment.findViewById(R.id.playerList);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fmTransaction = fm.beginTransaction();
+        if (!playersAreAdded) {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction fmTransaction = fm.beginTransaction();
 
-        for (Integer i = 0; i < currentBand.getSongs().size(); i++) {
-            Bundle fBundle = new Bundle();
-            fBundle.putString("apiKey", apiKey);
-            fBundle.putSerializable("rig", rig);
-            fBundle.putSerializable("currentBand", currentBand);
-            fBundle.putInt("songIndex", i);
+            for (Integer i = 0; i < currentBand.getSongs().size(); i++) {
+                Bundle fBundle = new Bundle();
+                fBundle.putString("apiKey", apiKey);
+                fBundle.putSerializable("rig", rig);
+                fBundle.putSerializable("currentBand", currentBand);
+                fBundle.putSerializable("parentFragment", this);
+                fBundle.putInt("songIndex", i);
 
-            PlayerFragment playerFragment = new PlayerFragment();
-            playerFragment.setArguments(fBundle);
-            fmTransaction.add(playerList.getId(), playerFragment, i.toString());
+                PlayerFragment playerFragment = new PlayerFragment();
+                playerFragment.setArguments(fBundle);
+                fmTransaction.add(
+                        playerList.getId(),
+                        playerFragment,
+                        i.toString());
+                players.add(playerFragment);
+            }
+
+            fmTransaction.commit();
+            playersAreAdded = true;
         }
 
-        fmTransaction.commit();
-
-
         return fragment;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("playersAreAdded", playersAreAdded);
+        super.onSaveInstanceState(outState);
+    }
+
+    public void stopAllPlayers() {
+        for (int i = 0; i < players.size(); i++) {
+            PlayerFragment player = players.get(i);
+            player.destroyPlayer();
+        }
+    }
+
+    @Override
+    public void stopOtherPlayer(int songIndex) {
+        for (int i = 0; i < players.size(); i++) {
+            if (i == songIndex) {
+                continue;
+            }
+            players.get(i).pausePlayer();
+        }
+    }
+
+    @Override
+    public void playerFinished(int songIndex) {
+        int nextSongIndex = songIndex + 1;
+        if (players.size() > nextSongIndex) {
+            players.get(nextSongIndex).startPlayer();
+        }
     }
 }
