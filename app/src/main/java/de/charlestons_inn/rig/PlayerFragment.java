@@ -46,7 +46,7 @@ public class PlayerFragment extends Fragment {
 
     public interface PlayerInteraction {
         public void playerFinished(int songIndex);
-        public void playerStarted();
+        public void stopOtherPlayer(int songIndex);
     }
 
     public PlayerFragment() {
@@ -126,6 +126,7 @@ public class PlayerFragment extends Fragment {
 
                     mediaPlayer.prepareAsync();
                     preparationStarted = true;
+                    mCallback.stopOtherPlayer(songIndex);
                     playPause.setBackgroundResource(pause_gruen);
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer

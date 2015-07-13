@@ -117,15 +117,20 @@ public class PlayerListFragment extends Fragment
     }
 
     @Override
+    public void stopOtherPlayer(int songIndex) {
+        for (int i = 0; i < players.size(); i++) {
+            if (i == songIndex) {
+                continue;
+            }
+            players.get(i).pausePlayer();
+        }
+    }
+
+    @Override
     public void playerFinished(int songIndex) {
         int nextSongIndex = songIndex + 1;
         if (players.size() > nextSongIndex) {
             players.get(nextSongIndex).startPlayer();
         }
-    }
-
-    @Override
-    public void playerStarted() {
-
     }
 }
