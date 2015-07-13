@@ -124,6 +124,7 @@ public class PlayerFragment extends Fragment {
                     }
 
                     mediaPlayer.prepareAsync();
+                    playPause.setBackgroundResource(pause_gruen);
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer
                             .OnPreparedListener() {
@@ -134,7 +135,6 @@ public class PlayerFragment extends Fragment {
                             playerNotPrepared = false;
                             mp.start();
                             seekbar.setMax(mp.getDuration());
-                            playPause.setBackgroundResource(pause_gruen);
                         }
                     });
 
