@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,8 @@ import rigAPI.RigDBAccess;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayerListFragment extends Fragment {
+public class PlayerListFragment extends Fragment
+    implements PlayerFragment.PlayerInteraction, Serializable {
 
     private RigDBAccess rig;
     private RigBand currentBand;
@@ -69,6 +71,7 @@ public class PlayerListFragment extends Fragment {
             fBundle.putString("apiKey", apiKey);
             fBundle.putSerializable("rig", rig);
             fBundle.putSerializable("currentBand", currentBand);
+            fBundle.putSerializable("parentFragment", this);
             fBundle.putInt("songIndex", i);
 
             PlayerFragment playerFragment = new PlayerFragment();
@@ -88,5 +91,17 @@ public class PlayerListFragment extends Fragment {
             PlayerFragment player = players.get(i);
             player.pausePlayer();
         }
+    }
+
+    @Override
+    public void playerFinished(int songIndex) {
+        if (players.size() > songIndex) {
+            players.get(songIndex + 1).startPlayer();
+        }
+    }
+
+    @Override
+    public void playerStarted() {
+
     }
 }
