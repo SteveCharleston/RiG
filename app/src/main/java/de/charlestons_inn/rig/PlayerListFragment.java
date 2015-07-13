@@ -95,8 +95,9 @@ public class PlayerListFragment extends Fragment
 
     @Override
     public void playerFinished(int songIndex) {
-        if (players.size() > songIndex) {
-            players.get(songIndex + 1).startPlayer();
+        int nextSongIndex = songIndex + 1;
+        if (players.size() > nextSongIndex) {
+            players.get(nextSongIndex).startPlayer();
         }
     }
 

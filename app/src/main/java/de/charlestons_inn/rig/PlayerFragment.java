@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class PlayerFragment extends Fragment {
     Handler mediaHandler = new Handler();
     private Boolean playerNotPrepared = true;
     private PlayerInteraction mCallback;
+    ImageButton playPauseButton;
 
     public interface PlayerInteraction {
         public void playerFinished(int songIndex);
@@ -87,13 +89,26 @@ public class PlayerFragment extends Fragment {
         final Uri songUri = Uri.parse(currentSong.getUrl());
 
         TextView songTitle = (TextView) fragment.findViewById(R.id.song_title);
-        final ImageButton playPauseButton
+
+        RelativeLayout playPauseLay
+                = (RelativeLayout) fragment
+                .findViewById(R.id.play_pause_button_layout);
+        playPauseButton
                 = (ImageButton) fragment.findViewById(R.id.play_pause_button);
 
         seekbar = (SeekBar) fragment.findViewById(R.id.seekBar);
         timestamp = (TextView) fragment.findViewById(R.id.timestamp);
 
         songTitle.setText(currentSong.toString());
+
+        playPauseLay.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        playPauseButton.performClick();
+                    }
+                }
+        );
 
         playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +198,7 @@ public class PlayerFragment extends Fragment {
 
     public void startPlayer() {
         if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
+            playPauseButton.performClick();
         }
     }
 
