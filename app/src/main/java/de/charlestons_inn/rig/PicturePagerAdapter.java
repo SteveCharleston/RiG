@@ -21,10 +21,11 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Picture empty=null;
+        Picture empty=new Picture();
+        empty.setBitmap(null);
         Fragment fragment = new Picture_fragment();
         Bundle args = new Bundle();
-        if(pictures.size()!=0){
+        if(pictures!=null){
             args.putSerializable(Picture_fragment.ARG_OBJECT, pictures.get(position));
         }
         else{

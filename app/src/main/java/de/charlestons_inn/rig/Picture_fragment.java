@@ -23,7 +23,7 @@ public class Picture_fragment extends Fragment {
 
         Picture pic= (Picture)args.getSerializable(ARG_OBJECT);
         ImageView image= (ImageView)rootView.findViewById(R.id.image);
-        if(pic!=null) {
+        if(pic.getBitmap()!=null) {
             image.setImageBitmap(pic.getBitmap());
         }
         return rootView;

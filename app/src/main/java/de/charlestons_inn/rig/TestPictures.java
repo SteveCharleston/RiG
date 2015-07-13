@@ -3,6 +3,7 @@ package de.charlestons_inn.rig;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -23,15 +24,29 @@ public class TestPictures extends ActionBarActivity {
     private RigDBAccess rig=null;
     PicturePagerAdapter PicPagerAdapter;
     ViewPager mViewPager;
+    private LruCache<String, Bitmap> mMemoryCache;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_pictures);
         rig= new RigDBAccess();
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 4;
+
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // The cache size will be measured in kilobytes rather than
+                // number of items.
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+
         PicPagerAdapter =
                 new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(rig,10));
+                        getSupportFragmentManager(),showURLBitmap(rig,100));
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(PicPagerAdapter);
 
@@ -73,7 +88,7 @@ public class TestPictures extends ActionBarActivity {
                     .execute("user1", "password1") .get();
             currentBand=new AsyncGetBand(this,rig).execute(band_id).get();
            pictures=currentBand.getPictures();
-           pictures= new AsyncGetPictures().execute(pictures).get();
+           pictures= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -84,6 +99,7 @@ public class TestPictures extends ActionBarActivity {
         return pictures;
 
     }
+
 
 
 }
