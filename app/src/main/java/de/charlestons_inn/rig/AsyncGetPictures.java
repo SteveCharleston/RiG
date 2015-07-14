@@ -37,7 +37,9 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
             try {
                 bit = decodeSampledBitmapFromStream(url,500,800);
 
-            } catch (Exception e) {return null;}
+            } catch (Exception e) {
+                p.setBitmap(null);
+            }
             Bitmap src=getResizedBitmap(bit,500, 800);
             p.setBitmap(src);
 

@@ -3,8 +3,10 @@ package de.charlestons_inn.rig;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class Bandhoeren extends ActionBarActivity
     private RigBand currentBand;
     PicturePagerAdapter PicPagerAdapter;
     ViewPager mViewPager;
+    private LruCache<String, Bitmap> mMemoryCache;
     private Menu menu;
     String userName;
     Integer bandNr = -1;
@@ -48,6 +51,17 @@ public class Bandhoeren extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 4;
+
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // The cache size will be measured in kilobytes rather than
+                // number of items.
+                return bitmap.getByteCount() / 1024;
+            }
+        };
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
         bandNr = getIntent().getIntExtra("bandNr", -1);
 
@@ -74,17 +88,20 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        List<Picture> pictures=currentBand.getPictures();
+        if(pictures!=null){
+                   PicPagerAdapter =
+                    new PicturePagerAdapter(
+                            getSupportFragmentManager(),pictures);
+            mViewPager = (ViewPager) findViewById(R.id.pager2);
+            mViewPager.setAdapter(PicPagerAdapter);
+        }
 
         if (isGroupAccount) {
             setTitle(getTitle() + " (Gruppenaccount)");
         }
 
-/*        PicPagerAdapter =
-                new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(currentBand));
-        mViewPager = (ViewPager) findViewById(R.id.pager2);
-        mViewPager.setAdapter(PicPagerAdapter);*/
+
 
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
@@ -135,12 +152,12 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
-    /*public List<Picture> showURLBitmap(RigBand currentBand){
-        int band_id= currentBand.getId();
-        List<Picture> pictures=null;
+    public List<Picture> showURLBitmap(List<Picture> pictures){
+        List<Picture>value = null;
+
         try {
-            pictures=currentBand.getPictures();
-            pictures= new AsyncGetPictures().execute(pictures).get();
+
+            value= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -148,9 +165,9 @@ public class Bandhoeren extends ActionBarActivity
             e.printStackTrace();
         }
 
-        return pictures;
+        return value;
 
-    }*/
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
