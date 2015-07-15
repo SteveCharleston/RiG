@@ -40,8 +40,12 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             bandName.setText(bands.getName());
             tags.setText(bands.getMusikstile().toString());
             points.setText(Double.toString(bands.getResult()));
-            //TODO wo bekomm ich das Geschlecht des Saenger/in her?
 
+            if(bands.getVoice().equals("male")){
+                gender.setImageResource(R.drawable.male);
+            } else if (bands.getVoice().equals("female")){
+                gender.setImageResource(R.drawable.female);
+            }
             // Return the completed view to render on screen
             return convertView;
         }
