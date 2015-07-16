@@ -94,7 +94,6 @@ public class Bandhoeren extends ActionBarActivity
         }
 
 
-
         Bundle bundle = new Bundle();
         bundle.putString("apiKey", rig.getApiKey());
         bundle.putSerializable("rig", rig);

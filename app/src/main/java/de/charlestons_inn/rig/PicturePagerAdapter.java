@@ -25,8 +25,12 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
         empty.setBitmap(null);
         Fragment fragment = new Picture_fragment();
         Bundle args = new Bundle();
+
         if(pictures!=null){
             args.putSerializable(Picture_fragment.ARG_OBJECT, pictures.get(position));
+            args.putInt("SIZE",pictures.size());
+            args.putInt("POS",position);
+
         }
         else{
             args.putSerializable(Picture_fragment.ARG_OBJECT, empty);
