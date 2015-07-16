@@ -54,15 +54,18 @@ public class Picture_fragment extends Fragment {
         Canvas canvas = new Canvas(canvasBitmap);
         canvas.drawBitmap(pic, 0, 0,null);
         int x=0;
-        for(int i = 0; i<count;i++){
-            if(count==position){
-                canvas.drawCircle(400+x, 400, 25, paint);
+        for(int i = 1; i<=count;i++){
+            if(i==position){
+                paint.setColor(Color.GRAY);
+                canvas.drawCircle(400+x, 400, 10, paint);
+
             }
             else{
+                paint.setColor(Color.LTGRAY);
                 canvas.drawCircle(400+x, 400, 10, paint);
             }
 
-            x=x+20;
+            x=x+25;
         }
 
         return canvasBitmap;

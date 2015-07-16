@@ -29,7 +29,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
         if(pictures!=null){
             args.putSerializable(Picture_fragment.ARG_OBJECT, pictures.get(position));
             args.putInt("SIZE",pictures.size());
-            args.putInt("POS",position);
+            args.putInt("POS",position+1);
 
         }
         else{
