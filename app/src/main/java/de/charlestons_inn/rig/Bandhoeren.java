@@ -53,15 +53,6 @@ public class Bandhoeren extends ActionBarActivity
         setContentView(R.layout.activity_bandhoeren);
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 4;
-
-        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap) {
-                // The cache size will be measured in kilobytes rather than
-                // number of items.
-                return bitmap.getByteCount() / 1024;
-            }
-        };
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
         bandNr = getIntent().getIntExtra("bandNr", -1);
 
@@ -74,10 +65,11 @@ public class Bandhoeren extends ActionBarActivity
 
         rig = new RigDBAccess(apiKey);
         currentBand = null;
+        int random =1+(int)( Math.random()*10);
 
         try {
-//            new AsyncAuthenticate(this, rig)
-//                    .execute("user1", "password1") .get();
+           new AsyncAuthenticate(this, rig)
+                  .execute("user1", "password1") .get();
             if (bandNr > -1) {
                 currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
             } else {
@@ -88,7 +80,7 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        List<Picture> pictures=currentBand.getPictures();
+        List<Picture> pictures=showURLBitmap(currentBand);
         if(pictures!=null){
                    PicPagerAdapter =
                     new PicturePagerAdapter(
@@ -152,12 +144,12 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
-    public List<Picture> showURLBitmap(List<Picture> pictures){
+    public List<Picture> showURLBitmap(RigBand band){
         List<Picture>value = null;
 
         try {
-
-            value= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
+            value=band.getPictures();
+            new AsyncGetPictures(value).execute().get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -43,10 +43,11 @@ public class TestPictures extends ActionBarActivity {
                 return bitmap.getByteCount() / 1024;
             }
         };
+        int random =1+(int)( Math.random()*10);
 
         PicPagerAdapter =
                 new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(rig,5));
+                        getSupportFragmentManager(),showURLBitmap(rig,random));
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(PicPagerAdapter);
 
@@ -80,7 +81,7 @@ public class TestPictures extends ActionBarActivity {
 
 
     public List<Picture> showURLBitmap(RigDBAccess rig, int band_id){
-        RigBand currentBand;
+        RigBand currentBand=null;
 
         List<Picture> pictures=null;
         try {
@@ -88,7 +89,7 @@ public class TestPictures extends ActionBarActivity {
                     .execute("user1", "password1") .get();
             currentBand=new AsyncGetBand(this,rig).execute(band_id).get();
            pictures=currentBand.getPictures();
-           pictures= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
+            new AsyncGetPictures(pictures).execute().get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -33,6 +33,7 @@ public class AsyncGetBand
             e.printStackTrace();
         }
 
+
         return currentBand;
     }
 

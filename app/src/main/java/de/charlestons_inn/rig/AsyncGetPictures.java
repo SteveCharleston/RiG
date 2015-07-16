@@ -14,50 +14,55 @@ import java.net.URL;
 import java.util.List;
 
 import rigAPI.Picture;
+import rigAPI.RigBand;
 
 /**
  * Created by Lennox on 12/07/2015.
  */
-public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>> {
-    LruCache<String, Bitmap> mMemoryCache;
-    public AsyncGetPictures(LruCache<String, Bitmap> mMemoryCache){
-        this.mMemoryCache=mMemoryCache;
+public class AsyncGetPictures extends AsyncTask<Void,Void,List<Picture>> {
+
+    private final WeakReference<List<Picture>> pictures;
+    List<Picture> band_pics;
+    int size;
+    public AsyncGetPictures(List<Picture>band_pics){
+        this.band_pics=band_pics;
+        this.pictures=new WeakReference<List<Picture>>(band_pics);
 
     }
-    List<Picture>pictures;
 
     @Override
-    protected List<Picture> doInBackground(List<Picture>... params) {
-        pictures=params[0];
-
-
-        for(Picture p:pictures){
-            String url=p.getUrl();
+    protected List<Picture> doInBackground(Void... params) {
+        for(Picture p:band_pics){
+            String url =p.getUrl();
             Bitmap bit=null;
             try {
-                bit = decodeSampledBitmapFromStream(url,500,800);
+               bit = decodeSampledBitmapFromStream(url,500,800);
 
             } catch (Exception e) {
-                p.setBitmap(null);
+
+
             }
             Bitmap src=getResizedBitmap(bit,500, 800);
             p.setBitmap(src);
 
+
         }
-        return pictures;
+
+
+        return band_pics;
     }
 
     @Override
     protected void onPostExecute(List<Picture> pictures) {
         super.onPostExecute(pictures);
     }
+
     public Bitmap decodeSampledBitmapFromStream(String url,
                                                 int reqWidth, int reqHeight) {
         Bitmap bit=null;
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        if(getBitmapFromMemCache( url)==null){
             try {
                 BitmapFactory.decodeStream((InputStream) new URL(url).getContent(),null,options);
             } catch (IOException e) {
@@ -75,12 +80,7 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
         } catch (IOException e) {
             e.printStackTrace();
         }
-            addBitmapToMemoryCache(url, bit);
-        }
-        else{
-            bit=getBitmapFromMemCache(url);
 
-        }
         return bit;
 
     }
@@ -106,15 +106,7 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
 
         return inSampleSize;
     }
-    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
-        }
-    }
 
-    public Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
-    }
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
 
         int width = bm.getWidth();
@@ -140,4 +132,6 @@ public class AsyncGetPictures extends AsyncTask<List<Picture>,Void,List<Picture>
         return resizedBitmap;
 
     }
+
+
 }
