@@ -14,12 +14,12 @@ import rigAPI.RigToplist;
 import rigAPI.ToplistBand;
 
 
-public class AsyncGetToplist
+public class AsyncGetToplistSa
         extends AsyncTask<Integer, Integer, RigToplist> {
     private final Activity activity;
     private final RigDBAccess rig;
 
-    public AsyncGetToplist(Activity activity, RigDBAccess rig) {
+    public AsyncGetToplistSa(Activity activity, RigDBAccess rig) {
         this.activity = activity;
         this.rig = rig;
 
@@ -30,7 +30,7 @@ public class AsyncGetToplist
         RigToplist rigToplist = null;
 
         try {
-            rigToplist = rig.getToplist(Day.FR); //TODO Tagauswahl?
+            rigToplist = rig.getToplist(Day.SA); //TODO Tagauswahl?
         } catch (BadAPIKeyException e) {
             return null;
         } catch (RiGException e) {

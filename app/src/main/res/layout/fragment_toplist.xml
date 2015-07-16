@@ -25,15 +25,33 @@
             android:id="@+id/toplist_header"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="?android:attr/actionBarSize">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/white">
+
 
             <TextView
                 style="@style/bandname"
-                android:layout_weight="0.7"
+                android:layout_weight="0.2"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:text="Freitag"
-                android:id="@+id/tagauswahl" />
+                android:text="FR"
+                android:id="@+id/FR" />
+
+            <Switch
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch1"
+                android:layout_weight="0.1"
+                android:checked="false"
+                android:background="@color/white"/>
+
+            <TextView
+                style="@style/bandname"
+                android:layout_weight="0.2"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:text="SA"
+                android:id="@+id/SA" />
 
             <TextView
                 style="@style/current_round"
@@ -52,15 +70,15 @@
             android:layout_below="@id/toplist_header">
 
             <TextView
-                android:layout_weight="0.2"
-                android:layout_width="match_parent"
+                android:layout_weight="0.3"
+                android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:text="Punkte"
                 android:textColor="@color/white"/>
 
             <TextView
-                android:layout_weight="0.8"
-                android:layout_width="match_parent"
+                android:layout_weight="0.7"
+                android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:text="Band"
                 android:textColor="@color/white"/>
