@@ -56,7 +56,7 @@ public class Picture_fragment extends Fragment {
         int x=0;
         for(int i = 1; i<=count;i++){
             if(i==position){
-                paint.setColor(Color.GREEN);
+                paint.setColor(new Color().rgb(153,192,16));
                 canvas.drawCircle(400+x, 400, 10, paint);
 
             }
