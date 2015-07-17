@@ -220,7 +220,7 @@ public class Bandhoeren extends ActionBarActivity
             safelyStartActivity(i);
         }
         else if(id==R.id.action_search){
-            Intent bandsuche= new Intent(getApplicationContext(),Bandsuche.class);
+            Intent bandsuche= new Intent(this,Bandsuche.class);
             safelyStartActivity(bandsuche);
         }
 
