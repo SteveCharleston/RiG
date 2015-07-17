@@ -65,11 +65,10 @@ public class Bandhoeren extends ActionBarActivity
 
         rig = new RigDBAccess(apiKey);
         currentBand = null;
-        int random =1+(int)( Math.random()*10);
 
         try {
-           new AsyncAuthenticate(this, rig)
-                  .execute("user1", "password1") .get();
+           //new AsyncAuthenticate(this, rig)
+                 // .execute("user2", "password2") .get();
             if (bandNr > -1) {
                 currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
             } else {
@@ -221,7 +220,7 @@ public class Bandhoeren extends ActionBarActivity
             safelyStartActivity(i);
         }
         else if(id==R.id.action_search){
-            Intent bandsuche= new Intent(this,Bandsuche.class);
+            Intent bandsuche= new Intent(getApplicationContext(),Bandsuche.class);
             safelyStartActivity(bandsuche);
         }
 
