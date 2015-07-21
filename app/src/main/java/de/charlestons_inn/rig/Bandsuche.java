@@ -32,8 +32,9 @@ import rigAPI.SearchResultBand;
 
 public class Bandsuche extends ActionBarActivity {
 
-    Context main= this;
     RigDBAccess rig;
+    Context main= this;
+    Intent bandhoeren;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandsuche);
@@ -43,6 +44,7 @@ public class Bandsuche extends ActionBarActivity {
 
         String apiKey = sharedPref.getString("APIKEY", null);
         rig=new RigDBAccess(apiKey);
+        bandhoeren= new Intent(this,Bandhoeren.class);
         Intent intent=getIntent();
         handleIntent(intent,rig);
 
@@ -80,7 +82,7 @@ public class Bandsuche extends ActionBarActivity {
            Namen[i]=s. getName();
             i++;
         }
-        Arrays.sort(Namen);
+        //Arrays.sort(Namen);
         ListAdapter Namen_adapter= new SuchAdapter(this,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);
@@ -89,7 +91,8 @@ public class Bandsuche extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SearchResultBand result =bands.get(position);
-                    Intent bandhoeren= new Intent(main,Bandhoeren.class);
+                    Toast.makeText(main,position+"  "+result.getName(),
+                            Toast.LENGTH_SHORT).show();
                     int band_id=result.getId();
                     bandhoeren.putExtra("bandNr",band_id);
                     startActivity(bandhoeren);

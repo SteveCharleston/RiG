@@ -80,13 +80,13 @@ public class Bandhoeren extends ActionBarActivity
             e.printStackTrace();
         }
         List<Picture> pictures=showURLBitmap(currentBand);
-        if(pictures!=null){
+
                    PicPagerAdapter =
                     new PicturePagerAdapter(
                             getSupportFragmentManager(),pictures);
             mViewPager = (ViewPager) findViewById(R.id.pager2);
             mViewPager.setAdapter(PicPagerAdapter);
-        }
+
 
         if (isGroupAccount) {
             setTitle(getTitle() + " (Gruppenaccount)");

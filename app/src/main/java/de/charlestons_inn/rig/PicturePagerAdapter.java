@@ -44,6 +44,9 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
+        if(pictures==null){
+            return 1;
+        }
        return pictures.size();
 
     }

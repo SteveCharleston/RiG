@@ -57,12 +57,12 @@ public class Picture_fragment extends Fragment {
         for(int i = 1; i<=count;i++){
             if(i==position){
                 paint.setColor(new Color().rgb(153,192,16));
-                canvas.drawCircle(400+x, 400, 10, paint);
+                canvas.drawCircle(200+x, 200, 10, paint);
 
             }
             else{
                 paint.setColor(Color.LTGRAY);
-                canvas.drawCircle(400+x, 400, 10, paint);
+                canvas.drawCircle(200+x, 200, 10, paint);
             }
 
             x=x+25;

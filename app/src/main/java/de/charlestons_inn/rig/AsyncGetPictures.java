@@ -36,13 +36,13 @@ public class AsyncGetPictures extends AsyncTask<Void,Void,List<Picture>> {
             String url =p.getUrl();
             Bitmap bit=null;
             try {
-               bit = decodeSampledBitmapFromStream(url,500,800);
+               bit = decodeSampledBitmapFromStream(url,250,400);
 
             } catch (Exception e) {
 
 
             }
-            Bitmap src=getResizedBitmap(bit,500, 800);
+            Bitmap src=getResizedBitmap(bit,250, 400);
             p.setBitmap(src);
 
 
