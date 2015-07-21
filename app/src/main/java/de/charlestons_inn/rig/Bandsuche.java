@@ -32,7 +32,7 @@ import rigAPI.SearchResultBand;
 
 public class Bandsuche extends ActionBarActivity {
 
-
+    Context main= this;
     RigDBAccess rig;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class Bandsuche extends ActionBarActivity {
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.global_prefs),
                 Context.MODE_PRIVATE);
+
         String apiKey = sharedPref.getString("APIKEY", null);
         rig=new RigDBAccess(apiKey);
         Intent intent=getIntent();
@@ -88,7 +89,7 @@ public class Bandsuche extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SearchResultBand result =bands.get(position);
-                    Intent bandhoeren= new Intent(getApplicationContext(),Bandhoeren.class);
+                    Intent bandhoeren= new Intent(main,Bandhoeren.class);
                     int band_id=result.getId();
                     bandhoeren.putExtra("bandNr",band_id);
                     startActivity(bandhoeren);
