@@ -47,6 +47,7 @@ public class Bandhoeren extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
+
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
         mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
@@ -86,13 +87,13 @@ public class Bandhoeren extends ActionBarActivity
         }
         //Loading pictures
 
-         List<Picture> pictures=currentBand.getPictures();
+        List<Picture> pictures=currentBand.getPictures();
 
-                 PicPagerAdapter =
-                    new PicturePagerAdapter(
-                            getSupportFragmentManager(),pictures);
-            mViewPager = (ViewPager) findViewById(R.id.pager2);
-            mViewPager.setAdapter(PicPagerAdapter);
+        PicPagerAdapter =
+                new PicturePagerAdapter(
+                        getSupportFragmentManager(),pictures);
+        mViewPager = (ViewPager) findViewById(R.id.pager2);
+        mViewPager.setAdapter(PicPagerAdapter);
 
 
         if (isGroupAccount) {
