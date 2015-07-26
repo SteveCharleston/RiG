@@ -7,32 +7,12 @@
         android:title="@string/action_search"
         app:showAsAction="ifRoom"  />
 
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
     <item android:id="@+id/action_logout"
           android:title="@string/action_logout"
           android:orderInCategory="100"
           app:showAsAction="never" />
     <item android:id="@+id/about"
           android:title="@string/about"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
-    <item android:id="@+id/band1"
-          android:title="band1"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
-    <item android:id="@+id/band2"
-          android:title="band2"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
-    <item android:id="@+id/band3"
-          android:title="band3"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
-    <item android:id="@+id/band4"
-          android:title="band4"
           android:orderInCategory="100"
           app:showAsAction="never" />
 </menu>

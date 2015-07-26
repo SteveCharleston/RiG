@@ -2,15 +2,18 @@ package de.charlestons_inn.rig;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -53,6 +56,16 @@ public class TagChooserFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + "must implement onTagSelectedListener");
         }
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        setStyle(STYLE_NO_FRAME, R.style.AppTheme);
+
+        return dialog;
     }
 
     @Override

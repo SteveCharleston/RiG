@@ -46,7 +46,7 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
             if(e instanceof BadAuthenticationException){
                 FragmentManager fm = app.getSupportFragmentManager();
                 ErrorDialog error = new ErrorDialog();
-                error.set_text(fm, "Passwort und Benutzernamen stimmen nicht überein!");
+                error.set_text(fm, "Passwort oder Benutzernamen stimmen nicht");
                 return null;
 
             }

@@ -202,22 +202,6 @@ public class Bandhoeren extends ActionBarActivity
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, Info.class);
             safelyStartActivity(intent);
-        } else if (id == R.id.band1) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 2);
-            safelyStartActivity(i);
-        } else if (id == R.id.band2) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 4);
-            safelyStartActivity(i);
-        } else if (id == R.id.band3) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 6);
-            safelyStartActivity(i);
-        } else if (id == R.id.band4) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 11);
-            safelyStartActivity(i);
         }
         else if(id==R.id.action_search){
             Intent bandsuche= new Intent(this,Bandsuche.class);
@@ -313,6 +297,20 @@ public class Bandhoeren extends ActionBarActivity
         int bandNr = currentBand.getId();
         int rating = submitFragment.getRatingbar();
         Day playDay = submitFragment.getDays();
+
+        if (playDay == null) {
+            FragmentManager fm = getSupportFragmentManager();
+            ErrorDialog error = new ErrorDialog();
+            error.set_text(fm, "Bitte einen Spieltag auswählen");
+            return;
+        }
+
+        if (rating == 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ErrorDialog error = new ErrorDialog();
+            error.set_text(fm, "Bitte Sterne vergeben");
+            return;
+        }
 
         if (tagChooser != null) {
             Integer tagID = tagChooser.getTagID();
