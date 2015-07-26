@@ -1,11 +1,13 @@
 package de.charlestons_inn.rig;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,42 +21,36 @@ import rigAPI.RigBand;
 /**
  * Created by Lennox on 12/07/2015.
  */
-public class AsyncGetPictures extends AsyncTask<Void,Void,List<Picture>> {
+public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
 
-    private final WeakReference<List<Picture>> pictures;
-    List<Picture> band_pics;
+   Bitmap bit=null;
+    LruCache<String, Bitmap> mMemoryCache;
+    Activity app;
     int size;
-    public AsyncGetPictures(List<Picture>band_pics){
-        this.band_pics=band_pics;
-        this.pictures=new WeakReference<List<Picture>>(band_pics);
+    private final WeakReference<ImageView> imageViewReference;
+
+    public AsyncGetBitmap(ImageView view){
+        imageViewReference = new WeakReference<ImageView>(view);
 
     }
 
     @Override
-    protected List<Picture> doInBackground(Void... params) {
-        for(Picture p:band_pics){
-            String url =p.getUrl();
-            Bitmap bit=null;
-            try {
-               bit = decodeSampledBitmapFromStream(url,250,400);
+    protected Bitmap doInBackground(String... params) {
+        String url= params[0];
+        bit=decodeSampledBitmapFromStream(url,250,400);
+        Bitmap src= getResizedBitmap(bit,250,400);
+        return src;
+    }
 
-            } catch (Exception e) {
-
-
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+        if (imageViewReference != null && bitmap != null) {
+            final ImageView imageView = imageViewReference.get();
+            if (imageView != null) {
+                imageView.setImageBitmap(bitmap);
             }
-            Bitmap src=getResizedBitmap(bit,250, 400);
-            p.setBitmap(src);
-
-
         }
 
-
-        return band_pics;
-    }
-
-    @Override
-    protected void onPostExecute(List<Picture> pictures) {
-        super.onPostExecute(pictures);
     }
 
     public Bitmap decodeSampledBitmapFromStream(String url,
@@ -131,6 +127,15 @@ public class AsyncGetPictures extends AsyncTask<Void,Void,List<Picture>> {
 
         return resizedBitmap;
 
+    }
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mMemoryCache.put(key, bitmap);
+        }
+    }
+
+    public Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
     }
 
 

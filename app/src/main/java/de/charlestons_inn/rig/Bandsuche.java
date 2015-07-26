@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -83,6 +84,7 @@ public class Bandsuche extends ActionBarActivity {
             i++;
         }
         //Arrays.sort(Namen);
+
         ListAdapter Namen_adapter= new SuchAdapter(this,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);

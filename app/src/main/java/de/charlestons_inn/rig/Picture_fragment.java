@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.concurrent.ExecutionException;
+
 import rigAPI.Picture;
 
 /**
@@ -30,9 +32,20 @@ public class Picture_fragment extends Fragment {
         int size=(int)args.getInt("SIZE");
         int position=(int)args.getInt("POS");
         Picture pic= (Picture)args.getSerializable(ARG_OBJECT);
+        Bitmap bit=null;
         ImageView image= (ImageView)rootView.findViewById(R.id.image);
-       Bitmap canvasBitmap=drawPoints(pic.getBitmap(),size,position);
+        try {
+           bit=new AsyncGetBitmap(image).execute(pic.getUrl()).get();
+            pic.setBitmap(bit);
+
+        } catch (InterruptedException e) {
+        e.printStackTrace();
+        } catch (ExecutionException e) {
+        e.printStackTrace();
+         }
+
         if(pic.getBitmap()!=null) {
+            Bitmap canvasBitmap=drawPoints(pic.getBitmap(),size,position);
             image.setImageBitmap(canvasBitmap);
         }
         else {

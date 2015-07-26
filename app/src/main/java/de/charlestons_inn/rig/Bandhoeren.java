@@ -4,22 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,8 +25,6 @@ import rigAPI.Day;
 import rigAPI.Picture;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
-import rigAPI.RigSettings;
-import rigAPI.RigStatistic;
 
 
 public class Bandhoeren extends ActionBarActivity
@@ -46,13 +41,23 @@ public class Bandhoeren extends ActionBarActivity
     String userName;
     Integer bandNr = -1;
     PlayerListFragment playerList;
+    AsyncGetBitmap async_ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        final int cacheSize = maxMemory / 4;
+        final int cacheSize = maxMemory / 8;
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // The cache size will be measured in kilobytes rather than
+                // number of items.
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
         bandNr = getIntent().getIntExtra("bandNr", -1);
 
@@ -68,7 +73,7 @@ public class Bandhoeren extends ActionBarActivity
 
         try {
            //new AsyncAuthenticate(this, rig)
-                 // .execute("user2", "password2") .get();
+                  //.execute("user2", "password2") .get();
             if (bandNr > -1) {
                 currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
             } else {
@@ -79,9 +84,11 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        List<Picture> pictures=showURLBitmap(currentBand);
+        //Loading pictures
 
-                   PicPagerAdapter =
+         List<Picture> pictures=currentBand.getPictures();
+
+                 PicPagerAdapter =
                     new PicturePagerAdapter(
                             getSupportFragmentManager(),pictures);
             mViewPager = (ViewPager) findViewById(R.id.pager2);
@@ -142,22 +149,7 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
-    public List<Picture> showURLBitmap(RigBand band){
-        List<Picture>value = null;
 
-        try {
-            value=band.getPictures();
-            new AsyncGetPictures(value).execute().get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return value;
-
-    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -227,10 +219,7 @@ public class Bandhoeren extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+
 
     public void onClickRoundedButton(View v) {
         Bundle bundle = new Bundle();
@@ -258,6 +247,14 @@ public class Bandhoeren extends ActionBarActivity
             bandbeschreibungLay.setAlpha(0.0f);
             bandbeschreibungLay.animate()
                     .alpha(1.0f);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(async_ref!=null &&async_ref.getStatus()==AsyncTask.Status.RUNNING){
+            async_ref.cancel(true);
         }
     }
 
@@ -318,4 +315,6 @@ public class Bandhoeren extends ActionBarActivity
         safelyStartActivity(i);
         finish();
     }
+
+
 }
