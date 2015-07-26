@@ -85,6 +85,13 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        if (currentBand == null) {
+            // if we haven't successfully loaded a Band, round is over
+            // TODO: implement a saner approach
+            Intent toplist = new Intent(this, Test_Toplist.class);
+            safelyStartActivity(toplist);
+        }
         //Loading pictures
 
         List<Picture> pictures=currentBand.getPictures();
@@ -287,7 +294,10 @@ public class Bandhoeren extends ActionBarActivity
     }
 
     public void safelyStartActivity(Intent intent) {
-        playerList.stopAllPlayers();
+        if (playerList != null) {
+            playerList.stopAllPlayers();
+        }
+
         startActivity(intent);
     }
 
