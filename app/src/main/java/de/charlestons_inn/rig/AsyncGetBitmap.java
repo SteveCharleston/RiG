@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
@@ -37,8 +40,11 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
     @Override
     protected Bitmap doInBackground(String... params) {
         String url= params[0];
+        Bitmap src = null;
         bit=decodeSampledBitmapFromStream(url,250,400);
-        Bitmap src= getResizedBitmap(bit,250,400);
+        if (bit != null) {
+            src= getResizedBitmap(bit,250,400);
+        }
         return src;
     }
 
@@ -131,6 +137,5 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
     public Bitmap getBitmapFromMemCache(String key) {
         return mMemoryCache.get(key);
     }
-
 
 }
