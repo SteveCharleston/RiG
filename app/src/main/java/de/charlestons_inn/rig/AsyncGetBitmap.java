@@ -44,13 +44,7 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        if (imageViewReference != null && bitmap != null) {
-            final ImageView imageView = imageViewReference.get();
-            if (imageView != null) {
-                imageView.setImageBitmap(bitmap);
-            }
-        }
-
+        super.onPostExecute(bitmap);
     }
 
     public Bitmap decodeSampledBitmapFromStream(String url,

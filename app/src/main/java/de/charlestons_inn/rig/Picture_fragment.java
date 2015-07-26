@@ -57,13 +57,12 @@ public class Picture_fragment extends Fragment {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public Bitmap drawPoints(Bitmap pic,int count,int position){
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(Color.GRAY);
         Bitmap canvasBitmap =pic.copy(pic.getConfig(),true); // Bitmap.createBitmap(500, 800, Bitmap.Config.ARGB_8888);
-        canvasBitmap.setConfig(Bitmap.Config.ARGB_8888);
+       // canvasBitmap.setConfig(Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(canvasBitmap);
         canvas.drawBitmap(pic, 0, 0,null);
         int x=0;
