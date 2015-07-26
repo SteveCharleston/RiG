@@ -198,10 +198,10 @@ public class PlayerFragment extends Fragment {
         if (preparationStarted) {
             mediaPlayer.stop();
             preparationStarted = false;
+            mediaPlayer.reset();
+            mediaPlayer.release();
         }
         playerNotPrepared = true;
-        mediaPlayer.reset();
-        mediaPlayer.release();
         mediaPlayer = null;
     }
 
