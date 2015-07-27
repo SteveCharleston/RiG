@@ -61,8 +61,6 @@ public class Bandhoeren extends ActionBarActivity
         currentBand = null;
 
         try {
-           new AsyncAuthenticate(this, rig)
-                  .execute("user3", "password3") .get();
             if (bandNr > -1) {
                 currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
             } else {
@@ -181,6 +179,7 @@ public class Bandhoeren extends ActionBarActivity
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.remove("APIKEY");
+            editor.remove("USERNAME");
             editor.commit();
             Intent intent = new Intent(this, MainActivity.class);
             safelyStartActivity(intent);
