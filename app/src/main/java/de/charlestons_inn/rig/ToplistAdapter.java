@@ -21,14 +21,11 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
         public ToplistAdapter(Context context, ArrayList<ToplistBand> bands) {
             super(context, 0, bands);
         }
-    private ToplistBand bands = null;
-
-
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
-            bands = getItem(position);
+            final ToplistBand bands = getItem(position);
             String tagstring="";
             List taglist;
 
@@ -41,7 +38,19 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             TextView bandName = (TextView) convertView.findViewById(R.id.band);
             TextView tags = (TextView) convertView.findViewById(R.id.tags);
             TextView points = (TextView) convertView.findViewById(R.id.points);
-            //TODO INFO link generieren?
+            TextView info = (TextView) convertView.findViewById(R.id.info);
+
+            info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent bandhoeren= new Intent(v.getContext(), Bandhoeren.class);
+                    int band_id = bands.getId();
+                    bandhoeren.putExtra("bandNr", band_id);
+                    bandhoeren.putExtra("read_only", true);
+
+                    v.getContext().startActivity(bandhoeren);
+                }
+            });
 
 
             ImageView gender = (ImageView) convertView.findViewById(R.id.gender);
@@ -72,15 +81,4 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             // Return the completed view to render on screen
             return convertView;
         }
-
-    public void onClick(View v) {
-        TextView info = (TextView) v.findViewById(R.id.info);
-
-        Intent bandhoeren= new Intent(v.getContext(), Bandhoeren.class);
-        int band_id=bands.getId();
-        bandhoeren.putExtra("bandNr",band_id);
-
-        v.getContext().startActivity(bandhoeren);
-    }
-
 }
