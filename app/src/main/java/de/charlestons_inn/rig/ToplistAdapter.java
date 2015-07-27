@@ -1,6 +1,7 @@
 package de.charlestons_inn.rig;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,14 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
         public ToplistAdapter(Context context, ArrayList<ToplistBand> bands) {
             super(context, 0, bands);
         }
+    private ToplistBand bands = null;
+
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
-            ToplistBand bands = getItem(position);
+            bands = getItem(position);
 
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
@@ -35,6 +39,8 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             TextView tags = (TextView) convertView.findViewById(R.id.tags);
             TextView points = (TextView) convertView.findViewById(R.id.points);
             //TODO INFO link generieren?
+
+
             ImageView gender = (ImageView) convertView.findViewById(R.id.gender);
             // Populate the data into the template view using the data object
             bandName.setText(bands.getName());
@@ -49,5 +55,15 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             // Return the completed view to render on screen
             return convertView;
         }
+
+    public void onClick(View v) {
+        TextView info = (TextView) v.findViewById(R.id.info);
+
+        Intent bandhoeren= new Intent(v.getContext(), Bandhoeren.class);
+        int band_id=bands.getId();
+        bandhoeren.putExtra("bandNr",band_id);
+
+        v.getContext().startActivity(bandhoeren);
+    }
 
 }

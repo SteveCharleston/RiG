@@ -98,7 +98,7 @@ public class Bandhoeren extends ActionBarActivity
 
         PicPagerAdapter =
                 new PicturePagerAdapter(
-                        getSupportFragmentManager(),pictures);
+                        getSupportFragmentManager(),pictures,mMemoryCache);
         mViewPager = (ViewPager) findViewById(R.id.pager2);
         mViewPager.setAdapter(PicPagerAdapter);
 
