@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.LruCache;
+import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -68,4 +70,11 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
         return "IMAGE " + (position + 1);
     }
 
+    @Override
+    public void destroyItem(View container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        View v = (View) object;
+        ((ViewPager) container).removeView(v);
+        v = null;
+    }
 }
