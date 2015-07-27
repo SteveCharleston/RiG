@@ -28,10 +28,16 @@
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/white">
 
-
             <TextView
                 style="@style/bandname"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:text="Statistik"
+                android:id="@+id/Stat" />
+            <TextView
+                style="@style/bandname"
+                android:layout_weight="0.13"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:text="FR"
@@ -41,13 +47,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/switch1"
-                android:layout_weight="0.1"
+                android:layout_weight="0.13"
                 android:checked="false"
                 android:background="@color/white"/>
 
             <TextView
                 style="@style/bandname"
-                android:layout_weight="0.2"
+                android:layout_weight="0.13"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:text="SA"

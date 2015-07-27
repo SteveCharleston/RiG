@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rigAPI.ToplistBand;
 
@@ -28,6 +29,8 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
             bands = getItem(position);
+            String tagstring="";
+            List taglist;
 
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
@@ -44,7 +47,21 @@ public class ToplistAdapter extends ArrayAdapter<ToplistBand> {
             ImageView gender = (ImageView) convertView.findViewById(R.id.gender);
             // Populate the data into the template view using the data object
             bandName.setText(bands.getName());
-            tags.setText(bands.getMusikstile().toString());
+            taglist = bands.getMusikstile();
+            int i = 0;
+            do {
+                if (taglist.isEmpty()){
+                    tagstring = " ";
+                    break;
+                }
+                tagstring += taglist.get(i);
+                i++;
+                if (i < taglist.size()){
+                    tagstring += "; ";
+                }
+            }while (i<taglist.size());
+
+            tags.setText(tagstring);
             points.setText(Double.toString(bands.getResult()));
 
             if(bands.getVoice().equals("male")){
