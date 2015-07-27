@@ -58,7 +58,6 @@
         android:layout_height="26dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:onClick="onClick"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="INFO"
