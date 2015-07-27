@@ -186,9 +186,7 @@ public class Bandhoeren extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_logout) {
+        if (id == R.id.action_logout) {
             SharedPreferences sharedPref = getSharedPreferences(
                     getString(R.string.global_prefs),
                     Context.MODE_PRIVATE);
