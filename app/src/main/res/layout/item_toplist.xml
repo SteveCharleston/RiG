@@ -32,12 +32,10 @@
         android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/tags"
         android:src="@drawable/male"
-        android:layout_toLeftOf="@+id/info"
-        android:layout_toStartOf="@+id/info" />
+        android:layout_alignTop="@+id/tags"
+        android:layout_toRightOf="@+id/tags"
+        android:layout_toEndOf="@+id/tags" />
 
     <TextView
         android:id="@+id/band"
