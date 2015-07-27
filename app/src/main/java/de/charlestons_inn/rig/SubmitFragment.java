@@ -63,8 +63,10 @@ public class SubmitFragment extends Fragment {
             return Day.FRSA;
         } else if (friday.isChecked() && !saturday.isChecked()) {
             return Day.FR;
-        } else {
+        } else if (!friday.isChecked() && saturday.isChecked()) {
             return Day.SA;
+        } else {
+            return null;
         }
     }
 

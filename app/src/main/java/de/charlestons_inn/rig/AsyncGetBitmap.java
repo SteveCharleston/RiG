@@ -27,21 +27,17 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
     LruCache<String, Bitmap> mMemoryCache;
     Activity app;
     int size;
+    private final WeakReference<ImageView> imageViewReference;
 
-
-    public AsyncGetBitmap( LruCache<String, Bitmap> mMemoryCache){
-        this.mMemoryCache=mMemoryCache;
+    public AsyncGetBitmap(ImageView view){
+        imageViewReference = new WeakReference<ImageView>(view);
 
     }
 
     @Override
     protected Bitmap doInBackground(String... params) {
         String url= params[0];
-        bit=getBitmapFromMemCache(url);
-        if(bit==null){
-            bit=decodeSampledBitmapFromStream(url,500,800);
-            addBitmapToMemoryCache(url,bit);
-        }
+        bit=decodeSampledBitmapFromStream(url,250,400);
         Bitmap src= getResizedBitmap(bit,250,400);
         return src;
     }
