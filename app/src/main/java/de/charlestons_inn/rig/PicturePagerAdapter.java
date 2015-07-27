@@ -10,6 +10,7 @@ import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -20,12 +21,20 @@ import rigAPI.Picture;
  */
 public class PicturePagerAdapter extends FragmentStatePagerAdapter {
     List<Picture> pictures=null;
-    LruCache<String, Bitmap> mMemoryCache;
     FragmentActivity app;
-    public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> picture) {
+    public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> pictures) {
         super(fm);
-        this.pictures=picture;
-        this.mMemoryCache=mMemoryCache;
+        if(pictures==null){
+            pictures=new ArrayList<Picture>();
+            Picture empty= new Picture();
+            empty.setBitmap(null);
+            empty.setUrl(null);
+            pictures.add(empty);
+        }
+        else{
+            this.pictures=pictures;
+        }
+
         this.app=app;
 
     }
@@ -36,9 +45,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = new Picture_fragment();
         Bundle args = new Bundle();
         Picture current=null;
-        if(pictures!=null){
-             current=pictures.get(position);
-
+          current=pictures.get(position);
             try {
                Bitmap bit=new AsyncGetBitmap(app).execute(current.getUrl()).get();
                 current.setBitmap(bit);
@@ -52,12 +59,6 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
             args.putInt("SIZE",pictures.size());
             args.putInt("POS",position+1);
 
-        }
-        else{
-            args.putSerializable(Picture_fragment.ARG_OBJECT, current);
-            args.putInt("SIZE",1);
-            args.putInt("POS",position+1);
-        }
 
 
         fragment.setArguments(args);
@@ -67,9 +68,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if(pictures==null){
-            return 1;
-        }
+
        return pictures.size();
 
     }

@@ -33,12 +33,15 @@ public class Picture_fragment extends Fragment {
         Picture pic= (Picture)args.getSerializable(ARG_OBJECT);
         Bitmap bit=null;
         ImageView image= (ImageView)rootView.findViewById(R.id.image);
-        image.setMaxHeight(250);
-        image.setMaxWidth(400);
-        image.setImageResource(R.drawable.noimage);
-        if(pic!=null) {
+
+        if(pic.getBitmap()!=null) {
             Bitmap canvasBitmap=drawPoints(pic.getBitmap(),size,position);
             image.setImageBitmap(canvasBitmap);
+        }
+        else{
+          image.setMaxHeight(250);
+        image.setMaxWidth(400);
+        image.setImageResource(R.drawable.noimage);
         }
 
         return rootView;
