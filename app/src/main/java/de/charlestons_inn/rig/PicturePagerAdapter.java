@@ -22,15 +22,18 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.pictures=picture;
         this.mMemoryCache=mMemoryCache;
+
     }
+
 
     @Override
     public Fragment getItem(int position) {
-        Picture current=pictures.get(position);
         Fragment fragment = new Picture_fragment();
         Bundle args = new Bundle();
-
+        Picture current=null;
         if(pictures!=null){
+             current=pictures.get(position);
+
             try {
                Bitmap bit=new AsyncGetBitmap(mMemoryCache).execute(current.getUrl()).get();
                 current.setBitmap(bit);
@@ -46,8 +49,9 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
 
         }
         else{
-            current.setBitmap(null);
             args.putSerializable(Picture_fragment.ARG_OBJECT, current);
+            args.putInt("SIZE",1);
+            args.putInt("POS",position+1);
         }
 
 
