@@ -6,6 +6,7 @@
     <color name="app_background">#414042</color>
     <color name="content_text">#000000</color>
     <color name="accordion_heading">#F1F2F2</color>
+    <color name="tag_text">#F1F2F2</color>
     <color name="songname">#F1F2F2</color>
     <color name="song_timestamp">#A7A9AC</color>
     <color name="grey">#58595B</color>

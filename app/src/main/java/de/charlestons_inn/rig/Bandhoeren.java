@@ -4,22 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,8 +25,6 @@ import rigAPI.Day;
 import rigAPI.Picture;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
-import rigAPI.RigSettings;
-import rigAPI.RigStatistic;
 
 
 public class Bandhoeren extends ActionBarActivity
@@ -46,14 +41,15 @@ public class Bandhoeren extends ActionBarActivity
     String userName;
     Integer bandNr = -1;
     PlayerListFragment playerList;
+    AsyncGetBitmap async_ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandhoeren);
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        final int cacheSize = maxMemory / 4;
 
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 8;
         mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
@@ -62,6 +58,7 @@ public class Bandhoeren extends ActionBarActivity
                 return bitmap.getByteCount() / 1024;
             }
         };
+
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
         bandNr = getIntent().getIntExtra("bandNr", -1);
 
@@ -76,8 +73,8 @@ public class Bandhoeren extends ActionBarActivity
         currentBand = null;
 
         try {
-//            new AsyncAuthenticate(this, rig)
-//                    .execute("user1", "password1") .get();
+           //new AsyncAuthenticate(this, rig)
+                  //.execute("user2", "password2") .get();
             if (bandNr > -1) {
                 currentBand = new AsyncGetBand(this, rig).execute(bandNr).get();
             } else {
@@ -88,19 +85,27 @@ public class Bandhoeren extends ActionBarActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        List<Picture> pictures=currentBand.getPictures();
-        if(pictures!=null){
-                   PicPagerAdapter =
-                    new PicturePagerAdapter(
-                            getSupportFragmentManager(),pictures);
-            mViewPager = (ViewPager) findViewById(R.id.pager2);
-            mViewPager.setAdapter(PicPagerAdapter);
+
+        if (currentBand == null) {
+            // if we haven't successfully loaded a Band, round is over
+            // TODO: implement a saner approach
+            Intent toplist = new Intent(this, Test_Toplist.class);
+            safelyStartActivity(toplist);
         }
+        //Loading pictures
+
+        List<Picture> pictures=currentBand.getPictures();
+
+        PicPagerAdapter =
+                new PicturePagerAdapter(
+                        getSupportFragmentManager(),pictures,mMemoryCache);
+        mViewPager = (ViewPager) findViewById(R.id.pager2);
+        mViewPager.setAdapter(PicPagerAdapter);
+
 
         if (isGroupAccount) {
             setTitle(getTitle() + " (Gruppenaccount)");
         }
-
 
 
         Bundle bundle = new Bundle();
@@ -152,22 +157,7 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
-    public List<Picture> showURLBitmap(List<Picture> pictures){
-        List<Picture>value = null;
 
-        try {
-
-            value= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return value;
-
-    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -212,22 +202,6 @@ public class Bandhoeren extends ActionBarActivity
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, Info.class);
             safelyStartActivity(intent);
-        } else if (id == R.id.band1) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 2);
-            safelyStartActivity(i);
-        } else if (id == R.id.band2) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 4);
-            safelyStartActivity(i);
-        } else if (id == R.id.band3) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 6);
-            safelyStartActivity(i);
-        } else if (id == R.id.band4) {
-            Intent i = new Intent(this, Bandhoeren.class);
-            i.putExtra("bandNr", 11);
-            safelyStartActivity(i);
         }
         else if(id==R.id.action_search){
             Intent bandsuche= new Intent(this,Bandsuche.class);
@@ -237,10 +211,7 @@ public class Bandhoeren extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+
 
     public void onClickRoundedButton(View v) {
         Bundle bundle = new Bundle();
@@ -268,6 +239,14 @@ public class Bandhoeren extends ActionBarActivity
             bandbeschreibungLay.setAlpha(0.0f);
             bandbeschreibungLay.animate()
                     .alpha(1.0f);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(async_ref!=null &&async_ref.getStatus()==AsyncTask.Status.RUNNING){
+            async_ref.cancel(true);
         }
     }
 
@@ -299,7 +278,10 @@ public class Bandhoeren extends ActionBarActivity
     }
 
     public void safelyStartActivity(Intent intent) {
-        playerList.stopAllPlayers();
+        if (playerList != null) {
+            playerList.stopAllPlayers();
+        }
+
         startActivity(intent);
     }
 
@@ -316,6 +298,20 @@ public class Bandhoeren extends ActionBarActivity
         int rating = submitFragment.getRatingbar();
         Day playDay = submitFragment.getDays();
 
+        if (playDay == null) {
+            FragmentManager fm = getSupportFragmentManager();
+            ErrorDialog error = new ErrorDialog();
+            error.set_text(fm, "Bitte einen Spieltag auswählen");
+            return;
+        }
+
+        if (rating == 0) {
+            FragmentManager fm = getSupportFragmentManager();
+            ErrorDialog error = new ErrorDialog();
+            error.set_text(fm, "Bitte Sterne vergeben");
+            return;
+        }
+
         if (tagChooser != null) {
             Integer tagID = tagChooser.getTagID();
             if (tagID != null) {
@@ -328,4 +324,6 @@ public class Bandhoeren extends ActionBarActivity
         safelyStartActivity(i);
         finish();
     }
+
+
 }

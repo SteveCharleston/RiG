@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import rigAPI.RiGException;
 import rigAPI.RigBand;
 import rigAPI.RigDBAccess;
+import rigAPI.RoundCompletedException;
 
 /**
  * Created by steven on 13.06.15.
@@ -30,8 +31,12 @@ public class AsyncGetBand
         try {
             currentBand = rig.getBand(bandNr);
         } catch (RiGException e) {
+            if (e instanceof RoundCompletedException) {
+                return null;
+            }
             e.printStackTrace();
         }
+
 
         return currentBand;
     }

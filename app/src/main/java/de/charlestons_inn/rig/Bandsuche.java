@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,16 +33,19 @@ import rigAPI.SearchResultBand;
 
 public class Bandsuche extends ActionBarActivity {
 
-
     RigDBAccess rig;
+    Context main= this;
+    Intent bandhoeren;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bandsuche);
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.global_prefs),
                 Context.MODE_PRIVATE);
+
         String apiKey = sharedPref.getString("APIKEY", null);
         rig=new RigDBAccess(apiKey);
+        bandhoeren= new Intent(this,Bandhoeren.class);
         Intent intent=getIntent();
         handleIntent(intent,rig);
 
@@ -79,7 +83,8 @@ public class Bandsuche extends ActionBarActivity {
            Namen[i]=s. getName();
             i++;
         }
-        Arrays.sort(Namen);
+        //Arrays.sort(Namen);
+
         ListAdapter Namen_adapter= new SuchAdapter(this,Namen);
         ListView view_Namen= (ListView)findViewById(R.id.listView);
         view_Namen.setAdapter(Namen_adapter);
@@ -88,7 +93,6 @@ public class Bandsuche extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SearchResultBand result =bands.get(position);
-                    Intent bandhoeren= new Intent(getApplicationContext(),Bandhoeren.class);
                     int band_id=result.getId();
                     bandhoeren.putExtra("bandNr",band_id);
                     startActivity(bandhoeren);

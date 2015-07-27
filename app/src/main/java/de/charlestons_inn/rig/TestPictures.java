@@ -1,16 +1,12 @@
 package de.charlestons_inn.rig;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -43,15 +39,15 @@ public class TestPictures extends ActionBarActivity {
                 return bitmap.getByteCount() / 1024;
             }
         };
-
+        int random =1+(int)( Math.random()*10);
+    /*
         PicPagerAdapter =
                 new PicturePagerAdapter(
-                        getSupportFragmentManager(),showURLBitmap(rig,5));
+                        getSupportFragmentManager(),showURLBitmap(rig,random));
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(PicPagerAdapter);
 
-        //image.setImageBitmap(showURLBitmap(rig,10));
-
+        //image.setImageBitmap(showURLBitmap(rig,10));*/
 
     }
 
@@ -79,26 +75,7 @@ public class TestPictures extends ActionBarActivity {
     }
 
 
-    public List<Picture> showURLBitmap(RigDBAccess rig, int band_id){
-        RigBand currentBand;
 
-        List<Picture> pictures=null;
-        try {
-            new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1") .get();
-            currentBand=new AsyncGetBand(this,rig).execute(band_id).get();
-           pictures=currentBand.getPictures();
-           pictures= new AsyncGetPictures(mMemoryCache).execute(pictures).get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return pictures;
-
-    }
 
 
 
