@@ -27,11 +27,10 @@ import rigAPI.RigBand;
 public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
 
    Bitmap bit=null;
-    LruCache<String, Bitmap> mMemoryCache;
     FragmentActivity app;
     int size;
-    public AsyncGetBitmap( FragmentActivity app,LruCache<String, Bitmap> mMemoryCache){
-        this.mMemoryCache=mMemoryCache;
+    public AsyncGetBitmap( FragmentActivity app){
+
         this.app=app;
 
     }
@@ -39,13 +38,10 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
     @Override
     protected Bitmap doInBackground(String... params) {
         String url= params[0];
-        bit=getBitmapFromMemCache(url);
-        if(bit==null){
-            bit=decodeSampledBitmapFromStream(url,250,400);
-            addBitmapToMemoryCache(url,bit);
-        }
+           bit=decodeSampledBitmapFromStream(url,250,400);
 
         if (bit == null) {
+
             return null;
         }
 
@@ -72,7 +68,13 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
                     FragmentManager fm = app.getSupportFragmentManager();
                     ErrorDialog error = new ErrorDialog();
                     error.set_text(fm, "File not found");
-                    return null;
+                    options.inJustDecodeBounds =false;
+                    try {
+                        bit=   BitmapFactory.decodeStream((InputStream) new URL("http://www.tjweb.no/wp-content/themes/showycase2/images/no-image-thumb.png").getContent(),null,options);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    return bit;
                 }
 
                 e.printStackTrace();
@@ -159,15 +161,6 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
 
         return resizedBitmap;
 
-    }
-    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    public Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
     }
 
 

@@ -22,7 +22,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
     List<Picture> pictures=null;
     LruCache<String, Bitmap> mMemoryCache;
     FragmentActivity app;
-    public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> picture,LruCache<String, Bitmap> mMemoryCache) {
+    public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> picture) {
         super(fm);
         this.pictures=picture;
         this.mMemoryCache=mMemoryCache;
@@ -40,7 +40,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
              current=pictures.get(position);
 
             try {
-               Bitmap bit=new AsyncGetBitmap(app,mMemoryCache).execute(current.getUrl()).get();
+               Bitmap bit=new AsyncGetBitmap(app).execute(current.getUrl()).get();
                 current.setBitmap(bit);
 
             } catch (InterruptedException e) {
