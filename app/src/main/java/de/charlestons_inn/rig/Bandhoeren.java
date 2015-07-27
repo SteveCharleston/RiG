@@ -181,6 +181,7 @@ public class Bandhoeren extends ActionBarActivity
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.remove("APIKEY");
+            editor.remove("USERNAME");
             editor.commit();
             Intent intent = new Intent(this, MainActivity.class);
             safelyStartActivity(intent);

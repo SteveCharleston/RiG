@@ -1,5 +1,7 @@
 package de.charlestons_inn.rig;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,12 +21,17 @@ public class Test_Toplist extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RigDBAccess rig = new RigDBAccess();
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.global_prefs),
+                Context.MODE_PRIVATE);
+        String apiKey = sharedPref.getString("APIKEY", null);
+
+        RigDBAccess rig = new RigDBAccess(apiKey);
         RigBand currentBand = null;
 
         try {
-            new AsyncAuthenticate(this, rig)
-                    .execute("user1", "password1") .get();
+            //new AsyncAuthenticate(this, rig)
+             //       .execute("user1", "password1") .get();
             currentBand = new AsyncGetBand(this, rig).execute(100).get();
         } catch (InterruptedException e) {
             e.printStackTrace();

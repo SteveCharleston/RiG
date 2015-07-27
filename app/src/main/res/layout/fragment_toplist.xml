@@ -50,7 +50,7 @@
                 android:layout_weight="0.13"
                 android:checked="false"
                 android:background="@color/white"
-                android:thumb="@drawable/switch_drawable"/>
+                />
 
             <TextView
                 style="@style/bandname"

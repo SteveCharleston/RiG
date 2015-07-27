@@ -84,6 +84,7 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("APIKEY", apikey);
+        editor.putString("USERNAME", user);
         editor.commit();
 
         return apikey;
