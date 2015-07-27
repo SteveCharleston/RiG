@@ -124,10 +124,10 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:src="@drawable/youtube"
                     android:background="#00000000"
-                    android:layout_weight="0.13"
                     android:clickable="true"
                     android:visibility="visible"
-                    android:backgroundTint="#00000000" />
+                    android:backgroundTint="#00000000"
+                    android:layout_marginRight="15dp" />
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -136,9 +136,9 @@
                     android:id="@+id/soundscloud"
                     android:background="#00000000"
                     android:src="@drawable/soundscloud"
-                    android:layout_weight="0.16"
                     android:backgroundTint="#00000000"
-                    android:clickable="true" />
+                    android:clickable="true"
+                    android:layout_marginRight="15dp" />
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -147,9 +147,9 @@
                     android:background="#00000000"
                     android:src="@drawable/fb"
                     android:id="@+id/facebook"
-                    android:layout_weight="0.13"
                     android:backgroundTint="#00000000"
-                    android:clickable="true" />
+                    android:clickable="true"
+                    android:layout_marginRight="15dp" />
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -158,9 +158,9 @@
                     android:background="#00000000"
                     android:src="@drawable/backstage_pro"
                     android:id="@+id/backstage"
-                    android:layout_weight="0.13"
                     android:backgroundTint="#00000000"
-                    android:clickable="true" />
+                    android:clickable="true"
+                    android:layout_marginRight="15dp" />
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -168,7 +168,6 @@
                     android:background="#00000000"
                     android:src="@drawable/homepage"
                     android:id="@+id/homepage"
-                    android:layout_weight="0.13"
                     android:backgroundTint="#00000000"
                     android:clickable="true" />
             </LinearLayout>
