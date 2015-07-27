@@ -1,9 +1,13 @@
 package de.charlestons_inn.rig;
 
 import android.app.Activity;
+
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
 import rigAPI.Day;
+import rigAPI.NotInRoundException;
 import rigAPI.RiGException;
 import rigAPI.RigDBAccess;
 
@@ -12,9 +16,9 @@ import rigAPI.RigDBAccess;
  */
 public class AsyncSubmitDay extends AsyncTask<Object, Integer, Boolean> {
     private RigDBAccess rig;
-    private Activity app;
+    private FragmentActivity app;
 
-    public AsyncSubmitDay(Activity app, RigDBAccess rig) {
+    public AsyncSubmitDay(FragmentActivity app, RigDBAccess rig) {
         this.app = app;
         this.rig = rig;
     }
@@ -31,6 +35,12 @@ public class AsyncSubmitDay extends AsyncTask<Object, Integer, Boolean> {
         try {
             rig.setDay(bandNr, day);
         } catch (RiGException e) {
+            if (e instanceof NotInRoundException) {
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "Serverfehler: Band befindet sich nicht " +
+                        "mehr in der Runde");
+            }
             e.printStackTrace();
         }
 

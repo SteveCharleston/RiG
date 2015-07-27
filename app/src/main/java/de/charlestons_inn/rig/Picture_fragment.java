@@ -22,7 +22,6 @@ import rigAPI.Picture;
  */
 public class Picture_fragment extends Fragment {
     public static final String ARG_OBJECT = "IMAGE";
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
