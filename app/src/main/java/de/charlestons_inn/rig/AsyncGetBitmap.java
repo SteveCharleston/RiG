@@ -66,9 +66,22 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
             try {
-                BitmapFactory.decodeStream((InputStream) new URL(url).openConnection().getInputStream(),null,options);
+                BitmapFactory.decodeStream((InputStream) new URL(url).getContent(),null,options);
             } catch (IOException e) {
+                if(e instanceof FileNotFoundException){
+                    FragmentManager fm = app.getSupportFragmentManager();
+                    ErrorDialog error = new ErrorDialog();
+                    error.set_text(fm, "File not found");
+                    return null;
+                }
+
                 e.printStackTrace();
+            }
+            catch (OutOfMemoryError outOfMemoryError) {
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "Out of Memory");
+                return null;
             }
 
 
@@ -78,7 +91,7 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         try {
-            bit= BitmapFactory.decodeStream((InputStream) new URL(url).openConnection().getInputStream(), null,options);
+            bit= BitmapFactory.decodeStream((InputStream) new URL(url).getContent(), null,options);
 
         } catch (IOException e) {
             if(e instanceof FileNotFoundException){
