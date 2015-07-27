@@ -34,7 +34,7 @@ public class Picture_fragment extends Fragment {
         Bitmap bit=null;
         ImageView image= (ImageView)rootView.findViewById(R.id.image);
 
-        if(pic.getBitmap()!=null) {
+        if(pic!=null && pic.getBitmap()!=null) {
             Bitmap canvasBitmap=drawPoints(pic.getBitmap(),size,position);
             image.setImageBitmap(canvasBitmap);
         }

@@ -39,7 +39,6 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
 
     }
 
-
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = new Picture_fragment();
@@ -58,11 +57,8 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
             args.putSerializable(Picture_fragment.ARG_OBJECT, current);
             args.putInt("SIZE",pictures.size());
             args.putInt("POS",position+1);
-
-
-
-        fragment.setArguments(args);
-        return fragment;
+            fragment.setArguments(args);
+            return fragment;
 
     }
 
