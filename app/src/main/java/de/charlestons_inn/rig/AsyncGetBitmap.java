@@ -41,8 +41,13 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
             addBitmapToMemoryCache(url,bit);
         }
 
-        Bitmap src= getResizedBitmap(bit,250,400);
-        return src;
+        if (bit != null) {
+            Bitmap src = getResizedBitmap(bit, 250, 400);
+            return src;
+        } else {
+            return null;
+        }
+
     }
 
     @Override
