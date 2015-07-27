@@ -22,7 +22,6 @@ import rigAPI.Picture;
  */
 public class Picture_fragment extends Fragment {
     public static final String ARG_OBJECT = "IMAGE";
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -34,15 +33,14 @@ public class Picture_fragment extends Fragment {
         Picture pic= (Picture)args.getSerializable(ARG_OBJECT);
         Bitmap bit=null;
         ImageView image= (ImageView)rootView.findViewById(R.id.image);
-        if(pic.getBitmap()!=null) {
+        image.setMaxHeight(250);
+        image.setMaxWidth(400);
+        image.setImageResource(R.drawable.noimage);
+        if(pic!=null) {
             Bitmap canvasBitmap=drawPoints(pic.getBitmap(),size,position);
             image.setImageBitmap(canvasBitmap);
         }
-        else {
-            image.setMaxHeight(500);
-            image.setMaxWidth(300);
-            image.setImageResource(R.drawable.noimage);
-        }
+
         return rootView;
 
     }

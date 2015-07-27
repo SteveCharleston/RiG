@@ -6,9 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -25,10 +28,11 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
 
    Bitmap bit=null;
     LruCache<String, Bitmap> mMemoryCache;
-    Activity app;
+    FragmentActivity app;
     int size;
-    public AsyncGetBitmap( LruCache<String, Bitmap> mMemoryCache){
+    public AsyncGetBitmap( FragmentActivity app,LruCache<String, Bitmap> mMemoryCache){
         this.mMemoryCache=mMemoryCache;
+        this.app=app;
 
     }
 
@@ -41,8 +45,13 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
             addBitmapToMemoryCache(url,bit);
         }
 
-        Bitmap src= getResizedBitmap(bit,250,400);
+        if (bit == null) {
+            return null;
+        }
+
+        Bitmap src = getResizedBitmap(bit, 250, 400);
         return src;
+
     }
 
     @Override
@@ -57,7 +66,7 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
             try {
-                BitmapFactory.decodeStream((InputStream) new URL(url).getContent(),null,options);
+                BitmapFactory.decodeStream((InputStream) new URL(url).openConnection().getInputStream(),null,options);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -69,9 +78,22 @@ public class AsyncGetBitmap extends AsyncTask<String,Void,Bitmap> {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         try {
-            bit= BitmapFactory.decodeStream((InputStream) new URL(url).getContent(), null,options);
+            bit= BitmapFactory.decodeStream((InputStream) new URL(url).openConnection().getInputStream(), null,options);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            if(e instanceof FileNotFoundException){
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "File not found");
+                return null;
+            }
+
+        }
+        catch (OutOfMemoryError outOfMemoryError) {
+            FragmentManager fm = app.getSupportFragmentManager();
+            ErrorDialog error = new ErrorDialog();
+            error.set_text(fm, "Out of Memory");
+            return null;
         }
 
         return bit;

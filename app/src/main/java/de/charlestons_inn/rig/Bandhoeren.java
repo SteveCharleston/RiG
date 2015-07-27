@@ -97,7 +97,7 @@ public class Bandhoeren extends ActionBarActivity
         List<Picture> pictures=currentBand.getPictures();
 
         PicPagerAdapter =
-                new PicturePagerAdapter(
+                new PicturePagerAdapter(this,
                         getSupportFragmentManager(),pictures,mMemoryCache);
         mViewPager = (ViewPager) findViewById(R.id.pager2);
         mViewPager.setAdapter(PicPagerAdapter);
@@ -186,9 +186,7 @@ public class Bandhoeren extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_logout) {
+        if (id == R.id.action_logout) {
             SharedPreferences sharedPref = getSharedPreferences(
                     getString(R.string.global_prefs),
                     Context.MODE_PRIVATE);
@@ -245,9 +243,7 @@ public class Bandhoeren extends ActionBarActivity
     @Override
     protected void onPause() {
         super.onPause();
-        if(async_ref!=null &&async_ref.getStatus()==AsyncTask.Status.RUNNING){
-            async_ref.cancel(true);
-        }
+
     }
 
     public void onClickAccordionTagsAndDays(View v) {
