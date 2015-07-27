@@ -93,8 +93,6 @@ public class Bandsuche extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     SearchResultBand result =bands.get(position);
-                    Toast.makeText(main,position+"  "+result.getName(),
-                            Toast.LENGTH_SHORT).show();
                     int band_id=result.getId();
                     bandhoeren.putExtra("bandNr",band_id);
                     startActivity(bandhoeren);
