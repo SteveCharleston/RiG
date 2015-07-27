@@ -49,7 +49,14 @@ public class Picture_fragment extends Fragment {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(Color.GRAY);
-        Bitmap canvasBitmap =pic.copy(pic.getConfig(),true); // Bitmap.createBitmap(500, 800, Bitmap.Config.ARGB_8888);
+        Bitmap canvasBitmap;
+        try {
+            canvasBitmap = pic.copy(pic.getConfig(),
+                    true); // Bitmap.createBitmap(500, 800,
+                    // Bitmap.Config.ARGB_8888);
+        } catch (NullPointerException e) {
+            return null;
+        }
        // canvasBitmap.setConfig(Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(canvasBitmap);
         canvas.drawBitmap(pic, 0, 0,null);
