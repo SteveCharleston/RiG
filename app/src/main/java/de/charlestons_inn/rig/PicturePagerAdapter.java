@@ -3,6 +3,7 @@ package de.charlestons_inn.rig;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.LruCache;
@@ -20,10 +21,12 @@ import rigAPI.Picture;
 public class PicturePagerAdapter extends FragmentStatePagerAdapter {
     List<Picture> pictures=null;
     LruCache<String, Bitmap> mMemoryCache;
-    public PicturePagerAdapter (FragmentManager fm, List<Picture> picture,LruCache<String, Bitmap> mMemoryCache) {
+    FragmentActivity app;
+    public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> picture,LruCache<String, Bitmap> mMemoryCache) {
         super(fm);
         this.pictures=picture;
         this.mMemoryCache=mMemoryCache;
+        this.app=app;
 
     }
 
@@ -37,7 +40,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
              current=pictures.get(position);
 
             try {
-               Bitmap bit=new AsyncGetBitmap(mMemoryCache).execute(current.getUrl()).get();
+               Bitmap bit=new AsyncGetBitmap(app,mMemoryCache).execute(current.getUrl()).get();
                 current.setBitmap(bit);
 
             } catch (InterruptedException e) {
