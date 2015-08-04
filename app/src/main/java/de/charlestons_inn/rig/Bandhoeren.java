@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SyncStatusObserver;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.PersistableBundle;
@@ -48,6 +49,10 @@ public class Bandhoeren extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            System.out.println("oncreate saved instance state");
+        }
+
         setContentView(R.layout.activity_bandhoeren);
         Boolean readOnly = getIntent().getBooleanExtra("read_only", false);
         bandNr = getIntent().getIntExtra("bandNr", -1);
@@ -149,20 +154,20 @@ public class Bandhoeren extends ActionBarActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
         outState.putSerializable("playerlist", playerList);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
         playerList = (PlayerListFragment) savedInstanceState
                 .getSerializable("playerlist");
 
         getFragmentManager().beginTransaction()
                 .add(R.id.musicplayer, playerList).commit();
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -217,15 +222,45 @@ public class Bandhoeren extends ActionBarActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (!isTaskRoot()) {
+            super.onBackPressed();
+        } else {
+            moveTaskToBack(true);
+        }
+    }
+
+    @Override
     protected void onStop() {
-        super.onStop();
         System.out.println("onStop");
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        System.out.println("on restart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        System.out.println("on resume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onpause");
+
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         System.out.println("Activity Destroyed");
+
+        super.onDestroy();
     }
 
     public void onClickRoundedButton(View v) {
@@ -255,13 +290,6 @@ public class Bandhoeren extends ActionBarActivity
             bandbeschreibungLay.animate()
                     .alpha(1.0f);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("onpause");
-
     }
 
     public void onClickAccordionTagsAndDays(View v) {

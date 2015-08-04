@@ -193,6 +193,18 @@ public class PlayerFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        System.out.println("saving player state");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        System.out.println("restoring player state");
+        super.onViewStateRestored(savedInstanceState);
+    }
+
     public void destroyPlayer() {
         run = null;
         if (preparationStarted) {
