@@ -30,6 +30,7 @@ public class AsyncGetBand
         }
         try {
             currentBand = rig.getBand(bandNr);
+            //throw new RoundCompletedException();
         } catch (RiGException e) {
             if (e instanceof RoundCompletedException) {
                 return null;

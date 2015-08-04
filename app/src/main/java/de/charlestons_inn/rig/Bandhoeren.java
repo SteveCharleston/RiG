@@ -86,6 +86,8 @@ public class Bandhoeren extends ActionBarActivity
             // TODO: implement a saner approach
             Intent toplist = new Intent(this, Test_Toplist.class);
             safelyStartActivity(toplist);
+            finish();
+            return;
         }
         //Loading pictures
 
@@ -258,6 +260,9 @@ public class Bandhoeren extends ActionBarActivity
 
     @Override
     protected void onDestroy() {
+        if (playerList != null) {
+            playerList.stopAllPlayers();
+        }
         System.out.println("Activity Destroyed");
 
         super.onDestroy();
