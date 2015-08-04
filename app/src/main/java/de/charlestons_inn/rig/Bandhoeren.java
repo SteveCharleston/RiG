@@ -1,10 +1,12 @@
 package de.charlestons_inn.rig;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
@@ -145,7 +147,23 @@ public class Bandhoeren extends ActionBarActivity
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        outState.putSerializable("playerlist", playerList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        playerList = (PlayerListFragment) savedInstanceState
+                .getSerializable("playerlist");
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.musicplayer, playerList).commit();
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -198,7 +216,17 @@ public class Bandhoeren extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("onStop");
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("Activity Destroyed");
+    }
 
     public void onClickRoundedButton(View v) {
         Bundle bundle = new Bundle();
@@ -232,6 +260,7 @@ public class Bandhoeren extends ActionBarActivity
     @Override
     protected void onPause() {
         super.onPause();
+        System.out.println("onpause");
 
     }
 
@@ -309,6 +338,5 @@ public class Bandhoeren extends ActionBarActivity
         safelyStartActivity(i);
         finish();
     }
-
 
 }
