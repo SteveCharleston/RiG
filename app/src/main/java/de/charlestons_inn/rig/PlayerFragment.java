@@ -218,7 +218,7 @@ public class PlayerFragment extends Fragment {
     }
 
     public void pausePlayer() {
-        if (mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }
     }
