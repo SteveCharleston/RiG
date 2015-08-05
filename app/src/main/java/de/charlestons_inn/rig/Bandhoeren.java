@@ -51,6 +51,7 @@ public class Bandhoeren extends ActionBarActivity
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             System.out.println("oncreate saved instance state");
+            System.out.println("savedinstance " + savedInstanceState);
         }
 
         setContentView(R.layout.activity_bandhoeren);
@@ -125,8 +126,14 @@ public class Bandhoeren extends ActionBarActivity
                     + (new Integer(currentBand.getRunde())).toString());
         }
 
-        playerList = new PlayerListFragment();
-        playerList.setArguments(bundle);
+        playerList = (PlayerListFragment) getFragmentManager()
+                .findFragmentByTag("musicplayer");
+
+        if (playerList == null) {
+            playerList = new PlayerListFragment();
+            playerList.setArguments(bundle);
+            playerList.setRetainInstance(true);
+        }
 
         Button accTagsAndDays
                 = (Button) findViewById(R.id.accordion_tags_and_days);
@@ -142,7 +149,7 @@ public class Bandhoeren extends ActionBarActivity
         submitFragment.setArguments(bundle);
 
         getFragmentManager().beginTransaction()
-                .add(R.id.musicplayer, playerList).commit();
+                .add(R.id.musicplayer, playerList, "musicplayer").commit();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.bandbeschreibung, description).commit();
         getFragmentManager().beginTransaction()
@@ -156,20 +163,20 @@ public class Bandhoeren extends ActionBarActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("playerlist", playerList);
-
         super.onSaveInstanceState(outState);
+        //outState.putSerializable("playerlist", playerList);
+        System.out.println("onsaveinstancestate");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        playerList = (PlayerListFragment) savedInstanceState
-                .getSerializable("playerlist");
-
-        getFragmentManager().beginTransaction()
-                .add(R.id.musicplayer, playerList).commit();
-
         super.onRestoreInstanceState(savedInstanceState);
+        System.out.println("on restore instance state");
+//        playerList = (PlayerListFragment) savedInstanceState
+//                .getSerializable("playerlist");
+//
+//        getFragmentManager().beginTransaction()
+//                .add(R.id.musicplayer, playerList).commit();
     }
 
     @Override
