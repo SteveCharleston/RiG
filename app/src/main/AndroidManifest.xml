@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:excludeFromRecents="true"
+            android:excludeFromRecents="false"
             android:label="@string/app_name"
             android:noHistory="true" >
             <intent-filter>
@@ -67,9 +67,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
-    </activity>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".TestPlayerServiceActivity"
+            android:label="@string/title_activity_test_player_service" >
+        </activity>
+
+        <service
+            android:name=".backgroundPlayer2"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
