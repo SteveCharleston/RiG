@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import rigAPI.BadAuthenticationException;
 import rigAPI.BrokenAPIKeyException;
+import rigAPI.ConnectionTimeoutException;
 import rigAPI.NoPasswordException;
 import rigAPI.NoUserException;
 import rigAPI.RiGException;
@@ -69,6 +70,13 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
                 FragmentManager fm = app.getSupportFragmentManager();
                 ErrorDialog error = new ErrorDialog();
                 error.set_text(fm, "Keine Internetverbindung");
+                return null;
+
+            }
+            else  if(e instanceof ConnectionTimeoutException){
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "Timeout bei der Verbindungsaufbau");
                 return null;
 
             }
