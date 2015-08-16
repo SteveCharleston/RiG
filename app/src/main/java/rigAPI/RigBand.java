@@ -18,7 +18,7 @@ public class RigBand extends ClassFromXML implements Serializable {
     private String uid;
     private String status;
     private int runde;
-    private int result;
+    private float result;
     private String day;
     private String name;
     private String proberaum;
@@ -108,7 +108,7 @@ public class RigBand extends ClassFromXML implements Serializable {
         uid = getContent("uid");
         status = getContent("status");
         runde = Integer.parseInt(getContent("runde"));
-        result = Integer.parseInt(getContent("result"));
+        result = Float.parseFloat(getContent("result"));
         day = getContent("day");
         name = getContent("name");
         proberaum = getContent("proberaum");
@@ -231,7 +231,7 @@ public class RigBand extends ClassFromXML implements Serializable {
         return runde;
     }
 
-    public int getResult() {
+    public float getResult() {
         return result;
     }
 
