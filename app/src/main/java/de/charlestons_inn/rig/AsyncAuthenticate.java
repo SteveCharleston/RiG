@@ -9,12 +9,17 @@ import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 
 
+import org.apache.http.NoHttpResponseException;
+
+import java.io.IOException;
+
 import rigAPI.BadAuthenticationException;
 import rigAPI.BrokenAPIKeyException;
 import rigAPI.NoPasswordException;
 import rigAPI.NoUserException;
 import rigAPI.RiGException;
 import rigAPI.RigDBAccess;
+import rigAPI.httpPostException;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
 
@@ -41,7 +46,9 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
 
         try {
             apikey = rig.authenticate(user, password);
-        } catch (RiGException e) {
+        }
+
+        catch (RiGException e) {
 
             if(e instanceof BadAuthenticationException){
                 FragmentManager fm = app.getSupportFragmentManager();
@@ -58,6 +65,14 @@ public class AsyncAuthenticate extends AsyncTask<String, Integer, String> {
                 return null;
 
             }
+            else  if(e instanceof httpPostException){
+                FragmentManager fm = app.getSupportFragmentManager();
+                ErrorDialog error = new ErrorDialog();
+                error.set_text(fm, "Keine Internetverbindung");
+                return null;
+
+            }
+
             else  if(e instanceof BrokenAPIKeyException){
                 FragmentManager fm = app.getSupportFragmentManager();
                 ErrorDialog error = new ErrorDialog();
