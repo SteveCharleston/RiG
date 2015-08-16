@@ -116,6 +116,13 @@ public class PlayerListFragment extends Fragment
         }
     }
 
+    public void pauseAllPlayers() {
+        for (int i = 0; i < players.size(); i++) {
+            PlayerFragment player = players.get(i);
+            player.pausePlayer();
+        }
+    }
+
     @Override
     public void stopOtherPlayer(int songIndex) {
         for (int i = 0; i < players.size(); i++) {

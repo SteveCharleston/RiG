@@ -241,9 +241,8 @@ public class Bandhoeren extends ActionBarActivity
 
     @Override
     protected void onStop() {
-        System.out.println("onStop");
-
         super.onStop();
+        System.out.println("onStop");
     }
 
     @Override
@@ -267,12 +266,11 @@ public class Bandhoeren extends ActionBarActivity
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (playerList != null) {
             playerList.stopAllPlayers();
         }
         System.out.println("Activity Destroyed");
-
-        super.onDestroy();
     }
 
     public void onClickRoundedButton(View v) {
@@ -333,7 +331,7 @@ public class Bandhoeren extends ActionBarActivity
 
     public void safelyStartActivity(Intent intent) {
         if (playerList != null) {
-            playerList.stopAllPlayers();
+            playerList.pauseAllPlayers();
         }
 
         startActivity(intent);
@@ -375,6 +373,9 @@ public class Bandhoeren extends ActionBarActivity
         new AsyncSubmitDay(this, rig).execute(bandNr, playDay);
         new AsyncSubmitRating(this, rig).execute(bandNr, rating);
         Intent i = new Intent(this, Bandhoeren.class);
+        if (playerList != null) {
+            playerList.stopAllPlayers();
+        }
         safelyStartActivity(i);
         finish();
     }
