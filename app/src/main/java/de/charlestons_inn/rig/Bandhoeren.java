@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -83,7 +84,13 @@ public class Bandhoeren extends ActionBarActivity
         //Loading pictures
 
         List<Picture> pictures=currentBand.getPictures();
-
+        if(pictures==null){
+            pictures=new ArrayList<Picture>();
+            Picture empty= new Picture();
+            empty.setBitmap(null);
+            empty.setUrl(null);
+            pictures.add(empty);
+        }
         PicPagerAdapter =
                 new PicturePagerAdapter(this,
                         getSupportFragmentManager(),pictures);
