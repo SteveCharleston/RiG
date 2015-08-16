@@ -24,17 +24,7 @@ public class PicturePagerAdapter extends FragmentStatePagerAdapter {
     FragmentActivity app;
     public PicturePagerAdapter (FragmentActivity app,FragmentManager fm, List<Picture> pictures) {
         super(fm);
-        if(pictures==null){
-            pictures=new ArrayList<Picture>();
-            Picture empty= new Picture();
-            empty.setBitmap(null);
-            empty.setUrl(null);
-            pictures.add(empty);
-        }
-        else{
-            this.pictures=pictures;
-        }
-
+        this.pictures=pictures;
         this.app=app;
 
     }

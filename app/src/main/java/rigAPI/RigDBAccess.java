@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.w3c.dom.Document;
@@ -401,7 +402,7 @@ public class RigDBAccess
      *                           that coule happen during communication are
      *                           wrapped
      */
-    private static String httpPost(String url) throws httpPostException {
+    private static String httpPost(String url) throws httpPostException, ConnectionTimeoutException {
         return httpPost(url, null);
     }
 
@@ -416,7 +417,7 @@ public class RigDBAccess
      */
     private static String httpPost(String url,
                                    List<NameValuePair> urlParameters)
-            throws httpPostException {
+            throws httpPostException, ConnectionTimeoutException {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
 
@@ -438,6 +439,9 @@ public class RigDBAccess
         try {
             response = client.execute(post);
         } catch (IOException e) {
+            if(e instanceof ConnectionPoolTimeoutException){
+                throw new ConnectionTimeoutException(e);
+            }
             throw new httpPostException(e);
         }
 
